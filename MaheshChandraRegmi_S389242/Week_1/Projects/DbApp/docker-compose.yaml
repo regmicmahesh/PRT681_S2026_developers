@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  sql-express:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql-express-server
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Express
+      - MSSQL_SA_PASSWORD=Password123!!!
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-express-data:/var/opt/mssql
+
+volumes:
+  mssql-express-data:
