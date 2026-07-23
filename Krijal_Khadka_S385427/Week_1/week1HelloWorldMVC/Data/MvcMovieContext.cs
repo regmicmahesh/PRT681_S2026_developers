@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using MvcMovie.Models;
+using week1HelloWorldMVC.Models;
 
-namespace MvcMovie.Data
+namespace week1HelloWorldMVC.Data;
+
+public class MvcMovieContext : DbContext
 {
-    public class MvcMovieContext : DbContext
+    public MvcMovieContext(DbContextOptions<MvcMovieContext> options)
+        : base(options)
     {
-        public MvcMovieContext(DbContextOptions<MvcMovieContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<Movie> Movie { get; set; }
     }
+
+    public DbSet<Movie> Movie { get; set; } = default!;
 }
