@@ -1,0 +1,41 @@
+@model IEnumerable<week1HelloWorldMVC.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<h1>Movies</h1>
+
+<p>Movies loaded from the SQL Server database.</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        No movies were found in the database.
+    </div>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.ReleaseDate)</th>
+                <th>@Html.DisplayNameFor(model => model.Genre)</th>
+                <th>@Html.DisplayNameFor(model => model.Price)</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var movie in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => movie.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => movie.ReleaseDate)</td>
+                    <td>@Html.DisplayFor(modelItem => movie.Genre)</td>
+                    <td>@Html.DisplayFor(modelItem => movie.Price)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
