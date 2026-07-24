@@ -1,26 +1,23 @@
 using Microsoft.EntityFrameworkCore;
 using week1HelloWorldMVC.Data;
+using week1HelloWorldMVC.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add MVC services
 builder.Services.AddControllersWithViews();
 
-// Read the SQL Server connection string from appsettings.json
 var connectionString = builder.Configuration
     .GetConnectionString("MvcMovieContext")
     ?? throw new InvalidOperationException(
         "Connection string 'MvcMovieContext' was not found."
     );
 
-// Register the Entity Framework database context
 builder.Services.AddDbContext<MvcMovieContext>(options =>
     options.UseSqlServer(connectionString)
 );
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -28,9 +25,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -39,5 +34,25 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+// Create a service scope and seed the database.
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        SeedData.Initialize(services);
+    }
+    catch (Exception exception)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+
+        logger.LogError(
+            exception,
+            "An error occurred while seeding the database."
+        );
+    }
+}
 
 app.Run();
