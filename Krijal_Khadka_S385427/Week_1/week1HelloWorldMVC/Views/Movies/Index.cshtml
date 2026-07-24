@@ -10,22 +10,37 @@
     <a asp-action="Create">Create New</a>
 </p>
 <form asp-action="Index" method="get" class="row g-2 mb-4">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <label for="searchString" class="visually-hidden">
-            Search movies
+            Search
         </label>
 
         <input
             id="searchString"
+            type="text"
             name="searchString"
             value="@ViewData["CurrentFilter"]"
             class="form-control"
             placeholder="Search by title or genre" />
     </div>
 
+    <div class="col-md-3">
+        <label for="movieGenre" class="visually-hidden">
+            Genre
+        </label>
+
+        <select
+            id="movieGenre"
+            name="movieGenre"
+            asp-items="ViewBag.MovieGenre"
+            class="form-select">
+            <option value="">All genres</option>
+        </select>
+    </div>
+
     <div class="col-auto">
         <button type="submit" class="btn btn-primary">
-            Search
+            Filter
         </button>
 
         <a asp-action="Index" class="btn btn-secondary">

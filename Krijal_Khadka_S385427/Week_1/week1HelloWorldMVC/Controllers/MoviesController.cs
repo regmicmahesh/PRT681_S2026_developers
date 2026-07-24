@@ -21,9 +21,17 @@ namespace week1HelloWorldMVC.Controllers
 
         // GET: Movies
     // GET: Movies
-public async Task<IActionResult> Index(string? searchString)
+// GET: Movies
+public async Task<IActionResult> Index(
+    string? movieGenre,
+    string? searchString)
 {
     ViewData["CurrentFilter"] = searchString;
+
+    var genreQuery = _context.Movie
+        .Select(movie => movie.Genre)
+        .Distinct()
+        .OrderBy(genre => genre);
 
     var movies = _context.Movie
         .AsNoTracking()
@@ -35,6 +43,17 @@ public async Task<IActionResult> Index(string? searchString)
             movie.Title.Contains(searchString) ||
             movie.Genre.Contains(searchString));
     }
+
+    if (!string.IsNullOrWhiteSpace(movieGenre))
+    {
+        movies = movies.Where(movie =>
+            movie.Genre == movieGenre);
+    }
+
+    ViewBag.MovieGenre = new SelectList(
+        await genreQuery.ToListAsync(),
+        movieGenre
+    );
 
     return View(await movies
         .OrderBy(movie => movie.Title)
