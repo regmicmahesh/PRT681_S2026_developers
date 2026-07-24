@@ -21,4 +21,6 @@ public class Movie
     [Range(0.01, 1000)]
     [DataType(DataType.Currency)]
     public decimal Price { get; set; }
+    [Display(Name = "Classification Rating")]
+public string? Rating { get; set; }
 }
