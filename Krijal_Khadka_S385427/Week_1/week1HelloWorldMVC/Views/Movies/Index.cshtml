@@ -9,6 +9,30 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Index" method="get" class="row g-2 mb-4">
+    <div class="col-md-6">
+        <label for="searchString" class="visually-hidden">
+            Search movies
+        </label>
+
+        <input
+            id="searchString"
+            name="searchString"
+            value="@ViewData["CurrentFilter"]"
+            class="form-control"
+            placeholder="Search by title or genre" />
+    </div>
+
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary">
+            Clear
+        </a>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>

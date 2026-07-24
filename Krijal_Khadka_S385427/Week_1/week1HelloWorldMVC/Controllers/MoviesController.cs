@@ -20,10 +20,26 @@ namespace week1HelloWorldMVC.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Movie.ToListAsync());
-        }
+    // GET: Movies
+public async Task<IActionResult> Index(string? searchString)
+{
+    ViewData["CurrentFilter"] = searchString;
+
+    var movies = _context.Movie
+        .AsNoTracking()
+        .AsQueryable();
+
+    if (!string.IsNullOrWhiteSpace(searchString))
+    {
+        movies = movies.Where(movie =>
+            movie.Title.Contains(searchString) ||
+            movie.Genre.Contains(searchString));
+    }
+
+    return View(await movies
+        .OrderBy(movie => movie.Title)
+        .ToListAsync());
+}
 
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
