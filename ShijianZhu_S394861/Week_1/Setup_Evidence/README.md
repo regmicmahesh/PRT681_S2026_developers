@@ -30,12 +30,14 @@ dotnet run
 - [x] Search and Rating field added.
 - [x] Model validation added.
 - [x] Debug and Release builds completed with 0 warnings and 0 errors.
-- [ ] Local database creation (blocked on this computer because the LocalDB Runtime
-  is not currently installed).
+- [x] SQL Server Express LocalDB Runtime installed.
+- [x] `MSSQLLocalDB` instance available.
+- [x] Initial migration applied and the Movies page verified against LocalDB.
 
-The LocalDB database can be created on a Windows computer with SQL Server Express
-LocalDB installed by running `dotnet tool restore` followed by
+The database was created by running `dotnet tool restore` followed by
 `dotnet ef database update`.
 
 Official LocalDB installation guidance:
 https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb
+
+See `Runtime_Verification.md` for the verified routes and observed results.
