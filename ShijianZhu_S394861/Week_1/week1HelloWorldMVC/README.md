@@ -53,6 +53,17 @@ Open the URL shown in the terminal, then use:
 - Price must be from `0.01` to `1000.00`.
 - Rating must be selected from the supported Australian/international examples.
 
+## Automated tests
+
+From the parent `Week_1` directory:
+
+```powershell
+dotnet test ShijianZhu.Week1.slnx --configuration Release
+```
+
+The test project covers Movie validation plus title/genre search and Rating
+filtering with an isolated EF Core InMemory database.
+
 ## References
 
 - https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc

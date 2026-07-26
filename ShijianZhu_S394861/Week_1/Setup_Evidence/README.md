@@ -33,6 +33,8 @@ dotnet run
 - [x] SQL Server Express LocalDB Runtime installed.
 - [x] `MSSQLLocalDB` instance available.
 - [x] Initial migration applied and the Movies page verified against LocalDB.
+- [x] Release solution build completed with 0 warnings and 0 errors.
+- [x] Automated test run completed: 9 passed, 0 failed, 0 skipped.
 
 The database was created by running `dotnet tool restore` followed by
 `dotnet ef database update`.
@@ -40,4 +42,7 @@ The database was created by running `dotnet tool restore` followed by
 Official LocalDB installation guidance:
 https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb
 
-See `Runtime_Verification.md` for the verified routes and observed results.
+See:
+
+- `Runtime_Verification.md` for the verified routes and observed results.
+- `Automated_Test_Results.md` for the model and controller test coverage.

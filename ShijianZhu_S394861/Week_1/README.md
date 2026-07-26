@@ -9,6 +9,8 @@
 
 - `week1HelloWorldMVC/`: ASP.NET Core MVC application with HelloWorld pages and a
   LocalDB-backed Movie CRUD feature.
+- `week1HelloWorldMVC.Tests/`: xUnit validation and controller tests.
+- `ShijianZhu.Week1.slnx`: solution entry point for building and testing both projects.
 - `Career_Research/`: Developer research, BA research, and a three-week learning plan.
 - `BA_Notes/`: Initial product requirements for the Movie application.
 - `Setup_Evidence/`: Environment and verification evidence.
@@ -24,5 +26,13 @@
 - [x] Added movie title/genre search.
 - [x] Added client-side and server-side validation.
 - [x] Completed Details, Edit, and Delete flows.
+- [x] Added automatic development database migration and sample data.
+- [x] Added automated tests for Movie validation and filtering.
 
 See `week1HelloWorldMVC/README.md` for setup and run instructions.
+
+Run all builds and automated tests from this directory:
+
+```powershell
+dotnet test ShijianZhu.Week1.slnx --configuration Release
+```
