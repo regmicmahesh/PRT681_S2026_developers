@@ -1,0 +1,20 @@
+@model week1HelloWorldMVC.Models.Movie
+
+@{
+    ViewData["Title"] = "Create Movie";
+}
+
+<h1>Create Movie</h1>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <partial name="_MovieForm" model="Model" />
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to list</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

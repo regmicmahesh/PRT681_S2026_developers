@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Welcome";
+    var count = (int)(ViewData["NumTimes"] ?? 1);
+}
+
+<h1>@ViewData["Message"]</h1>
+
+@for (var i = 0; i < count; i++)
+{
+    <p>Welcome to the Week 1 ASP.NET Core MVC application.</p>
+}
+
+<a asp-action="Index">Back to HelloWorld</a>

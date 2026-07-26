@@ -1,0 +1,21 @@
+@model week1HelloWorldMVC.Models.Movie
+
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+
+<h1>Edit Movie</h1>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Id" />
+            <partial name="_MovieForm" model="Model" />
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back to list</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
