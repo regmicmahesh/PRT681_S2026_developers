@@ -11,6 +11,7 @@ ASP.NET Core MVC Week 1 practice project by Shijian Zhu (`S394861`).
 - Partial title or genre search.
 - Data Annotations validation with client-side validation messages.
 - Initial EF Core migration.
+- Automatic migration and sample data for a new development database.
 
 ## Prerequisites
 
@@ -35,6 +36,9 @@ dotnet tool restore
 dotnet ef database update
 dotnet run
 ```
+
+In Development, the application also applies pending migrations automatically
+and inserts three sample Movies only when the database is empty.
 
 Open the URL shown in the terminal, then use:
 

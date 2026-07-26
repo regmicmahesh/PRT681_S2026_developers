@@ -32,4 +32,9 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+if (app.Environment.IsDevelopment())
+{
+    await SeedData.InitializeAsync(app.Services);
+}
+
 app.Run();
