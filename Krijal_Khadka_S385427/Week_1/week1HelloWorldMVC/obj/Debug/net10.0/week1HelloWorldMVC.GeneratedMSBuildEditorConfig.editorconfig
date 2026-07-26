@@ -1,88 +1,77 @@
 is_global = true
 build_property.TargetFramework = net10.0
-build_property.TargetFramework = net10.0
-build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
-build_property.UsingMicrosoftNETSdkWeb = true
-build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
-build_property.InvariantGlobalization = 
-build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
-build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property.TargetFrameworkIdentifier = .NETCoreApp
-build_property.TargetFrameworkVersion = v10.0
-build_property.EntryPointFilePath = 
 build_property.RootNamespace = week1HelloWorldMVC
 build_property.RootNamespace = week1HelloWorldMVC
-build_property.ProjectDir = C:\Users\Krijal Khadka\Desktop\PRT681_S2026_developers\Krijal_khadka_s385427\Week_1\week1HelloWorldMVC\
+build_property.ProjectDir = D:\PRT681\PRT681_S2026_developers\Krijal_Khadka_S385427\Week_1\week1HelloWorldMVC\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
-build_property.RazorLangVersion = 10.0
+build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Krijal Khadka\Desktop\PRT681_S2026_developers\Krijal_khadka_s385427\Week_1\week1HelloWorldMVC
+build_property.MSBuildProjectDirectory = D:\PRT681\PRT681_S2026_developers\Krijal_Khadka_S385427\Week_1\week1HelloWorldMVC
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/HelloWorld/index.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/HelloWorld/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVsbG9Xb3JsZFxpbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/HelloWorld/Welcome.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/HelloWorld/Welcome.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVsbG9Xb3JsZFxXZWxjb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Home/Index.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Home/Privacy.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Movies/Create.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Movies/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aWVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Movies/Delete.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Movies/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aWVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Movies/Details.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Movies/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aWVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Movies/Edit.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Movies/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aWVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Movies/Index.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Movies/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aWVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Shared/Error.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/_ViewImports.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/_ViewStart.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Krijal Khadka/Desktop/PRT681_S2026_developers/Krijal_khadka_s385427/Week_1/week1HelloWorldMVC/Views/Shared/_Layout.cshtml]
+[D:/PRT681/PRT681_S2026_developers/Krijal_Khadka_S385427/Week_1/week1HelloWorldMVC/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-is5quw839p
