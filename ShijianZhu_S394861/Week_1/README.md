@@ -11,7 +11,6 @@
   LocalDB-backed Movie CRUD feature.
 - `Career_Research/`: Developer research, BA research, and a three-week learning plan.
 - `BA_Notes/`: Initial product requirements for the Movie application.
-- `Meeting_Notes/`: Meeting-note template and confirmed Week 1 decisions.
 - `Setup_Evidence/`: Environment and verification evidence.
 - `timesheet_ShijianZhu_S394861.xlsx`: Six-hour individual Week 1 timesheet.
 
