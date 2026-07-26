@@ -7,9 +7,10 @@ namespace week1HelloWorldMVC.Controllers;
 
 public class MoviesController(MovieContext context) : Controller
 {
-    public async Task<IActionResult> Index(string? searchString)
+    public async Task<IActionResult> Index(string? searchString, string? rating)
     {
         ViewData["CurrentFilter"] = searchString;
+        ViewData["CurrentRating"] = rating;
 
         IQueryable<Movie> movies = context.Movies.AsNoTracking();
         if (!string.IsNullOrWhiteSpace(searchString))
@@ -17,6 +18,11 @@ public class MoviesController(MovieContext context) : Controller
             movies = movies.Where(movie =>
                 movie.Title.Contains(searchString) ||
                 movie.Genre.Contains(searchString));
+        }
+
+        if (!string.IsNullOrWhiteSpace(rating))
+        {
+            movies = movies.Where(movie => movie.Rating == rating);
         }
 
         return View(await movies.OrderBy(movie => movie.Title).ToListAsync());

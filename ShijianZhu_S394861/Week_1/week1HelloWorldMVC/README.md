@@ -8,7 +8,7 @@ ASP.NET Core MVC Week 1 practice project by Shijian Zhu (`S394861`).
 - Movie model with title, release date, genre, price, and Rating.
 - SQL Server Express LocalDB configuration through EF Core.
 - Asynchronous Movies Create, List, Details, Edit, and Delete actions.
-- Partial title or genre search.
+- Partial title/genre search with an optional Rating filter.
 - Data Annotations validation with client-side validation messages.
 - Initial EF Core migration.
 - Automatic migration and sample data for a new development database.
