@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using week1HelloWorldMVC.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("week1HelloWorldMVCContext") ?? throw new InvalidOperationException("Connection string 'week1HelloWorldMVCContext' not found.");
 
@@ -8,6 +10,13 @@ builder.Services.AddDbContext<week1HelloWorldMVCContext>(options => options.UseS
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
