@@ -1,17 +1,16 @@
-﻿namespace Gatherly.Domain.Entities;
+﻿using Gatherly.Domain.Primitives;
 
-public class Invitation
+namespace Gatherly.Domain.Entities;
+
+public sealed class Invitation : Entity
 {
-    internal Invitation(Guid id, Member member, Gathering gathering)
+    internal Invitation(Guid id, Member member, Gathering gathering) : base(id)
     {
-        Id = id;
         MemberId = member.Id;
         GatheringId = gathering.Id;
         Status = InvitationStatus.Pending;
         CreatedOnUtc = DateTime.UtcNow;
     }
-
-    public Guid Id { get; private set; }
 
     public Guid GatheringId { get; private set; }
 
