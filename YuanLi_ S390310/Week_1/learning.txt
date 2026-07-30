@@ -1,0 +1,4 @@
+1. i setup visual studio in mac for dotnet
+2. i installed dotnet sdk
+3. i wrote basic program in dotnet
+4. i learned few syntax and how to write basic programs in c#

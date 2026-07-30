@@ -1,0 +1,111 @@
+@model TheaterAdmin.Models.Movie
+@using TheaterAdmin.Models
+
+@{
+    ViewData["Title"] = "Create Movie";
+}
+
+<h1>Create Movie</h1>
+<hr />
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly"
+         class="text-danger"></div>
+
+    <div class="row g-4">
+        <!-- Left column -->
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label asp-for="Name"
+                       class="control-label"></label>
+
+                <input asp-for="Name"
+                       class="form-control" />
+
+                <span asp-validation-for="Name"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Director"
+                       class="control-label"></label>
+
+                <input asp-for="Director"
+                       class="form-control" />
+
+                <span asp-validation-for="Director"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Email"
+                       class="control-label"></label>
+
+                <input asp-for="Email"
+                       class="form-control" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="col-md-6">
+            <div class="form-group mb-3">
+                <label asp-for="ReleaseDate"
+                       class="control-label"></label>
+
+                <input asp-for="ReleaseDate"
+                       class="form-control" />
+
+                <span asp-validation-for="ReleaseDate"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Language"
+                       class="control-label"></label>
+
+                <select asp-for="Language"
+                        class="form-select"
+                        asp-items="Html.GetEnumSelectList<MovieLanguage>()">
+                    <option value="">Select language</option>
+                </select>
+
+                <span asp-validation-for="Language"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CategoryId"
+                       class="control-label"></label>
+
+                <select asp-for="CategoryId"
+                        class="form-select"
+                        asp-items="ViewBag.CategoryId">
+                    <option value="">Select category</option>
+                </select>
+
+                <span asp-validation-for="CategoryId"
+                      class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">
+            Create
+        </button>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+            Back to List
+        </a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
