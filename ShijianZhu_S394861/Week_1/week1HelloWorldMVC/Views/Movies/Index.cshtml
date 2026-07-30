@@ -1,0 +1,83 @@
+@model IEnumerable<week1HelloWorldMVC.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+    var ratings = new[] { "G", "PG", "PG-13", "M", "MA15+", "R18+" };
+    var currentRating = ViewData["CurrentRating"] as string;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Movies</h1>
+    <a class="btn btn-primary" asp-action="Create">Create Movie</a>
+</div>
+
+<form asp-action="Index" method="get" class="row g-2 mb-4">
+    <div class="col-sm-7 col-md-5">
+        <label for="searchString" class="visually-hidden">Search title or genre</label>
+        <input id="searchString"
+               name="searchString"
+               value="@ViewData["CurrentFilter"]"
+               class="form-control"
+               placeholder="Search by title or genre" />
+    </div>
+    <div class="col-sm-5 col-md-3">
+        <label for="rating" class="visually-hidden">Filter by rating</label>
+        <select id="rating" name="rating" class="form-select">
+            <option value="">All ratings</option>
+            @foreach (var rating in ratings)
+            {
+                if (rating == currentRating)
+                {
+                    <option value="@rating" selected>@rating</option>
+                }
+                else
+                {
+                    <option value="@rating">@rating</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-outline-primary">Apply</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+    </div>
+</form>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No movies match the current search.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Title)</th>
+                    <th>@Html.DisplayNameFor(model => model.ReleaseDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.Genre)</th>
+                    <th>@Html.DisplayNameFor(model => model.Price)</th>
+                    <th>@Html.DisplayNameFor(model => model.Rating)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ReleaseDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Genre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Rating)</td>
+                    <td class="text-nowrap">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

@@ -1,0 +1,21 @@
+## .NET build artifacts
+bin/
+obj/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Local SQLite database
+WebAPI/*.db
+WebAPI/*.db-shm
+WebAPI/*.db-wal

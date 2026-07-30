@@ -1,0 +1,36 @@
+@model week1HelloWorldMVC.Models.Movie
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="mb-3">
+    <label asp-for="Title" class="form-label"></label>
+    <input asp-for="Title" class="form-control" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="ReleaseDate" class="form-label"></label>
+    <input asp-for="ReleaseDate" class="form-control" />
+    <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Genre" class="form-label"></label>
+    <input asp-for="Genre" class="form-control" />
+    <span asp-validation-for="Genre" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Price" class="form-label"></label>
+    <input asp-for="Price" class="form-control" />
+    <span asp-validation-for="Price" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Rating" class="form-label"></label>
+    <select asp-for="Rating" class="form-select">
+        <option value="">Choose a rating</option>
+        <option>G</option>
+        <option>PG</option>
+        <option>PG-13</option>
+        <option>M</option>
+        <option>MA15+</option>
+        <option>R18+</option>
+    </select>
+    <span asp-validation-for="Rating" class="text-danger"></span>
+</div>

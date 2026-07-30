@@ -1,0 +1,21 @@
+@model week1HelloWorldMVC.Models.Movie
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<h1>Movie Details</h1>
+<dl class="row">
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Title)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.ReleaseDate)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.ReleaseDate)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Genre)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Genre)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Price)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Price)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Rating)</dt>
+    <dd class="col-sm-9">@Html.DisplayFor(model => model.Rating)</dd>
+</dl>
+<a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+<a class="btn btn-outline-secondary" asp-action="Index">Back to list</a>
