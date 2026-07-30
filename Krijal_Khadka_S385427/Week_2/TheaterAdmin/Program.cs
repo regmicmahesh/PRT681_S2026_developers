@@ -1,9 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using TheaterAdmin.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+var connectionString = builder.Configuration.GetConnectionString("TheaterAdminContext") ?? throw new InvalidOperationException("Connection string 'TheaterAdminContext' not found.");
+
+builder.Services.AddDbContext<TheaterAdminContext>(options =>
+    options.UseSqlServer(connectionString));
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
