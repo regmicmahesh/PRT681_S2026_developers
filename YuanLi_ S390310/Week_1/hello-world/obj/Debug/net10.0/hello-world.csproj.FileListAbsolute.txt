@@ -1,0 +1,15 @@
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/bin/Debug/net10.0/hello-world
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/bin/Debug/net10.0/hello-world.deps.json
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/bin/Debug/net10.0/hello-world.runtimeconfig.json
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/bin/Debug/net10.0/hello-world.dll
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/bin/Debug/net10.0/hello-world.pdb
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/hello-world.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/hello-world.AssemblyInfoInputs.cache
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/hello-world.AssemblyInfo.cs
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/hello-world.csproj.CoreCompileInputs.cache
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/hello-world.sourcelink.json
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/hello-world.dll
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/refint/hello-world.dll
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/hello-world.pdb
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/hello-world.genruntimeconfig.cache
+/workspaces/PRT681_S2026_developers/YuanLi_ S390310/Week_1/hello-world/obj/Debug/net10.0/ref/hello-world.dll
