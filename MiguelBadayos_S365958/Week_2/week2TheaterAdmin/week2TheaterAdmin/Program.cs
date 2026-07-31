@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("week2TheaterAdminContext") ?? throw new InvalidOperationException("Connection string 'week2TheaterAdminContext' not found.");
+
+builder.Services.AddDbContext<week2TheaterAdminContext>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
