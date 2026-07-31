@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using week2TheaterAdmin.Models;
 
@@ -15,19 +16,21 @@ public class MovieController : Controller
     // GET: MOVIES
     public async Task<IActionResult> Index()
     {
-        return View(await _context.Movie.ToListAsync());
+        var movies = _context.Movie.Include(m => m.Category);
+        return View(await movies.ToListAsync());
     }
 
     // GET: MOVIES/Details/5
-    public async Task<IActionResult> Details(int? movieid)
+    public async Task<IActionResult> Details(int? id)
     {
-        if (movieid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var movie = await _context.Movie
-            .FirstOrDefaultAsync(m => m.MovieId == movieid);
+            .Include(m => m.Category)
+            .FirstOrDefaultAsync(m => m.MovieId == id);
         if (movie == null)
         {
             return NotFound();
@@ -39,6 +42,7 @@ public class MovieController : Controller
     // GET: MOVIES/Create
     public IActionResult Create()
     {
+        ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
         return View();
     }
 
@@ -47,7 +51,7 @@ public class MovieController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("MovieId,MovieName,ReleaseDate,ContactEmailAddress,Language,Category")] Movie movie)
+    public async Task<IActionResult> Create([Bind("MovieId,MovieName,ReleaseDate,ContactEmailAddress,Language,CategoryId")] Movie movie)
     {
         if (ModelState.IsValid)
         {
@@ -55,22 +59,24 @@ public class MovieController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", movie.CategoryId);
         return View(movie);
     }
 
     // GET: MOVIES/Edit/5
-    public async Task<IActionResult> Edit(int? movieid)
+    public async Task<IActionResult> Edit(int? id)
     {
-        if (movieid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var movie = await _context.Movie.FindAsync(movieid);
+        var movie = await _context.Movie.FindAsync(id);
         if (movie == null)
         {
             return NotFound();
         }
+        ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", movie.CategoryId);
         return View(movie);
     }
 
@@ -79,9 +85,9 @@ public class MovieController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? movieid, [Bind("MovieId,MovieName,ReleaseDate,ContactEmailAddress,Language,Category")] Movie movie)
+    public async Task<IActionResult> Edit(int? id, [Bind("MovieId,MovieName,ReleaseDate,ContactEmailAddress,Language,CategoryId")] Movie movie)
     {
-        if (movieid != movie.MovieId)
+        if (id != movie.MovieId)
         {
             return NotFound();
         }
@@ -106,19 +112,21 @@ public class MovieController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
+        ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", movie.CategoryId);
         return View(movie);
     }
 
     // GET: MOVIES/Delete/5
-    public async Task<IActionResult> Delete(int? movieid)
+    public async Task<IActionResult> Delete(int? id)
     {
-        if (movieid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var movie = await _context.Movie
-            .FirstOrDefaultAsync(m => m.MovieId == movieid);
+            .Include(m => m.Category)
+            .FirstOrDefaultAsync(m => m.MovieId == id);
         if (movie == null)
         {
             return NotFound();
@@ -130,9 +138,9 @@ public class MovieController : Controller
     // POST: MOVIES/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int? movieid)
+    public async Task<IActionResult> DeleteConfirmed(int? id)
     {
-        var movie = await _context.Movie.FindAsync(movieid);
+        var movie = await _context.Movie.FindAsync(id);
         if (movie != null)
         {
             _context.Movie.Remove(movie);
@@ -142,8 +150,8 @@ public class MovieController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    private bool MovieExists(int? movieid)
+    private bool MovieExists(int? id)
     {
-        return _context.Movie.Any(e => e.MovieId == movieid);
+        return _context.Movie.Any(e => e.MovieId == id);
     }
 }

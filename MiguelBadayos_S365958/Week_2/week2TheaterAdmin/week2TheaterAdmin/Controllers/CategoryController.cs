@@ -19,15 +19,15 @@ public class CategoryController : Controller
     }
 
     // GET: CATEGORYS/Details/5
-    public async Task<IActionResult> Details(int? categoryid)
+    public async Task<IActionResult> Details(int? id)
     {
-        if (categoryid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var category = await _context.Category
-            .FirstOrDefaultAsync(m => m.CategoryId == categoryid);
+            .FirstOrDefaultAsync(m => m.CategoryId == id);
         if (category == null)
         {
             return NotFound();
@@ -59,14 +59,14 @@ public class CategoryController : Controller
     }
 
     // GET: CATEGORYS/Edit/5
-    public async Task<IActionResult> Edit(int? categoryid)
+    public async Task<IActionResult> Edit(int? id)
     {
-        if (categoryid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
-        var category = await _context.Category.FindAsync(categoryid);
+        var category = await _context.Category.FindAsync(id);
         if (category == null)
         {
             return NotFound();
@@ -79,9 +79,9 @@ public class CategoryController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? categoryid, [Bind("CategoryId,CategoryCode,CategoryName")] Category category)
+    public async Task<IActionResult> Edit(int? id, [Bind("CategoryId,CategoryCode,CategoryName")] Category category)
     {
-        if (categoryid != category.CategoryId)
+        if (id != category.CategoryId)
         {
             return NotFound();
         }
@@ -110,15 +110,15 @@ public class CategoryController : Controller
     }
 
     // GET: CATEGORYS/Delete/5
-    public async Task<IActionResult> Delete(int? categoryid)
+    public async Task<IActionResult> Delete(int? id)
     {
-        if (categoryid == null)
+        if (id == null)
         {
             return NotFound();
         }
 
         var category = await _context.Category
-            .FirstOrDefaultAsync(m => m.CategoryId == categoryid);
+            .FirstOrDefaultAsync(m => m.CategoryId == id);
         if (category == null)
         {
             return NotFound();
@@ -130,9 +130,9 @@ public class CategoryController : Controller
     // POST: CATEGORYS/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int? categoryid)
+    public async Task<IActionResult> DeleteConfirmed(int? id)
     {
-        var category = await _context.Category.FindAsync(categoryid);
+        var category = await _context.Category.FindAsync(id);
         if (category != null)
         {
             _context.Category.Remove(category);
@@ -142,8 +142,8 @@ public class CategoryController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    private bool CategoryExists(int? categoryid)
+    private bool CategoryExists(int? id)
     {
-        return _context.Category.Any(e => e.CategoryId == categoryid);
+        return _context.Category.Any(e => e.CategoryId == id);
     }
 }
