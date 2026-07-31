@@ -7,5 +7,7 @@ public class Movie
     public required DateOnly ReleaseDate { get; set; }
     public required string ContactEmailAddress { get; set; }
     public required Language Language { get; set; }
+
+    public int CategoryId { get; set; }
     public required Category Category { get; set; }
 }
