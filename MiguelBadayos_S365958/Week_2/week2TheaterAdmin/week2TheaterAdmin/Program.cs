@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using week2TheaterAdmin.Models;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("week2TheaterAdminContext") ?? throw new InvalidOperationException("Connection string 'week2TheaterAdminContext' not found.");
 
@@ -8,6 +9,12 @@ builder.Services.AddDbContext<week2TheaterAdminContext>(options => options.UseSq
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialise(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
