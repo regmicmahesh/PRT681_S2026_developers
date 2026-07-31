@@ -46,7 +46,7 @@
                 @Html.DisplayFor(model => item.Language)
             </td>
             <td>
-                @Html.DisplayFor(model => item.Category)
+                @Html.DisplayFor(model => item.Category.CategoryName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MovieId">Edit</a> |
