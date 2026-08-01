@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace week2TheaterAdmin.Models;
 
@@ -25,6 +25,7 @@ public static class SeedData
                 {
                     MovieName = "Rogue Horizon",
                     ReleaseDate = new DateOnly(2024, 6, 14),
+                    Director = "Alex Carter",
                     ContactEmailAddress = "info@rogue-horizon.com",
                     Language = Language.English,
                     Category = action
@@ -33,6 +34,7 @@ public static class SeedData
                 {
                     MovieName = "Blast Radius",
                     ReleaseDate = new DateOnly(2022, 3, 9),
+                    Director = "Wei Zhang",
                     ContactEmailAddress = "info@blastradius.com",
                     Language = Language.Chinese,
                     Category = action
@@ -41,6 +43,7 @@ public static class SeedData
                 {
                     MovieName = "Quiet Reckoning",
                     ReleaseDate = new DateOnly(2023, 11, 2),
+                    Director = "Haruto Sato",
                     ContactEmailAddress = "contact@quietreckoning.com",
                     Language = Language.Japanese,
                     Category = drama
@@ -49,6 +52,7 @@ public static class SeedData
                 {
                     MovieName = "Whispers in the Dark",
                     ReleaseDate = new DateOnly(2025, 10, 31),
+                    Director = "Emily Hart",
                     ContactEmailAddress = "hello@whispersinthedark.com",
                     Language = Language.English,
                     Category = horror
