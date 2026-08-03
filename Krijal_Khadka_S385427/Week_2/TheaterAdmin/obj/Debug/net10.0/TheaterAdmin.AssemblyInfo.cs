@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TheaterAdmin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+021d9b9543ca9da8190cfdc51103320d675be506")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+91fa166901c704a5f3aa9c898bd4c20681b79a8b")]
 [assembly: System.Reflection.AssemblyProductAttribute("TheaterAdmin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TheaterAdmin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
