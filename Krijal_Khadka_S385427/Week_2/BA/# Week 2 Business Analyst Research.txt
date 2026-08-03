@@ -1,0 +1,32 @@
+# Week 2 Business Analyst Research
+
+## Role of a Business Analyst
+
+A Business Analyst identifies business problems and helps stakeholders and
+development teams agree on an appropriate solution.
+
+## Basic Business Analysis Process
+
+1. Understand the business problem.
+2. Identify stakeholders.
+3. Gather requirements.
+4. Analyse and prioritise requirements.
+5. Document requirements.
+6. Validate requirements with stakeholders.
+7. Support developers and testers during implementation.
+8. Review whether the delivered solution meets the business need.
+
+## Techniques Studied
+
+- Stakeholder analysis
+- Interviews and workshops
+- Process mapping
+- SWOT analysis
+- User stories
+- Acceptance criteria
+
+## Reflection
+
+I learned that a Business Analyst does more than write requirements. The BA
+communicates with stakeholders, investigates the underlying business problem,
+clarifies expectations and helps the technical team build the correct solution.
