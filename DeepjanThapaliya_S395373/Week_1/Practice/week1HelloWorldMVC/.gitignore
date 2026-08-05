@@ -1,0 +1,10 @@
+# Visual Studio local files
+.vs/
+*.user
+
+# .NET generated output
+bin/
+obj/
+
+# OneNote index files accidentally generated inside code folders
+*.onetoc2
