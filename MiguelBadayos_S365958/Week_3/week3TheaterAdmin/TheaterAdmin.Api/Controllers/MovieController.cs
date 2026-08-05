@@ -16,14 +16,14 @@ public class MovieController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Movie>>> GetMovie()
     {
-        return await _context.Movie.ToListAsync();
+        return await _context.Movie.Include(m => m.Category).ToListAsync();
     }
 
     // GET: api/Movie/5
     [HttpGet("{movieid}")]
     public async Task<ActionResult<Movie>> GetMovie(int movieid)
     {
-        var movie = await _context.Movie.FindAsync(movieid);
+        var movie = await _context.Movie.Include(m => m.Category).FirstOrDefaultAsync(m => m.MovieId == movieid);
 
         if (movie == null)
         {
@@ -41,6 +41,11 @@ public class MovieController : ControllerBase
         if (movieid != movie.MovieId)
         {
             return BadRequest();
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem(ModelState);
         }
 
         _context.Entry(movie).State = EntityState.Modified;
@@ -69,6 +74,11 @@ public class MovieController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Movie>> PostMovie(Movie movie)
     {
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem(ModelState);
+        }
+
         _context.Movie.Add(movie);
         await _context.SaveChangesAsync();
 

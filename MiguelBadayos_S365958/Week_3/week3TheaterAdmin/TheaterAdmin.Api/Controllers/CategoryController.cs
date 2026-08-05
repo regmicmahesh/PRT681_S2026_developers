@@ -43,6 +43,11 @@ public class CategoryController : ControllerBase
             return BadRequest();
         }
 
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem(ModelState);
+        }
+
         _context.Entry(category).State = EntityState.Modified;
 
         try
@@ -69,6 +74,11 @@ public class CategoryController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Category>> PostCategory(Category category)
     {
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem(ModelState);
+        }
+
         _context.Category.Add(category);
         await _context.SaveChangesAsync();
 

@@ -32,6 +32,6 @@ public class Movie
     public int CategoryId { get; set; }
 
     [ValidateNever]
-    public required Category Category { get; set; }
+    public Category? Category { get; set; }
 }
 
