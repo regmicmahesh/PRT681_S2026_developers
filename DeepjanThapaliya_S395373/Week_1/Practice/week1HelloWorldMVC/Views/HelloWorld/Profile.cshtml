@@ -1,0 +1,35 @@
+@model week1HelloWorldMVC.Models.StudentProfile
+
+@{
+    ViewData["Title"] = "Student Profile";
+}
+
+<div class="container py-4">
+    <h1>Student Profile</h1>
+
+    <dl class="row">
+        <dt class="col-sm-3">Student ID</dt>
+        <dd class="col-sm-9">@Model.StudentId</dd>
+
+        <dt class="col-sm-3">Full Name</dt>
+        <dd class="col-sm-9">@Model.FullName</dd>
+
+        <dt class="col-sm-3">Unit</dt>
+        <dd class="col-sm-9">@Model.UnitName</dd>
+
+        <dt class="col-sm-3">Current Week</dt>
+        <dd class="col-sm-9">@Model.CurrentWeek</dd>
+
+        <dt class="col-sm-3">Enrolment Status</dt>
+        <dd class="col-sm-9">
+            @if (Model.IsEnrolled)
+            {
+                <span class="badge bg-success">Enrolled</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary">Not enrolled</span>
+            }
+        </dd>
+    </dl>
+</div>
