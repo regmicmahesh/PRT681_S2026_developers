@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TheaterAdmin.Api.Models;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("TheaterAdminApiContext") ?? throw new InvalidOperationException("Connection string 'TheaterAdminApiContext' not found.");
 
@@ -11,6 +12,12 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialise(services);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
