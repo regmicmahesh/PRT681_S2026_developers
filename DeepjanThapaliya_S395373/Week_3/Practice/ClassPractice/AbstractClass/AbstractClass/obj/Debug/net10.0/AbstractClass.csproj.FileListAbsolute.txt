@@ -1,0 +1,15 @@
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\bin\Debug\net10.0\AbstractClass.exe
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\bin\Debug\net10.0\AbstractClass.deps.json
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\bin\Debug\net10.0\AbstractClass.runtimeconfig.json
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\bin\Debug\net10.0\AbstractClass.dll
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\bin\Debug\net10.0\AbstractClass.pdb
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\AbstractClass.GeneratedMSBuildEditorConfig.editorconfig
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\AbstractClass.AssemblyInfoInputs.cache
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\AbstractClass.AssemblyInfo.cs
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\AbstractClass.csproj.CoreCompileInputs.cache
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\AbstractClass.sourcelink.json
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\AbstractClass.dll
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\refint\AbstractClass.dll
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\AbstractClass.pdb
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\AbstractClass.genruntimeconfig.cache
+C:\programer\CDU_Deepjan\sem 3\softwarePractise\PRT681_S2026_developers\DeepjanThapaliya_S395373\week_2\AbstractClass\AbstractClass\obj\Debug\net10.0\ref\AbstractClass.dll

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TheaterAdmin.Api/TheaterAdmin.Api.csproj" />
+  <Project Path="TheaterAdmin.JQueryClient/TheaterAdmin.JQueryClient.csproj" />
+</Solution>
