@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\programer\\CDU_Deepjan\\sem 3\\softwarePractise\\PRT681_S2026_developers\\DeepjanThapaliya_S395373\\Week_3\\Practice\\ClassPractice\\AbstractClass\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BB705EA1-2148-28FD-1C5B-9A53EA6E3D98}|AbstractClass\\AbstractClass.csproj|c:\\programer\\cdu_deepjan\\sem 3\\softwarepractise\\prt681_s2026_developers\\deepjanthapaliya_s395373\\week_3\\practice\\classpractice\\abstractclass\\abstractclass\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BB705EA1-2148-28FD-1C5B-9A53EA6E3D98}|AbstractClass\\AbstractClass.csproj|solutionrelative:abstractclass\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\programer\\CDU_Deepjan\\sem 3\\softwarePractise\\PRT681_S2026_developers\\DeepjanThapaliya_S395373\\Week_3\\Practice\\ClassPractice\\AbstractClass\\AbstractClass\\Program.cs",
+              "RelativeDocumentMoniker": "AbstractClass\\Program.cs",
+              "ToolTip": "C:\\programer\\CDU_Deepjan\\sem 3\\softwarePractise\\PRT681_S2026_developers\\DeepjanThapaliya_S395373\\Week_3\\Practice\\ClassPractice\\AbstractClass\\AbstractClass\\Program.cs",
+              "RelativeToolTip": "AbstractClass\\Program.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAAADAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-04T04:37:07.257Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

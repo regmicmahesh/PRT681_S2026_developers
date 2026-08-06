@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="TheaterAdmin.Api/TheaterAdmin.Api.csproj" />
+  <Project Path="TheaterAdmin.Client/TheaterAdmin.Client.csproj" Id="08746697-77b0-4870-b50b-8ba9936dd386" />
+</Solution>

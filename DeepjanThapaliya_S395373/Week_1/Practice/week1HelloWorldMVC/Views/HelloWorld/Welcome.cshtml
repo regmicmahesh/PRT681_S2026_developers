@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="container py-4">
+    <h1>Welcome to My Week 1 MVC Practice</h1>
+
+    <p>
+        I created this page by connecting a URL, controller action,
+        and Razor view.
+    </p>
+
+    <h2>Request Flow</h2>
+
+    <ol>
+        <li>The browser requested <code>/HelloWorld/Welcome</code>.</li>
+        <li>Routing selected <code>HelloWorldController</code>.</li>
+        <li>The <code>Welcome()</code> action executed.</li>
+        <li>The action returned this Razor view.</li>
+        <li>ASP.NET Core generated and returned HTML.</li>
+    </ol>
+</div>

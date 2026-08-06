@@ -1,0 +1,174 @@
+\documentclass[10.5pt]{article}
+\usepackage[margin=0.7in,top=0.6in,bottom=0.6in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{parskip}
+\hypersetup{colorlinks=true, urlcolor=blue}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\scshape\bfseries\Large}{}{0pt}{}[\vspace{2pt}\hrule]
+\titlespacing{\section}{0pt}{12pt}{6pt}
+
+\newcounter{qnum}
+\newcommand{\resetq}{\setcounter{qnum}{0}}
+\newcommand{\qa}[2]{%
+  \stepcounter{qnum}%
+  \textbf{\theqnum. #1}\par
+  #2\par
+  \vspace{6pt}
+}
+
+\begin{document}
+
+% ---------- HEADER ----------
+\begin{center}
+{\LARGE \scshape \bfseries Anand Jaiswal}\\[2pt]
+{\large Interview Preparation -- Part C}\\[2pt]
+Darwin, NT \quad | \quad +61 414 570 984 \quad | \quad \href{mailto:anandjaiswal10101@gmail.com}{anandjaiswal10101@gmail.com}
+\end{center}
+\vspace{4pt}
+\hrule
+\vspace{6pt}
+
+Answers below use the \textbf{CAR / STAR} format (Situation/Task, Action, Result) or a short technical explanation. These are starting drafts -- practise them until they sound natural in your own words, and be ready to go one level deeper on anything you mention, per the key principle: \textit{if it's on your resume, you must be able to explain it}.
+
+% =========================================================
+\section{Part C1 -- Behavioural Interview Questions (20)}
+\resetq
+
+\qa{Tell me about yourself.}{I'm a Software Engineering (Honours) student at Charles Darwin University, currently in my fifth semester, working alongside my studies as a disability support worker across hospital, disability and aged care settings. That work has sharpened my documentation, communication and time-management skills, while my degree has given me hands-on experience in C\#, .NET, SQL and web development through projects like a full-stack ASP.NET MVC application and a group-built e-commerce site. I'm now looking to bring both skill sets into an entry-level developer role.}
+
+\qa{Why do you want this role?}{I've built a solid technical foundation through coursework and personal projects, and I want a role where I can apply that in a real product environment, working with an experienced team, while continuing to grow my skills in a structured way.}
+
+\qa{Describe a challenging situation you handled.}{\textbf{S/T:} During the HIT326 group project (an online store built in PHP/MySQL), our team hit a point midway through where the database schema didn't support a feature we'd already partly built the front end around. \textbf{A:} I flagged the issue early to the team, proposed a revised schema, and took responsibility for updating the affected queries. \textbf{R:} We adjusted the design with about a week of buffer left, avoided a last-minute scramble, and I documented the schema change in our report so the rest of the team understood the reasoning.}
+
+\qa{How do you handle stress or pressure?}{\textbf{S/T:} Balancing shift work in the disability sector with university deadlines means I regularly have overlapping pressure points. \textbf{A:} I break work into smaller tasks, use a calendar to block dedicated study time around my shifts, and tackle the highest-priority or highest-effort item first while I have the most focus. \textbf{R:} I've consistently met assignment deadlines without needing extensions, even during heavier rostered weeks.}
+
+\qa{Tell us about a conflict within a team.}{\textbf{S/T:} In the same HIT326 group project, two of us disagreed on whether to use a relational structure or a simpler flat-file approach for product data. \textbf{A:} Rather than letting it stall progress, I suggested we each write a short pros/cons list and bring it to the group, so the decision was based on trade-offs rather than opinion. \textbf{R:} The team agreed on the relational approach, which scaled better as we added features, and it kept the discussion constructive rather than personal.}
+
+\qa{How do you manage multiple priorities?}{\textbf{S/T:} Alongside full-time study I work variable support-worker shifts, so I often have several deadlines and rostered commitments in the same week. \textbf{A:} I list everything out, rank it by deadline and effort required, and protect fixed blocks of time for the highest-priority item rather than multitasking. \textbf{R:} This has let me keep both commitments moving without missing deadlines on either side.}
+
+\qa{What is your greatest strength?}{Attention to detail. In care work, small inconsistencies in documentation can have real consequences, so I've built a habit of double-checking my work -- and I carry that same habit into debugging and testing code, where I methodically trace through logic rather than guessing at fixes.}
+
+\qa{What is your greatest weakness?}{I can spend longer than necessary polishing a piece of work before moving on. I've been managing this by setting myself time boxes for tasks and treating a ``good enough, ship it, iterate later'' version as the goal for early drafts.}
+
+\qa{Tell me about a mistake you made and what you learned.}{\textbf{S/T:} For a HIT381 assignment requiring a strict word-count reflection, I initially wrote a first draft well over the limit. \textbf{A:} I had to go back and restructure the whole piece to fit the constraint, which cost me time I hadn't planned for. \textbf{R:} Since then, I check formatting and length constraints before I start writing, not after, which has saved significant rework on later assignments.}
+
+\qa{Describe a time you led a project or initiative.}{\textbf{S/T:} I noticed our team's client roster information at work was scattered across several separate PDF schedules, making it hard to get a clear picture of coverage. \textbf{A:} On my own initiative, I consolidated them into a single Excel workbook organised by NDIS service category (SIL, CORE, transport, sleepover shifts). \textbf{R:} This gave a much clearer, single source of truth for rostering and made it easier to spot gaps.}
+
+\qa{Describe a time you disagreed with a supervisor or team lead.}{\textbf{S/T:} On a group assignment, the nominal lead wanted to divide work strictly by page count rather than by natural task boundaries, which risked people working on overlapping sections. \textbf{A:} I raised the concern directly but respectfully, and suggested splitting by feature/section instead, backing it up with a quick outline of how the work would divide more evenly. \textbf{R:} We adopted the revised split, which reduced duplicate work and made individual contributions easier to track for the report.}
+
+\qa{Tell me about a time you worked under a tight deadline.}{\textbf{S/T:} The HIT381 reflection had both a strict word count and a fixed submission date, with little flexibility. \textbf{A:} I planned backwards from the deadline, drafted early, and left a full day free for editing rather than writing right up to the due date. \textbf{R:} I submitted on time with a polished piece that met the formatting requirements.}
+
+\qa{How do you respond to feedback or criticism?}{I treat it as useful information rather than a judgement. On the HIT326 report, a teammate suggested my section needed clearer structure -- I reworked it with headings and a summary paragraph, and it made the final report noticeably easier to follow.}
+
+\qa{What motivates you?}{Solving a problem end-to-end -- seeing something go from a rough idea or a bug report to a working, tested solution. That's part of why I'm drawn to software development: there's a clear feedback loop between effort and a working result.}
+
+\qa{Where do you see yourself in five years?}{Working as a capable, trusted developer on a team, having grown from junior tasks into owning larger features, and continuing to build depth in the technologies I use day to day.}
+
+\qa{Tell me about a time you failed at something.}{\textbf{S/T:} Early in learning ASP.NET MVC, I underestimated how session management worked and built a feature that broke as soon as a second user tested it concurrently. \textbf{A:} I went back through Microsoft's documentation and reworked the session handling properly rather than patching around the symptom. \textbf{R:} The fix held up under testing, and I came away with a much better understanding of state management in web apps -- something I now check for by default.}
+
+\qa{Describe working with a team member you didn't get along with.}{\textbf{S/T:} On a group project, one teammate and I had different working styles -- I preferred planning up front, they preferred diving straight into code. \textbf{A:} Instead of pushing my approach, I suggested a middle ground: a quick shared outline before coding started, so we both got what we needed. \textbf{R:} It worked well enough that we used the same approach for the rest of the project without further friction.}
+
+\qa{How do you prioritise competing tasks?}{I rank by two factors: urgency (deadline) and impact (what happens if it's late or wrong). In care work that often means client safety and time-critical documentation come first; in study or dev work it's usually the item that blocks other people or other tasks.}
+
+\qa{How do you adapt to change?}{I focus on the next concrete step rather than the size of the change overall. Moving from a non-technical background into software development meant learning a lot of new tools quickly (C\#, Git, SQL) -- I did that by working through one tool at a time via structured resources like Microsoft Learn rather than trying to learn everything at once.}
+
+\qa{Why should we hire you?}{I bring a practical technical foundation from my degree, real project experience working in a team toward a shared deadline, and professional habits -- reliability, clear documentation, attention to detail -- built over real workplace experience in a high-accountability sector.}
+
+\newpage
+% =========================================================
+\section{Part C2A -- Technical Questions: Software Developer (20)}
+\resetq
+
+\qa{What is Object-Oriented Programming, and what are its four main principles?}{OOP structures code around objects that bundle data and behaviour. The four pillars are: \textbf{Encapsulation} (bundling data with the methods that operate on it, hiding internal detail), \textbf{Abstraction} (exposing only what's necessary), \textbf{Inheritance} (a class reusing/extending another's behaviour), and \textbf{Polymorphism} (the same method behaving differently depending on the object). I used these principles building C\# console applications and the ASP.NET MVC project.}
+
+\qa{What's the difference between an abstract class and an interface in C\#?}{An abstract class can hold shared implementation and state and is extended by a single subclass (single inheritance), while an interface only defines a contract of methods/properties with no implementation, and a class can implement multiple interfaces. I'd use an interface when unrelated classes need to share behaviour, and an abstract class when there's genuinely shared code to reuse.}
+
+\qa{Explain the MVC design pattern.}{MVC separates an application into the \textbf{Model} (data and business logic), the \textbf{View} (what the user sees), and the \textbf{Controller} (handles requests, coordinates between Model and View). In my ASP.NET MVC project, controllers received requests, called into models backed by Entity Framework, and returned Razor views -- keeping the UI decoupled from the data logic.}
+
+\qa{What is Entity Framework and why use it?}{Entity Framework is an ORM (Object-Relational Mapper) for .NET that lets you work with a database using C\# objects instead of writing raw SQL for every operation. I used it to connect my ASP.NET MVC project to SQL Server, which sped up development and reduced repetitive query-writing.}
+
+\qa{What's the difference between synchronous and asynchronous programming in C\#?}{Synchronous code executes one operation at a time, blocking until each finishes. Asynchronous code (using \texttt{async}/\texttt{await}) lets a long-running operation, like a database call, run without blocking the thread, so the application stays responsive. It's especially relevant for web apps handling many requests.}
+
+\qa{Explain SQL joins, with examples.}{An \textbf{INNER JOIN} returns only rows that match in both tables; a \textbf{LEFT JOIN} returns all rows from the left table plus matches from the right (NULLs where there's no match); a \textbf{RIGHT JOIN} is the mirror of that. In my Database Design project I used joins to combine order and customer tables for reporting-style queries.}
+
+\qa{What is database normalisation and why does it matter?}{Normalisation organises tables to reduce data duplication and avoid update anomalies, typically by splitting data into related tables (1NF, 2NF, 3NF) linked by keys. I applied this designing ER diagrams for the Database Design and SQL project, so, for example, customer details weren't repeated on every order row.}
+
+\qa{What is Git and how do branches work?}{Git is a distributed version control system that tracks changes to code over time. A branch is an independent line of development off the main codebase -- I used branches on group projects so each person could work on a feature without affecting the main branch until it was reviewed and merged.}
+
+\qa{What's the difference between Git merge and rebase?}{\texttt{merge} combines two branches and creates a new merge commit, preserving full history. \texttt{rebase} replays your commits on top of another branch's latest state, producing a linear history. Merge is safer for shared branches; rebase is often preferred for cleaning up a personal feature branch before merging.}
+
+\qa{Explain the concept of a REST API.}{REST is an architectural style for web APIs where resources (e.g. a customer, an order) are accessed via URLs and standard HTTP methods (GET, POST, PUT, DELETE), typically exchanging JSON. It's stateless -- each request contains everything the server needs to process it.}
+
+\qa{What is dependency injection?}{A design pattern where a class receives its dependencies (e.g. a database service) from an external source rather than creating them itself. It makes code easier to test and swap implementations. ASP.NET Core has built-in DI support that I used for services in my MVC project.}
+
+\qa{What's the difference between a clustered and non-clustered index in SQL Server?}{A clustered index determines the physical storage order of the table data -- a table can have only one. A non-clustered index is a separate structure that points back to the data, and a table can have several, useful for speeding up lookups on columns other than the primary key.}
+
+\qa{What is Agile methodology, and how does it differ from Waterfall?}{Agile delivers software in short, iterative cycles (sprints) with regular feedback and the ability to adapt requirements as you go, whereas Waterfall is a linear, sequential process where each phase (requirements, design, build, test) completes before the next starts. I applied Agile practices, including sprint-style planning, on my ASP.NET MVC group project.}
+
+\qa{Explain session management in ASP.NET MVC.}{Sessions let the server retain state (e.g. a logged-in user) across multiple HTTP requests, since HTTP itself is stateless. ASP.NET MVC stores session data server-side, keyed to a session ID held in a cookie on the client. I implemented this for user authentication in my project, and had to fix an early bug where session state wasn't isolated correctly between concurrent users.}
+
+\qa{What's the difference between value types and reference types in C\#?}{Value types (e.g. \texttt{int}, \texttt{struct}) hold their data directly and are copied by value when assigned. Reference types (e.g. classes, arrays) hold a reference to data on the heap, so assignment copies the reference, not the underlying object.}
+
+\qa{How do you handle exceptions in C\#?}{Using \texttt{try}/\texttt{catch}/\texttt{finally} blocks -- wrapping risky operations (like database calls) in \texttt{try}, catching specific exception types where possible rather than a generic \texttt{catch}, and using \texttt{finally} for cleanup that must always run, such as closing a connection.}
+
+\qa{What is LINQ and why is it useful?}{LINQ (Language Integrated Query) lets you write query-like expressions directly in C\# to filter, sort, and shape data from collections or databases, instead of writing separate SQL strings or manual loops. It integrates naturally with Entity Framework.}
+
+\qa{Explain the difference between GET and POST HTTP methods.}{GET requests retrieve data and should have no side effects -- parameters are typically in the URL. POST sends data to the server to create or update a resource, with the payload in the request body. In ASP.NET MVC, GET typically renders a form and POST handles its submission.}
+
+\qa{What's the purpose of unit testing, and have you done any?}{Unit tests check that individual pieces of code (methods/classes) behave correctly in isolation, catching regressions early. My formal exposure so far has been through coursework and Microsoft Learn modules covering testing fundamentals -- it's an area I'm actively building more hands-on practice in.}
+
+\qa{Walk me through your Distributed Web Application project.}{It's a multi-page ASP.NET MVC application with user authentication and session management, backed by SQL Server via Entity Framework. I worked within a team using GitHub for version control and Agile-style iterative delivery -- my main contributions were the data layer via Entity Framework and the authentication/session flow, and debugging the concurrency issue mentioned earlier.}
+
+\newpage
+% =========================================================
+\section{Part C2B -- Technical Questions: Data Analyst (20)}
+\resetq
+
+\qa{What is SQL and what are its main clause types?}{SQL (Structured Query Language) is used to query and manage relational databases. Core clauses include \texttt{SELECT} (choose columns), \texttt{FROM} (source table), \texttt{WHERE} (filter rows), \texttt{GROUP BY} (aggregate by group), \texttt{HAVING} (filter aggregated groups), and \texttt{ORDER BY} (sort results). I used these in my Database Design and SQL project.}
+
+\qa{Explain the difference between INNER JOIN and LEFT JOIN.}{INNER JOIN returns only rows with matches in both tables. LEFT JOIN returns all rows from the left table, with NULLs for any columns from the right table where there's no match -- useful when you want to keep every record from your primary table, e.g. all clients even if some have no matching orders.}
+
+\qa{What's the difference between a primary key and a foreign key?}{A primary key uniquely identifies each row in its own table. A foreign key is a column in one table that references a primary key in another, establishing the relationship between the two -- this was central to the ER diagrams I built for the Database Design project.}
+
+\qa{What is database normalisation, and why does it matter for reporting?}{Normalisation splits data into related tables to remove duplication and avoid inconsistent updates. For reporting, well-normalised source data reduces the risk of double-counting or stale duplicated values, though for analysis you often deliberately \emph{de-normalise} or join tables back together for a flat reporting view.}
+
+\qa{What are pivot tables in Excel, and when would you use them?}{A pivot table summarises and aggregates raw data (sums, counts, averages) by dragging fields into rows/columns/values, without writing formulas. I used this approach consolidating scattered PDF rosters into a single Excel workbook, to quickly summarise coverage by service category.}
+
+\qa{What is Power BI, and what are its core building blocks?}{Power BI is a Microsoft business intelligence tool for connecting to data sources, modelling relationships between tables, and building interactive reports and dashboards. The core pieces are: a \textbf{dataset} (the underlying data model), \textbf{reports} (pages of visuals), and \textbf{dashboards} (pinned visuals from one or more reports for at-a-glance monitoring).}
+
+\qa{What is DAX in Power BI, at a basic level?}{DAX (Data Analysis Expressions) is the formula language used in Power BI (and Excel Power Pivot) to create calculated columns and measures, e.g. a measure summing sales only for the current filter context, similar in spirit to an Excel formula but aware of the data model's relationships.}
+
+\qa{What is data cleaning, and what techniques do you use?}{Data cleaning is the process of finding and fixing errors, duplicates, missing values and inconsistent formatting before analysis. Techniques include removing duplicate rows, standardising date/text formats, handling missing values (removing or imputing), and validating values against expected ranges -- steps I applied consolidating the fragmented PDF rosters into one clean workbook.}
+
+\qa{What's the difference between structured and unstructured data?}{Structured data fits neatly into rows and columns with a defined schema (e.g. a SQL table or spreadsheet). Unstructured data has no predefined format (e.g. free-text notes, PDFs, images) and typically needs extra processing before it can be analysed -- similar to the PDF rosters I had to convert into structured spreadsheet form.}
+
+\qa{What makes an effective dashboard?}{It should surface the key metrics the audience actually needs at a glance, use appropriate visual types for the data (trend $\rightarrow$ line chart, comparison $\rightarrow$ bar chart), avoid clutter, and let the user drill down or filter where useful, rather than just displaying every possible number.}
+
+\qa{What's the difference between descriptive and inferential statistics?}{Descriptive statistics summarise the data you have (mean, median, distribution, totals). Inferential statistics use a sample to draw conclusions or make predictions about a broader population, typically involving confidence levels or hypothesis testing.}
+
+\qa{What's the difference between mean, median and mode, and when would you use each?}{Mean is the average, useful for evenly distributed data. Median is the middle value, more robust when there are outliers (e.g. income data). Mode is the most frequent value, useful for categorical data like most common service type.}
+
+\qa{What are outliers, and how do you handle them?}{Outliers are data points that fall well outside the typical range. I'd first check whether they're genuine (a real extreme event) or a data-entry error, then decide whether to investigate them separately, cap/winsorise them, or exclude them -- documenting the decision rather than silently dropping data.}
+
+\qa{When would you use Excel versus SQL for data analysis?}{Excel suits smaller datasets, quick ad-hoc analysis, and sharing with non-technical stakeholders. SQL is better for larger datasets, repeatable/automatable queries, and pulling directly from a database rather than manually exporting data first.}
+
+\qa{What is Tableau, and how does it differ from Power BI?}{Tableau is another leading data visualisation and BI tool, generally seen as very strong for flexible, drag-and-drop visual exploration. Power BI integrates more tightly with the Microsoft ecosystem (Excel, Azure) and is often more cost-effective for organisations already using Microsoft 365. Both connect to similar data sources and build interactive dashboards.}
+
+\qa{Explain what GROUP BY and aggregate functions do in SQL.}{\texttt{GROUP BY} groups rows sharing a value in a given column so aggregate functions (\texttt{SUM}, \texttt{COUNT}, \texttt{AVG}, \texttt{MAX}, \texttt{MIN}) can be applied per group, e.g. total shifts per service category, rather than across the whole table.}
+
+\qa{What's the difference between a database and a spreadsheet?}{A database enforces structure and relationships between tables, supports concurrent multi-user access, and scales to much larger data volumes with faster querying via indexes. A spreadsheet is simpler and more flexible for small, single-user, ad-hoc work but doesn't enforce data integrity in the same way.}
+
+\qa{What is ETL (Extract, Transform, Load)?}{ETL is the process of pulling data from a source system (\textbf{Extract}), cleaning/reshaping it (\textbf{Transform}), and loading it into a destination like a data warehouse or reporting table (\textbf{Load}) -- conceptually similar to how I extracted data from scattered PDFs, transformed it into a consistent structure, and loaded it into one Excel workbook.}
+
+\qa{How would you validate that a dataset is accurate before reporting on it?}{I'd check for missing or null values, duplicate records, values outside expected ranges, consistent formatting (dates, categories), and cross-check totals against a known source where possible, before trusting any summary built on top of it.}
+
+\qa{Walk me through how you'd approach analysing a new dataset from scratch.}{First, understand the business question being asked. Then explore the data structure and quality -- row counts, column types, missing values. Clean and, if needed, reshape the data. Then summarise and visualise to answer the question, sense-check the result, and present findings clearly, flagging any data-quality caveats along the way.}
+
+\end{document}
