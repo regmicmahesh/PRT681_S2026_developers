@@ -1,0 +1,75 @@
+@model JobApplicationFormViewModel
+
+<div asp-validation-summary="ModelOnly"
+     class="validation">
+</div>
+
+<div class="form-grid">
+    <div>
+        <label asp-for="CompanyName"></label>
+        <input asp-for="CompanyName" />
+        <span asp-validation-for="CompanyName"
+              class="validation"></span>
+    </div>
+
+    <div>
+        <label asp-for="JobTitle"></label>
+        <input asp-for="JobTitle" />
+        <span asp-validation-for="JobTitle"
+              class="validation"></span>
+    </div>
+
+    <div class="full">
+        <label asp-for="JobUrl"></label>
+        <input asp-for="JobUrl" />
+        <span asp-validation-for="JobUrl"
+              class="validation"></span>
+    </div>
+
+    <div>
+        <label asp-for="ApplicationStatus"></label>
+        <select asp-for="ApplicationStatus"
+                asp-items="Html.GetEnumSelectList<ApplicationStatus>()">
+        </select>
+        <span asp-validation-for="ApplicationStatus"
+              class="validation"></span>
+    </div>
+
+    <div>
+        <label asp-for="DateApplied"></label>
+        <input asp-for="DateApplied" type="date" />
+        <span asp-validation-for="DateApplied"
+              class="validation"></span>
+    </div>
+
+    <div>
+        <label asp-for="MinimumSalary"></label>
+        <input asp-for="MinimumSalary" />
+        <span asp-validation-for="MinimumSalary"
+              class="validation"></span>
+    </div>
+
+    <div>
+        <label asp-for="MaximumSalary"></label>
+        <input asp-for="MaximumSalary" />
+        <span asp-validation-for="MaximumSalary"
+              class="validation"></span>
+    </div>
+
+    <div>
+        <label asp-for="Currency"></label>
+        <input asp-for="Currency" />
+        <span asp-validation-for="Currency"
+              class="validation"></span>
+    </div>
+
+    <div>
+        <label asp-for="SalaryPeriod"></label>
+        <select asp-for="SalaryPeriod"
+                asp-items="Html.GetEnumSelectList<SalaryPeriod>()">
+            <option value="">-- choose --</option>
+        </select>
+        <span asp-validation-for="SalaryPeriod"
+              class="validation"></span>
+    </div>
+</div>

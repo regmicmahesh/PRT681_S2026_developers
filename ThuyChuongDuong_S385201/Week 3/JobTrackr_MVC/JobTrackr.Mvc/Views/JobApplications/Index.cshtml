@@ -1,0 +1,192 @@
+@model JobApplicationIndexViewModel
+@{
+    ViewData["Title"] = "Applications";
+}
+
+<div class="page-heading">
+    <div>
+        <h1>Job applications</h1>
+        <p>Standalone ASP.NET Core MVC practice.</p>
+    </div>
+
+    <a class="button primary"
+       asp-action="Create">
+        + Create
+    </a>
+</div>
+
+<form method="get" class="filters">
+    <div>
+        <label asp-for="Search">Search</label>
+        <input asp-for="Search"
+               name="search"
+               placeholder="Company or title" />
+    </div>
+
+    <div>
+        <label asp-for="Status">Status</label>
+        <select asp-for="Status"
+                name="status"
+                asp-items="Html.GetEnumSelectList<ApplicationStatus>()">
+            <option value="">All</option>
+        </select>
+    </div>
+
+    <div>
+        <label asp-for="SortBy">Sort</label>
+        <select asp-for="SortBy" name="sortBy">
+            <option value="created">Created</option>
+            <option value="company">Company</option>
+            <option value="title">Title</option>
+            <option value="salary">Salary</option>
+            <option value="status">Status</option>
+        </select>
+    </div>
+
+    <div>
+        <label asp-for="SortDirection">Direction</label>
+        <select asp-for="SortDirection"
+                name="sortDirection">
+            <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
+        </select>
+    </div>
+
+    <div>
+        <label asp-for="PageSize">Page size</label>
+        <select asp-for="PageSize" name="pageSize">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+        </select>
+    </div>
+
+    <div class="filter-actions">
+        <button class="button primary"
+                type="submit">
+            Apply
+        </button>
+
+        <a class="button"
+           asp-action="Index">
+            Reset
+        </a>
+    </div>
+</form>
+
+<p class="muted">
+    @Model.TotalRecords matching application(s)
+
+    @if (Model.TotalPages > 0)
+    {
+        <span>
+            · Page @Model.Page of @Model.TotalPages
+        </span>
+    }
+</p>
+
+@if (Model.Items.Count == 0)
+{
+    <div class="card">
+        No applications match.
+    </div>
+}
+else
+{
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Job title</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            @foreach (var job in Model.Items)
+            {
+                <tr>
+                    <td>@job.CompanyName</td>
+                    <td>@job.JobTitle</td>
+                    <td>
+                        <span class="pill">
+                            @job.ApplicationStatus
+                        </span>
+                    </td>
+                    <td>
+                        @(job.DateApplied?.ToString("yyyy-MM-dd") ?? "—")
+                    </td>
+                    <td>
+                        @if (job.MinimumSalary.HasValue ||
+                             job.MaximumSalary.HasValue)
+                        {
+                            <span>
+                                @job.Currency
+                                @(job.MinimumSalary?.ToString("N0") ?? "?")
+                                -
+                                @(job.MaximumSalary?.ToString("N0") ?? "?")
+                                @job.SalaryPeriod
+                            </span>
+                        }
+                        else
+                        {
+                            <span>—</span>
+                        }
+                    </td>
+                    <td class="actions">
+                        <a asp-action="Details"
+                           asp-route-id="@job.Id">
+                            Details
+                        </a>
+
+                        <a asp-action="Edit"
+                           asp-route-id="@job.Id">
+                            Edit
+                        </a>
+
+                        <a class="danger-link"
+                           asp-action="Delete"
+                           asp-route-id="@job.Id">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
+
+<div class="pagination">
+    @if (Model.HasPreviousPage)
+    {
+        <a class="button"
+           asp-action="Index"
+           asp-route-search="@Model.Search"
+           asp-route-status="@Model.Status"
+           asp-route-sortBy="@Model.SortBy"
+           asp-route-sortDirection="@Model.SortDirection"
+           asp-route-page="@(Model.Page - 1)"
+           asp-route-pageSize="@Model.PageSize">
+            ← Previous
+        </a>
+    }
+
+    @if (Model.HasNextPage)
+    {
+        <a class="button"
+           asp-action="Index"
+           asp-route-search="@Model.Search"
+           asp-route-status="@Model.Status"
+           asp-route-sortBy="@Model.SortBy"
+           asp-route-sortDirection="@Model.SortDirection"
+           asp-route-page="@(Model.Page + 1)"
+           asp-route-pageSize="@Model.PageSize">
+            Next →
+        </a>
+    }
+</div>

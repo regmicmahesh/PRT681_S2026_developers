@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JobTrackr MVC</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav">
+            <a class="brand"
+               asp-controller="JobApplications"
+               asp-action="Index">
+                JobTrackr MVC
+            </a>
+
+            <nav>
+                <a asp-controller="JobApplications"
+                   asp-action="Index">
+                    Applications
+                </a>
+
+                <a asp-controller="JobApplications"
+                   asp-action="Create">
+                    Create
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        @if (TempData["Message"] is string message)
+        {
+            <div class="alert success">@message</div>
+        }
+
+        @RenderBody()
+    </main>
+
+    <footer class="container footer">
+        Standalone ASP.NET Core MVC practice project
+    </footer>
+</body>
+</html>
