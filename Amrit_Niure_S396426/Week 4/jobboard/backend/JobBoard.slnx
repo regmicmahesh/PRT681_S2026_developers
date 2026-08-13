@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/JobBoard.Domain/JobBoard.Domain.csproj" />
+  </Folder>
+</Solution>
