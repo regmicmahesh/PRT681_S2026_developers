@@ -3,7 +3,6 @@ using System;
 using JobBoard.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,29 +11,25 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobBoard.Persistence.Migrations
 {
     [DbContext(typeof(JobBoardDbContext))]
-    [Migration("20260813062817_InitialCreate")]
+    [Migration("20260813064501_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.19")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.19");
 
             modelBuilder.Entity("JobBoard.Domain.Entities.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -45,30 +40,30 @@ namespace JobBoard.Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("EmploymentType")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -79,25 +74,25 @@ namespace JobBoard.Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("CandidateName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("JobId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ResumeUrl")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -111,12 +106,12 @@ namespace JobBoard.Persistence.Migrations
                     b.OwnsOne("JobBoard.Domain.ValueObjects.Email", "ContactEmail", b1 =>
                         {
                             b1.Property<Guid>("CompanyId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasMaxLength(320)
-                                .HasColumnType("nvarchar(320)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("ContactEmail");
 
                             b1.HasKey("CompanyId");
@@ -136,20 +131,20 @@ namespace JobBoard.Persistence.Migrations
                     b.OwnsOne("JobBoard.Domain.ValueObjects.SalaryRange", "Salary", b1 =>
                         {
                             b1.Property<Guid>("JobId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Currency")
                                 .IsRequired()
                                 .HasMaxLength(3)
-                                .HasColumnType("nvarchar(3)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("SalaryCurrency");
 
                             b1.Property<decimal>("Max")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("SalaryMax");
 
                             b1.Property<decimal>("Min")
-                                .HasColumnType("decimal(18,2)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("SalaryMin");
 
                             b1.HasKey("JobId");
@@ -175,12 +170,12 @@ namespace JobBoard.Persistence.Migrations
                     b.OwnsOne("JobBoard.Domain.ValueObjects.Email", "CandidateEmail", b1 =>
                         {
                             b1.Property<Guid>("JobApplicationId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasMaxLength(320)
-                                .HasColumnType("nvarchar(320)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("CandidateEmail");
 
                             b1.HasKey("JobApplicationId");

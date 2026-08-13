@@ -13,7 +13,7 @@ public static class DependencyInjection
         var connectionString = configuration.GetConnectionString("JobBoard")
             ?? throw new InvalidOperationException("Connection string 'JobBoard' was not found.");
 
-        services.AddDbContext<JobBoardDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddDbContext<JobBoardDbContext>(options => options.UseSqlite(connectionString));
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<JobBoardDbContext>());
         services.AddScoped<IJobRepository, JobRepository>();

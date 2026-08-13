@@ -10,7 +10,7 @@ public sealed class JobBoardDbContextFactory : IDesignTimeDbContextFactory<JobBo
     public JobBoardDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<JobBoardDbContext>();
-        optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=JobBoard;Trusted_Connection=True;");
+        optionsBuilder.UseSqlite("Data Source=jobboard.db");
 
         return new JobBoardDbContext(optionsBuilder.Options, new NullPublisher());
     }

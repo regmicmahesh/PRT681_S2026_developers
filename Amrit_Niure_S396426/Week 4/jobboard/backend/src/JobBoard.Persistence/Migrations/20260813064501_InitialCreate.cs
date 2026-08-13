@@ -15,9 +15,9 @@ namespace JobBoard.Persistence.Migrations
                 name: "Companies",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ContactEmail = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    ContactEmail = table.Column<string>(type: "TEXT", maxLength: 320, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,15 +28,15 @@ namespace JobBoard.Persistence.Migrations
                 name: "Jobs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: false),
-                    EmploymentType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    SalaryMin = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SalaryMax = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SalaryCurrency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 4000, nullable: false),
+                    EmploymentType = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    SalaryMin = table.Column<decimal>(type: "TEXT", nullable: false),
+                    SalaryMax = table.Column<decimal>(type: "TEXT", nullable: false),
+                    SalaryCurrency = table.Column<string>(type: "TEXT", maxLength: 3, nullable: false),
+                    Status = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    CompanyId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,12 +47,12 @@ namespace JobBoard.Persistence.Migrations
                 name: "JobApplications",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    JobId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CandidateName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    CandidateEmail = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: false),
-                    ResumeUrl = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    JobId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CandidateName = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    CandidateEmail = table.Column<string>(type: "TEXT", maxLength: 320, nullable: false),
+                    ResumeUrl = table.Column<string>(type: "TEXT", maxLength: 1000, nullable: false),
+                    Status = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
