@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCreateJob } from '../../application/jobs/useCreateJob';
+import { useCompanies } from '../../application/companies/useCompanies';
 import type { EmploymentType } from '../../domain/job';
 
 const EMPLOYMENT_TYPES: EmploymentType[] = ['FullTime', 'PartTime', 'Contract', 'Internship'];
@@ -15,6 +16,7 @@ export function NewJobPage() {
   const [salaryCurrency, setSalaryCurrency] = useState('USD');
   const [companyId, setCompanyId] = useState(searchParams.get('companyId') ?? '');
   const createJob = useCreateJob();
+  const companies = useCompanies();
   const navigate = useNavigate();
 
   function handleSubmit(event: FormEvent) {
@@ -41,8 +43,24 @@ export function NewJobPage() {
 
       <form onSubmit={handleSubmit}>
         <div className="field">
-          <label htmlFor="companyId">Company id</label>
-          <input id="companyId" value={companyId} onChange={(e) => setCompanyId(e.target.value)} required />
+          <label htmlFor="companyId">Company</label>
+          <select
+            id="companyId"
+            value={companyId}
+            onChange={(e) => setCompanyId(e.target.value)}
+            required
+            disabled={companies.isLoading}
+          >
+            <option value="" disabled>
+              {companies.isLoading ? 'Loading companies...' : 'Select a company'}
+            </option>
+            {companies.data?.map((company) => (
+              <option key={company.id} value={company.id}>
+                {company.name}
+              </option>
+            ))}
+          </select>
+          {companies.isError && <p className="error-text">{companies.error.message}</p>}
           <small>
             Don't have a company yet? <Link to="/companies/new">Register one</Link>.
           </small>

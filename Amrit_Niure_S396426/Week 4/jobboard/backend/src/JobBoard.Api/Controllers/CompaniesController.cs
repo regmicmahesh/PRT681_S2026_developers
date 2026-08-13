@@ -1,4 +1,5 @@
 using JobBoard.Application.Companies.CreateCompany;
+using JobBoard.Application.Companies.GetCompanies;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,13 @@ public sealed class CompaniesController : ApiControllerBase
     }
 
     public sealed record CreateCompanyRequest(string Name, string ContactEmail);
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    {
+        var result = await _sender.Send(new GetCompaniesQuery(), cancellationToken);
+        return result.IsSuccess ? Ok(result.Value) : HandleFailure(result);
+    }
 
     [HttpPost]
     public async Task<IActionResult> Create(CreateCompanyRequest request, CancellationToken cancellationToken)
