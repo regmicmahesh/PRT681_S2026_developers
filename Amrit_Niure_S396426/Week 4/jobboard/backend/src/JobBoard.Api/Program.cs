@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using JobBoard.Api;
 using JobBoard.Application;
 using JobBoard.Infrastructure;
@@ -12,7 +13,8 @@ builder.Services.AddApplication(typeof(JobBoard.Infrastructure.DependencyInjecti
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddInfrastructure();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
