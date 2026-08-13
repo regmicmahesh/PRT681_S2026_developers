@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CleanApp.Application/CleanApp.Application.csproj" />
+    <Project Path="src/CleanApp.Domain/CleanApp.Domain.csproj" />
+    <Project Path="src/CleanApp.Infrastructure/CleanApp.Infrastructure.csproj" />
+    <Project Path="src/CleanApp.Persistence/CleanApp.Persistence.csproj" />
+    <Project Path="src/CleanApp.Presentation/CleanApp.Presentation.csproj" />
+    <Project Path="src/CleanApp.WebApi/CleanApp.WebApi.csproj" />
+  </Folder>
+</Solution>

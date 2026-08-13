@@ -1,0 +1,14 @@
+## .NET
+bin/
+obj/
+*.user
+.vs/
+
+## SQLite runtime files
+*.db
+*.db-shm
+*.db-wal
+
+## Rider / VS Code
+.idea/
+.vscode/
