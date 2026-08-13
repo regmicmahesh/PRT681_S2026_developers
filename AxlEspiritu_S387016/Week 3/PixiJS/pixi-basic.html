@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PixiJS Practice</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.js"></script>
+</head>
+
+<body>
+
+<h1>My PixiJS Practice</h1>
+
+<script>
+    async function start() {
+
+        // Create the PixiJS application
+        const app = new PIXI.Application();
+
+        await app.init({
+            width: 600,
+            height: 350,
+            backgroundColor: 0xeeeeee
+        });
+
+        document.body.appendChild(app.canvas);
+
+        // Create a rectangle
+        const rectangle = new PIXI.Graphics();
+
+        rectangle
+            .rect(50, 50, 150, 100)
+            .fill(0x3498db);
+
+        app.stage.addChild(rectangle);
+
+        // Create text
+        const message = new PIXI.Text({
+            text: "Hello PixiJS!",
+            style: {
+                fontFamily: "Arial",
+                fontSize: 32,
+                fill: 0x000000
+            }
+        });
+
+        message.x = 200;
+        message.y = 200;
+
+        app.stage.addChild(message);
+    }
+
+    start();
+</script>
+
+</body>
+</html>
