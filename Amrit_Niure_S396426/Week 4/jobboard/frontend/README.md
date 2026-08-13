@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # JobBoard frontend
 
 React + TypeScript app built with Vite, TanStack Query for server state, and React Router for navigation.
@@ -34,6 +33,3 @@ Copy `.env.example` to `.env` if you need to point at a backend running somewher
 | `/jobs/new`        | NewJobPage         | Post a new job (requires a company id)        |
 | `/jobs/:id`        | JobDetailPage       | Job details, publish/close actions, apply form|
 | `/companies/new`   | NewCompanyPage      | Register a company                            |
-=======
-
->>>>>>> 42aef1a47ae184ec39a5013638f8b6c5ef6f2e01
