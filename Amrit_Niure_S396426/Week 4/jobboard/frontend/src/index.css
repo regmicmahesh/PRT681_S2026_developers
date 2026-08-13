@@ -58,6 +58,16 @@ button {
   font: inherit;
 }
 
+.app-nav {
+  margin-bottom: 24px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.app-nav a {
+  text-decoration: none;
+}
+
 .page-header {
   display: flex;
   align-items: center;
