@@ -28,6 +28,7 @@ internal sealed class ApplyToJobCommandHandler : ICommandHandler<ApplyToJobComma
         if (result.IsFailure)
             return Result.Failure<Guid>(result.Error);
 
+        _jobRepository.AddApplication(result.Value);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         return result.Value.Id;
     }

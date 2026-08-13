@@ -25,4 +25,6 @@ internal sealed class JobRepository : IJobRepository
             .ToListAsync(cancellationToken);
 
     public void Add(Job job) => _dbContext.Jobs.Add(job);
+
+    public void AddApplication(JobApplication application) => _dbContext.Set<JobApplication>().Add(application);
 }
