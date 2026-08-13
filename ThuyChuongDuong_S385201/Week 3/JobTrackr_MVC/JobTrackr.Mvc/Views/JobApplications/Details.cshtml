@@ -1,0 +1,81 @@
+@model JobApplication
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="page-heading">
+    <div>
+        <h1>@Model.JobTitle</h1>
+        <p>@Model.CompanyName</p>
+    </div>
+
+    <div>
+        <a class="button primary"
+           asp-action="Edit"
+           asp-route-id="@Model.Id">
+            Edit
+        </a>
+
+        <a class="button"
+           asp-action="Index">
+            Back
+        </a>
+    </div>
+</div>
+
+<div class="card details">
+    <dl>
+        <dt>Status</dt>
+        <dd>@Model.ApplicationStatus</dd>
+
+        <dt>Date applied</dt>
+        <dd>
+            @(Model.DateApplied?.ToString("yyyy-MM-dd")
+              ?? "Not applied")
+        </dd>
+
+        <dt>Job URL</dt>
+        <dd>
+            @if (!string.IsNullOrWhiteSpace(Model.JobUrl))
+            {
+                <a href="@Model.JobUrl"
+                   target="_blank"
+                   rel="noopener">
+                    @Model.JobUrl
+                </a>
+            }
+            else
+            {
+                <span>—</span>
+            }
+        </dd>
+
+        <dt>Salary</dt>
+        <dd>
+            @if (Model.MinimumSalary.HasValue ||
+                 Model.MaximumSalary.HasValue)
+            {
+                <span>
+                    @Model.Currency
+                    @(Model.MinimumSalary?.ToString("N0") ?? "?")
+                    -
+                    @(Model.MaximumSalary?.ToString("N0") ?? "?")
+                    @Model.SalaryPeriod
+                </span>
+            }
+            else
+            {
+                <span>—</span>
+            }
+        </dd>
+
+        <dt>Created</dt>
+        <dd>@Model.CreatedAt.ToString("u")</dd>
+
+        <dt>Updated</dt>
+        <dd>@Model.UpdatedAt.ToString("u")</dd>
+
+        <dt>Id</dt>
+        <dd><code>@Model.Id</code></dd>
+    </dl>
+</div>

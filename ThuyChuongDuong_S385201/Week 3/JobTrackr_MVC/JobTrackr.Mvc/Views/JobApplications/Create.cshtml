@@ -1,0 +1,26 @@
+@model JobApplicationFormViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create application</h1>
+
+<form asp-action="Create"
+      method="post"
+      class="card">
+
+    <partial name="_Form"
+             model="Model" />
+
+    <div class="form-actions">
+        <button type="submit"
+                class="button primary">
+            Create
+        </button>
+
+        <a class="button"
+           asp-action="Index">
+            Cancel
+        </a>
+    </div>
+</form>
