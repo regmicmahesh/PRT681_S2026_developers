@@ -10,5 +10,6 @@ namespace BookStoreApp.DAL
 
         public DbSet<Book> Books { get; set; } = default!;
         public DbSet<Printer> Printers { get; set; } = default!;
+        public DbSet<Scanner> Scanners { get; set; } = default!;
     }
 }
