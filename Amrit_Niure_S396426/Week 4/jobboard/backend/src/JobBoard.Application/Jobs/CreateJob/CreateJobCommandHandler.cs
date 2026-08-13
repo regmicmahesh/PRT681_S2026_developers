@@ -19,7 +19,8 @@ internal sealed class CreateJobCommandHandler : ICommandHandler<CreateJobCommand
 
     public async Task<Result<Guid>> Handle(CreateJobCommand command, CancellationToken cancellationToken)
     {
-        var salary = new SalaryRange(command.SalaryMin, command.SalaryMax, command.SalaryCurrency);
+        var currency = new Currency(command.SalaryCurrency);
+        var salary = new SalaryRange(command.SalaryMin, command.SalaryMax, currency, command.PayPeriod);
 
         var job = new Job(
             Guid.NewGuid(),

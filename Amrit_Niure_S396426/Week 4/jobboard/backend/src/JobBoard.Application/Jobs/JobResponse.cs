@@ -8,6 +8,7 @@ public sealed record JobResponse(
     decimal SalaryMin,
     decimal SalaryMax,
     string SalaryCurrency,
+    string PayPeriod,
     string Status,
     Guid CompanyId,
     int ApplicationCount);

@@ -10,4 +10,5 @@ public sealed record CreateJobCommand(
     decimal SalaryMin,
     decimal SalaryMax,
     string SalaryCurrency,
+    PayPeriod PayPeriod,
     Guid CompanyId) : ICommand<Guid>;

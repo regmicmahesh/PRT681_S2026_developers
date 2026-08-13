@@ -26,6 +26,7 @@ public sealed class JobsController : ApiControllerBase
         decimal SalaryMin,
         decimal SalaryMax,
         string SalaryCurrency,
+        PayPeriod PayPeriod,
         Guid CompanyId);
 
     public sealed record ApplyToJobRequest(string CandidateName, string CandidateEmail, string ResumeUrl);
@@ -54,6 +55,7 @@ public sealed class JobsController : ApiControllerBase
             request.SalaryMin,
             request.SalaryMax,
             request.SalaryCurrency,
+            request.PayPeriod,
             request.CompanyId);
 
         var result = await _sender.Send(command, cancellationToken);
