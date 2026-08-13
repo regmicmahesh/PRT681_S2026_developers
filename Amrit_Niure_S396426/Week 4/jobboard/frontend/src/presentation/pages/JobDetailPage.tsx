@@ -21,7 +21,7 @@ export function JobDetailPage() {
           <h1>{job.title}</h1>
           <p className="job-card__meta">
             {job.employmentType} &middot; {job.salaryMin.toLocaleString()}-{job.salaryMax.toLocaleString()}{' '}
-            {job.salaryCurrency} &middot;{' '}
+            {job.salaryCurrency} / {job.payPeriod} &middot;{' '}
             <span className={`status status--${job.status.toLowerCase()}`}>{job.status}</span> &middot;{' '}
             {job.applicationCount} application{job.applicationCount === 1 ? '' : 's'}
           </p>

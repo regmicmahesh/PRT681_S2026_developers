@@ -1,5 +1,5 @@
 import { httpClient } from './httpClient';
-import type { EmploymentType, Job } from '../../domain/job';
+import type { EmploymentType, Job, PayPeriod } from '../../domain/job';
 
 export interface CreateJobRequest {
   title: string;
@@ -8,6 +8,7 @@ export interface CreateJobRequest {
   salaryMin: number;
   salaryMax: number;
   salaryCurrency: string;
+  payPeriod: PayPeriod;
   companyId: string;
 }
 

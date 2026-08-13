@@ -13,7 +13,8 @@ export function JobCard({ job }: JobCardProps) {
       </Link>
       <p className="job-card__meta">
         {job.employmentType} &middot; {job.salaryMin.toLocaleString()}-{job.salaryMax.toLocaleString()}{' '}
-        {job.salaryCurrency} &middot; <span className={`status status--${job.status.toLowerCase()}`}>{job.status}</span>
+        {job.salaryCurrency} / {job.payPeriod} &middot;{' '}
+        <span className={`status status--${job.status.toLowerCase()}`}>{job.status}</span>
       </p>
     </li>
   );

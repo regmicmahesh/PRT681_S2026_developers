@@ -2,9 +2,10 @@ import { useState, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useCreateJob } from '../../application/jobs/useCreateJob';
 import { useCompanies } from '../../application/companies/useCompanies';
-import type { EmploymentType } from '../../domain/job';
+import type { EmploymentType, PayPeriod } from '../../domain/job';
 
 const EMPLOYMENT_TYPES: EmploymentType[] = ['FullTime', 'PartTime', 'Contract', 'Internship'];
+const PAY_PERIODS: PayPeriod[] = ['Hourly', 'Daily', 'Weekly', 'Monthly', 'Annually'];
 
 export function NewJobPage() {
   const [searchParams] = useSearchParams();
@@ -14,6 +15,7 @@ export function NewJobPage() {
   const [salaryMin, setSalaryMin] = useState('');
   const [salaryMax, setSalaryMax] = useState('');
   const [salaryCurrency, setSalaryCurrency] = useState('USD');
+  const [payPeriod, setPayPeriod] = useState<PayPeriod>('Annually');
   const [companyId, setCompanyId] = useState(searchParams.get('companyId') ?? '');
   const createJob = useCreateJob();
   const companies = useCompanies();
@@ -29,6 +31,7 @@ export function NewJobPage() {
         salaryMin: Number(salaryMin),
         salaryMax: Number(salaryMax),
         salaryCurrency,
+        payPeriod,
         companyId,
       },
       {
@@ -126,9 +129,23 @@ export function NewJobPage() {
           <input
             id="salaryCurrency"
             value={salaryCurrency}
-            onChange={(e) => setSalaryCurrency(e.target.value)}
+            onChange={(e) => setSalaryCurrency(e.target.value.toUpperCase())}
+            maxLength={3}
+            pattern="[A-Za-z]{3}"
+            title="3-letter ISO 4217 code, e.g. USD"
             required
           />
+        </div>
+
+        <div className="field">
+          <label htmlFor="payPeriod">Pay period</label>
+          <select id="payPeriod" value={payPeriod} onChange={(e) => setPayPeriod(e.target.value as PayPeriod)}>
+            {PAY_PERIODS.map((period) => (
+              <option key={period} value={period}>
+                {period}
+              </option>
+            ))}
+          </select>
         </div>
 
         {createJob.isError && <p className="error-text">{createJob.error.message}</p>}
