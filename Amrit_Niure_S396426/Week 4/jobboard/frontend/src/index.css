@@ -57,3 +57,97 @@ a {
 button {
   font: inherit;
 }
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.job-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.job-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--surface);
+}
+
+.job-card h3 {
+  margin: 0 0 4px;
+}
+
+.job-card__meta {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.status {
+  font-weight: 600;
+}
+
+.status--draft {
+  color: var(--text-muted);
+}
+
+.status--published {
+  color: var(--success);
+}
+
+.status--closed {
+  color: var(--danger);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  font: inherit;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.primary-button {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondary-button {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.error-text {
+  color: var(--danger);
+}
