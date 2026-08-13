@@ -6,4 +6,7 @@
     <Project Path="src/JobBoard.Infrastructure/JobBoard.Infrastructure.csproj" />
     <Project Path="src/JobBoard.Persistence/JobBoard.Persistence.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/JobBoard.Domain.Tests/JobBoard.Domain.Tests.csproj" />
+  </Folder>
 </Solution>
