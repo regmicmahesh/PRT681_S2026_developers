@@ -5,8 +5,13 @@ namespace JobBoard.Domain.Entities;
 
 public class Company : AggregateRoot
 {
-    public string Name { get; private set; }
-    public Email ContactEmail { get; private set; }
+    public string Name { get; private set; } = null!;
+    public Email ContactEmail { get; private set; } = null!;
+
+    // Reserved for EF Core materialization.
+    private Company()
+    {
+    }
 
     public Company(Guid id, string name, Email contactEmail) : base(id)
     {

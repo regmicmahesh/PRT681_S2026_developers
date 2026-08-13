@@ -8,6 +8,11 @@ public abstract class AggregateRoot : Entity
     {
     }
 
+    // Reserved for ORM materialization.
+    protected AggregateRoot()
+    {
+    }
+
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     protected void RaiseDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);

@@ -12,6 +12,11 @@ public abstract class Entity
         Id = id;
     }
 
+    // Reserved for ORM materialization; Id is populated by EF Core after construction.
+    protected Entity()
+    {
+    }
+
     public override bool Equals(object? obj)
     {
         if (obj is not Entity other)

@@ -10,13 +10,18 @@ public class Job : AggregateRoot
 {
     private readonly List<JobApplication> _applications = new();
 
-    public string Title { get; private set; }
-    public string Description { get; private set; }
+    public string Title { get; private set; } = null!;
+    public string Description { get; private set; } = null!;
     public EmploymentType EmploymentType { get; private set; }
-    public SalaryRange Salary { get; private set; }
+    public SalaryRange Salary { get; private set; } = null!;
     public JobStatus Status { get; private set; }
     public Guid CompanyId { get; private set; }
     public IReadOnlyCollection<JobApplication> Applications => _applications.AsReadOnly();
+
+    // Reserved for EF Core materialization.
+    private Job()
+    {
+    }
 
     public Job(Guid id, string title, string description, EmploymentType employmentType, SalaryRange salary, Guid companyId)
         : base(id)

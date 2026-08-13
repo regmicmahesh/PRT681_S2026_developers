@@ -8,10 +8,15 @@ namespace JobBoard.Domain.Entities;
 public class JobApplication : Entity
 {
     public Guid JobId { get; private set; }
-    public string CandidateName { get; private set; }
-    public Email CandidateEmail { get; private set; }
-    public string ResumeUrl { get; private set; }
+    public string CandidateName { get; private set; } = null!;
+    public Email CandidateEmail { get; private set; } = null!;
+    public string ResumeUrl { get; private set; } = null!;
     public JobApplicationStatus Status { get; private set; }
+
+    // Reserved for EF Core materialization.
+    private JobApplication()
+    {
+    }
 
     internal JobApplication(Guid id, Guid jobId, string candidateName, Email candidateEmail, string resumeUrl) : base(id)
     {
