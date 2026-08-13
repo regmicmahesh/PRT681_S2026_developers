@@ -2,5 +2,6 @@
   <Folder Name="/src/">
     <Project Path="src/JobBoard.Application/JobBoard.Application.csproj" />
     <Project Path="src/JobBoard.Domain/JobBoard.Domain.csproj" />
+    <Project Path="src/JobBoard.Persistence/JobBoard.Persistence.csproj" />
   </Folder>
 </Solution>
