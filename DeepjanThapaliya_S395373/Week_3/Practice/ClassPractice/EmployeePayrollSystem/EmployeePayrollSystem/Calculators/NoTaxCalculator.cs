@@ -5,12 +5,11 @@ using EmployeePayrollSystem.Interfaces;
 
 namespace EmployeePayrollSystem.Calculators
 {
-    public class SimpleTaxCalculator : ITaxCalculator
+    public class NoTaxCalculator:ITaxCalculator
     {
-        
-        public decimal CalculateTaxOnSalary(decimal grossPay)
+        public decimal CalculateTaxOnSalary(decimal grosspay)
         {
-            return grossPay * 0.1m;
+            return 0m;
         }
     }
 }

@@ -1,23 +1,26 @@
 ﻿using EmployeePayrollSystem.Calculators;
 using EmployeePayrollSystem.Models;
+using EmployeePayrollSystem.Interfaces;
 namespace EmployeePayrollSystem.Services;
+
 
 public class PayrollService
 {
 
-    private readonly SimpleTaxCalculator _taxCalculator;
+    private readonly ITaxCalculator _taxCalculator;
 
-    public PayrollService(SimpleTaxCalculator taxCalculator)
+    public PayrollService(ITaxCalculator taxCalculator)
     {
         _taxCalculator = taxCalculator;
     }
+    
     public void PrintPayslip(Employee employee)
     { 
         decimal grossPay = employee.CalculateGrossPay();
         Console.WriteLine($"Employee: {employee.Name}");
         Console.WriteLine($"Gross Salary: {grossPay}");
 
-        decimal taxOnSalary = _taxCalculator.CalculateTax(grossPay);
+        decimal taxOnSalary = _taxCalculator.CalculateTaxOnSalary(grossPay);
         Console.WriteLine($"Tax: {taxOnSalary}");
 
         decimal netSalary = grossPay - taxOnSalary;
