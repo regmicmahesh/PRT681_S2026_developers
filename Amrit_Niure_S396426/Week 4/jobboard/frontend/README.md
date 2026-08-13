@@ -1,32 +1,35 @@
-# React + TypeScript + Vite
+# JobBoard frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + TypeScript app built with Vite, TanStack Query for server state, and React Router for navigation.
 
-Currently, two official plugins are available:
+## Layers
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+src/
+  domain/          TypeScript types shared across the app (Job, Company).
+  infrastructure/   HTTP client + typed API wrappers - the only code that knows the backend's URLs.
+  application/       TanStack Query hooks (useJobs, useCreateJob, ...) wrapping infrastructure.
+  presentation/       Pages and components that consume the application hooks.
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Dependencies point inward: `presentation` -> `application` -> `infrastructure` -> `domain`. `domain` has
+no dependency on anything else.
+
+## Running locally
+
+```bash
+npm install
+npm run dev
+```
+
+Copy `.env.example` to `.env` if you need to point at a backend running somewhere other than
+`http://localhost:5289/api`.
+
+## Pages
+
+| Route             | Page              | Description                                  |
+|--------------------|--------------------|-----------------------------------------------|
+| `/`                | JobListPage        | Lists all jobs                                |
+| `/jobs/new`        | NewJobPage         | Post a new job (requires a company id)        |
+| `/jobs/:id`        | JobDetailPage       | Job details, publish/close actions, apply form|
+| `/companies/new`   | NewCompanyPage      | Register a company                            |
