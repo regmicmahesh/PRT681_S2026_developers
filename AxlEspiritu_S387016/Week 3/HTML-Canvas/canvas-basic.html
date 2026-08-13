@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5 Canvas Practice</title>
+</head>
+
+<body>
+
+    <h1>HTML5 Canvas Practice</h1>
+
+    <canvas id="gameCanvas" width="600" height="350"
+            style="border: 2px solid black;">
+        Simple Canvas graphics exercise
+    </canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Draw a rectangle
+        ctx.fillStyle = "blue";
+        ctx.fillRect(50, 50, 150, 100);
+
+        // Draw a circle
+        ctx.beginPath();
+        ctx.arc(300, 100, 50, 0, Math.PI * 2);
+        ctx.fillStyle = "green";
+        ctx.fill();
+
+        // Draw text
+        ctx.font = "30px Arial";
+        ctx.fillStyle = "black";
+        ctx.fillText("My Canvas Game", 170, 250);
+    </script>
+
+</body>
+</html>
