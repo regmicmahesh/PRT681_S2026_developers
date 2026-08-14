@@ -5,12 +5,12 @@ using System.Text;
 
 namespace StudentResultSystem.ScoreCalculators
 {
-    internal class AssessmentScoreCalculator : IScoreCalculator
+    internal class AssignmentScoreCalculator : IScoreCalculator
     {
-        public decimal CalculateScore(decimal markObtained)
+        public decimal CalculateScore(decimal obtainedMark)
         {
             decimal totalMark = 40m;
-            return markObtained / totalMark * 100m;
+            return ((obtainedMark / totalMark)*100m);
         }
     }
 }

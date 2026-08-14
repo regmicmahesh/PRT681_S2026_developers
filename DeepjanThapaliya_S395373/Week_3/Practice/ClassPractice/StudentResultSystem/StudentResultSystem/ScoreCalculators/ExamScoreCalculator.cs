@@ -10,7 +10,7 @@ namespace StudentResultSystem.ScoreCalculators
         public decimal CalculateScore(decimal obtainedMark)
         {
             decimal totalMark = 400m;
-            return obtainedMark / totalMark * 100m;
+            return ((obtainedMark / totalMark)*100m);
         }
     }
 }

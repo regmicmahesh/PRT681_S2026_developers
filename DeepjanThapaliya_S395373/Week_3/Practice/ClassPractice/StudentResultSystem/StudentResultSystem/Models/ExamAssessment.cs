@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentResultSystem.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,16 +7,18 @@ namespace StudentResultSystem.Models
 {
     internal class ExamAssessment:Assessment
     {
-        public decimal obtainedMark { get; private set; }
+        public decimal ObtainedMark { get; private set; }
+        private readonly IScoreCalculator _scoreCalculator;
 
-        public ExamAssessment(string name, decimal mark): base(name)
+        public ExamAssessment(string name, decimal mark, IScoreCalculator scoreCalculator): base(name)
         {
-            obtainedMark = mark;
+            ObtainedMark = mark;
+            _scoreCalculator = scoreCalculator;
         }
 
         public override decimal Score()
         {
-            return obtainedMark;
+            return _scoreCalculator.CalculateScore(ObtainedMark);
         }
     }
 }
