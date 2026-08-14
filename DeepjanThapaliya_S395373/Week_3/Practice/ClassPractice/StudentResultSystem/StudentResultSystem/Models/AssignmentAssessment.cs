@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using StudentResultSystem.ScoreCalculators;
 
 namespace StudentResultSystem.Models
 {
     internal class AssignmentAssessment:Assessment
     {
-        public decimal ObtainedMark { get; private set; }
+        public decimal TotalObtainedMark { get; private set; }
 
         public AssignmentAssessment(string name, decimal mark) : base(name)
         {
-            ObtainedMark = mark;
+            TotalObtainedMark = mark;
         }
 
         public override decimal Score()
         {
-            return ObtainedMark;
+            
+            return TotalObtainedMark;
         }
     }
 }
