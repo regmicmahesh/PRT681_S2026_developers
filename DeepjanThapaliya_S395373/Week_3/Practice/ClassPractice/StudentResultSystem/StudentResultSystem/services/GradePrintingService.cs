@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+using StudentResultSystem.Interfaces;
+using StudentResultSystem.ScoreCalculators;
 namespace StudentResultSystem.services
 {
     internal class GradePrintingService
@@ -13,21 +14,17 @@ namespace StudentResultSystem.services
         {
             _assessment = accessment;
         }
-
+        
         public void printGrade()
         {
-            Console.WriteLine($"Student name: {_assessment.examinerName}");
+            
+            Console.WriteLine($"Student name: {_assessment.StudentName}");
 
             decimal totalScore = _assessment.Score();
             Console.WriteLine($"Score: {totalScore:F2}");
-            if (totalScore > 80)
-            {
-                Console.WriteLine($"Grade: A");
-            }else if(totalScore > 60 && totalScore < 80)
-            {
-                Console.WriteLine($"Grade: B");
-            }else Console.WriteLine($"Grade: F");
+            GradeCalculator gradeCalculator = new GradeCalculator(totalScore);
 
+            Console.WriteLine(gradeCalculator.CalculateGrade());
             Console.WriteLine();
         }
     }
