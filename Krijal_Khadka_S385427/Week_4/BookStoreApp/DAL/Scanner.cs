@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BookStoreApp.DAL;
 
-public class Printer
+public class Scanner
 {
     public int Id { get; set; }
 
@@ -10,8 +10,8 @@ public class Printer
     public string Name { get; set; } = string.Empty;
 
     [Required]
-    public string Brand { get; set; } = string.Empty;
+    public string Model { get; set; } = string.Empty;
 
     [Required]
-    public string Model { get; set; } = string.Empty;
+    public string Brand { get; set; } = string.Empty;
 }
