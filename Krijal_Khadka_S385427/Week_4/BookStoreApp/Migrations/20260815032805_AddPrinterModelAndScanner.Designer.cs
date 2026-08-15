@@ -3,6 +3,7 @@ using BookStoreApp.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookStoreApp.Migrations
 {
     [DbContext(typeof(EfBookStoreContext))]
-    partial class EfBookStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20260815032805_AddPrinterModelAndScanner")]
+    partial class AddPrinterModelAndScanner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
