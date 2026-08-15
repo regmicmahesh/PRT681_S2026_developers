@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
@@ -54,19 +55,36 @@ if (app.Environment.IsDevelopment())
         await roleManager.CreateAsync(new IdentityRole(Roles.Member));
     }
 }
-
-RegisterUser.MapEndPoint(app);
-LoginUser.MapEndpoint(app);
-
-app.MapGet("me", (ClaimsPrincipal claimsPrincipal) =>
-{
-    return Results.Ok(claimsPrincipal.Claims.ToDictionary(c => c.Type, c => c.Value));
-}).RequireAuthorization(policy => policy.RequireRole(Roles.Member));
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+RegisterUser.MapEndPoint(app);
+LoginUser.MapEndpoint(app);
+
+app.MapGet("me", (ClaimsPrincipal user) =>
+{
+    var userId = user.FindFirstValue(ClaimTypes.NameIdentifier)
+                 ?? user.FindFirstValue(JwtRegisteredClaimNames.Sub);
+    var email = user.FindFirstValue(ClaimTypes.Email)
+                ?? user.FindFirstValue(JwtRegisteredClaimNames.Email);
+
+    var roles = user.FindAll(ClaimTypes.Role).Select(c => c.Value).ToList();
+
+    //var allClaims = user.Claims
+    //    .GroupBy(c => c.Type)
+    //    .ToDictionary(g => g.Key, g => g.Select(c => c.Value).ToArray());
+
+    return Results.Ok(new
+    {
+        UserId = userId,
+        Email = email,
+        Roles = roles,
+        //AllClaims = allClaims
+    });
+}).RequireAuthorization(policy => policy.RequireRole(Roles.Member));
+
 
 app.Run();
 
