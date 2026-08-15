@@ -1,6 +1,8 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var usersDb = builder.AddPostgres("database")
+var pgPassword = builder.AddParameter("postgres-password", secret: true);
+
+var usersDb = builder.AddPostgres("database", password: pgPassword)
     .WithLifetime(ContainerLifetime.Persistent)
     .WithHostPort(5432)
     .AddDatabase("users-db");
