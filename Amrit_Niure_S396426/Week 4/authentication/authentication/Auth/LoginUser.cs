@@ -1,5 +1,6 @@
 ﻿using authentication.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
@@ -10,7 +11,7 @@ namespace authentication.Auth
     public static class LoginUser
     {
         public record Request(string Email, string Password);
-        public static void MapEndpoint(IEndpointRouteBuilder app)
+        public static void MapEndpoint(IEndpointRouteBuilder app, ApplicationDbContext dbContext)
         {
             app.MapPost("/login", async (Request request, UserManager<ApplicationUser> userManager, IConfiguration configuration) =>
             {
@@ -25,10 +26,21 @@ namespace authentication.Auth
 
                 var credentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
+                var permissions = await (from role in dbContext.Roles
+                                         join claim in dbContext.RoleClaims
+                                         on role.Id equals claim.RoleId
+                                         where roles.Contains(role.Name!)
+                                         && claim.ClaimType == CustomClaimTypes.Permission
+                                         select claim.ClaimValue)
+                                         .Distinct()
+                                         .ToArrayAsync();
+
+
                 List<Claim> claims = [
                     new(JwtRegisteredClaimNames.Sub, user.Id),
                     new(JwtRegisteredClaimNames.Email, user.Email!),
-                    ..roles.Select(r => new Claim(ClaimTypes.Role, r))
+                    ..roles.Select(r => new Claim(ClaimTypes.Role, r)),
+                    ..permissions.Select(p => new Claim(CustomClaimTypes.Permission, p))
                     ];
 
                 var tokenDescriptor = new SecurityTokenDescriptor
