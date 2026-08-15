@@ -1,3 +1,4 @@
+using authentication.Auth;
 using authentication.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,8 @@ if (app.Environment.IsDevelopment())
         await roleManager.CreateAsync(new IdentityRole(Roles.Member));
     }
 }
+
+RegisterUser.MapEndPoint(app);
 
 app.UseHttpsRedirection();
 
