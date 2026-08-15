@@ -13,6 +13,13 @@ builder.Services.AddDbContext<EfBookStoreContext>(options =>
             "EfDbconnectionString")));
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider
+        .GetRequiredService<EfBookStoreContext>();
+
+    DbInitializer.Seed(context);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
