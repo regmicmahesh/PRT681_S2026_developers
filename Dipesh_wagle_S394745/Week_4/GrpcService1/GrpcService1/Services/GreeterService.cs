@@ -4,7 +4,7 @@ namespace GrpcService1.Services
 {
     public class GreeterService(ILogger<GreeterService> logger) : Greeter.GreeterBase
     {
-        public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
+        public override Task<HelloReply> SayHello(HelloRequest request,  ServerCallContext context)
         {
             logger.LogInformation("The message is received from {Name}", request.Name);
 
