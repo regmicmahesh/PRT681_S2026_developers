@@ -24,3 +24,14 @@ public class PermissionAuthorizationRequirement(params string[] allowedPermissio
         return Task.CompletedTask;
     }
 }
+
+
+public static class PermissionExtensions
+{
+    public static void RequirePermission(
+        this AuthorizationPolicyBuilder builder,
+        params string[] allowedPermissions)
+    {
+        builder.AddRequirements(new PermissionAuthorizationRequirement(allowedPermissions));
+    }
+}

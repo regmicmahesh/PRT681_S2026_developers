@@ -74,7 +74,7 @@ app.MapGet("me", (ClaimsPrincipal user) =>
         Roles = roles,
         //AllClaims = allClaims
     });
-}).RequireAuthorization(policy => policy.RequireRole(Roles.Member));
+}).RequireAuthorization(policy => policy.RequirePermission(Permissions.UsersDelete));
 
 
 app.Run();
