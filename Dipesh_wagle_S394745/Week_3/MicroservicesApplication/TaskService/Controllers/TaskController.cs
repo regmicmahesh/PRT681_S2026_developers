@@ -7,7 +7,7 @@ using TaskService.Repositories;
 
 namespace TaskService.Controllers;
 
-//[Authorize]
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class TaskController : ControllerBase
