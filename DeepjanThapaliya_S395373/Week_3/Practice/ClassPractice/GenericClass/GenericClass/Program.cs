@@ -1,12 +1,27 @@
 ﻿
-PrintItem("Deepjan");
-PrintItem(28);
-PrintItem(700m);
-PrintItem(true);
-static void PrintItem <T>( T item)
+
+String name = ReturnSameValue("Deepjan");
+int age = ReturnSameValue(28);
+decimal salary = ReturnSameValue(700m);
+
+Console.WriteLine(name);
+Console.WriteLine(age);
+Console.WriteLine(salary);
+static T ReturnSameValue<T> (T value)
 {
-    Console.WriteLine($"Item: {item}");
+    return value;
 }
+
+
+
+//PrintItem("Deepjan");
+//PrintItem(28);
+//PrintItem(700m);
+//PrintItem(true);
+//static void PrintItem <T>( T item)
+//{
+//    Console.WriteLine($"Item: {item}");
+//}
 
 
 
