@@ -22,7 +22,7 @@ public static class Extensions
         var memberRole = await roleManager.FindByNameAsync(Roles.Member);
         if (memberRole is null)
         {
-            await roleManager.CreateAsync(memberRole = new IdentityRole(Roles.Admin));
+            await roleManager.CreateAsync(memberRole = new IdentityRole(Roles.Member));
             await roleManager.AddClaimAsync(memberRole, new Claim(CustomClaimTypes.Permission, Permissions.UsersRead));
             await roleManager.AddClaimAsync(memberRole, new Claim(CustomClaimTypes.Permission, Permissions.UsersUpdate));
         }
