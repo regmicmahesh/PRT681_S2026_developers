@@ -4,7 +4,7 @@ var pgPassword = builder.AddParameter("postgres-password", secret: true);
 
 var usersDb = builder.AddPostgres("database", password: pgPassword)
     .WithLifetime(ContainerLifetime.Persistent)
-    .WithHostPort(5432)
+    .WithHostPort(5434)
     .AddDatabase("users-db");
 
 builder.AddProject<Projects.authentication>("authentication-api")
