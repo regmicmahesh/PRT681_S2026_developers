@@ -9,8 +9,9 @@ namespace authentication.Auth
 
         public static void MapEndPoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("register", async (Request request, UserManager<ApplicationUser> userManager) =>
+            app.MapPost("register", async (Request request, UserManager<ApplicationUser> userManager, ApplicationDbContext dbContext) =>
             {
+                using var transaction = await dbContext.Database.BeginTransactionAsync();
                 var user = new ApplicationUser
                 {
                     UserName = request.Email,
@@ -23,12 +24,13 @@ namespace authentication.Auth
                 {
                     return Results.BadRequest(identityResult.Errors);
                 }
-                IdentityResult addToRoleResult = await userManager.AddToRoleAsync(user, request.Password);
+                IdentityResult addToRoleResult = await userManager.AddToRoleAsync(user, Roles.Member);
                 if (!addToRoleResult.Succeeded)
                 {
                     return Results.BadRequest(addToRoleResult.Errors);
                 }
-                return Results.Ok();
+                await transaction.CommitAsync();
+                return Results.Ok(user);
             });
         }
     }

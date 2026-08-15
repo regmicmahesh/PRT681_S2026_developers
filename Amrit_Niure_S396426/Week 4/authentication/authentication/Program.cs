@@ -38,7 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 RegisterUser.MapEndPoint(app);
-
+LoginUser.MapEndpoint(app);
 app.UseHttpsRedirection();
 
 app.Run();
