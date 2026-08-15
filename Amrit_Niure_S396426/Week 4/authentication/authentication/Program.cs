@@ -1,4 +1,5 @@
 using authentication.Auth;
+using authentication.Authorization;
 using authentication.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -41,19 +42,9 @@ app.MapDefaultEndpoints();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    using var scope = app.Services.CreateScope();
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.Migrate();
+    await app.ApplyMigrations();
+    await app.SeedRolesAndPermissions();
 
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    if (!await roleManager.RoleExistsAsync(Roles.Admin))
-    {
-        await roleManager.CreateAsync(new IdentityRole(Roles.Admin));
-    }
-    if (!await roleManager.RoleExistsAsync(Roles.Member))
-    {
-        await roleManager.CreateAsync(new IdentityRole(Roles.Member));
-    }
 }
 app.UseHttpsRedirection();
 
