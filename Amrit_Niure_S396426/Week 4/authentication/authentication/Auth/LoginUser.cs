@@ -11,9 +11,9 @@ namespace authentication.Auth
     public static class LoginUser
     {
         public record Request(string Email, string Password);
-        public static void MapEndpoint(IEndpointRouteBuilder app, ApplicationDbContext dbContext)
+        public static void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("/login", async (Request request, UserManager<ApplicationUser> userManager, IConfiguration configuration) =>
+            app.MapPost("/login", async (Request request, UserManager<ApplicationUser> userManager, IConfiguration configuration, ApplicationDbContext dbContext) =>
             {
                 var user = await userManager.FindByEmailAsync(request.Email);
                 if (user is null || !await userManager.CheckPasswordAsync(user, request.Password))
