@@ -1,7 +1,11 @@
 using authentication.Auth;
 using authentication.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters.ValidIssuer = builder.Configuration["Jwt:Issuer"];
+        options.TokenValidationParameters.ValidAudience = builder.Configuration["Jwt:Audience"];
+        options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!));
+    });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -39,7 +57,16 @@ if (app.Environment.IsDevelopment())
 
 RegisterUser.MapEndPoint(app);
 LoginUser.MapEndpoint(app);
+
+app.MapGet("me", (ClaimsPrincipal claimsPrincipal) =>
+{
+    return Results.Ok(claimsPrincipal.Claims.ToDictionary(c => c.Type, c => c.Value));
+}).RequireAuthorization(policy => policy.RequireRole(Roles.Member));
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
 
