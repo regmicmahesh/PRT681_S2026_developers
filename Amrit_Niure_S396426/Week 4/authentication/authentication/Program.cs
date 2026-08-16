@@ -66,7 +66,7 @@ RegisterUser.MapEndPoint(app);
 LoginUser.MapEndpoint(app);
 RefreshTokenEndpoint.MapEndpoint(app);
 LogoutUser.MapEndpoint(app);
-UpdateUser.MapEndpoint(app);
+UsersApi.MapEndpoints(app);
 
 app.MapGet("me", (ClaimsPrincipal user) =>
 {
@@ -88,7 +88,7 @@ app.MapGet("me", (ClaimsPrincipal user) =>
         Roles = roles,
         //AllClaims = allClaims
     });
-}).RequireAuthorization(policy => policy.RequirePermission(Permissions.UsersDelete));
+}).RequireAuthorization();
 
 
 app.Run();

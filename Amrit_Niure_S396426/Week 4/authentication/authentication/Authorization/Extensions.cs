@@ -24,8 +24,11 @@ public static class Extensions
         var (memberRole, memberCreated) = await EnsureRoleAsync(roleManager, Roles.Member);
         if (memberCreated)
         {
-            await roleManager.AddClaimAsync(memberRole, new Claim(CustomClaimTypes.Permission, Permissions.UsersRead));
-            await roleManager.AddClaimAsync(memberRole, new Claim(CustomClaimTypes.Permission, Permissions.UsersUpdate));
+            // Deliberately no user:read/user:update here - a Member's access to their own record
+            // comes from SameUserOrPermissionRequirement (ownership), not a permission grant.
+            // Only actions on other people's data, or product-specific capabilities, need a permission.
+            await roleManager.AddClaimAsync(memberRole, new Claim(CustomClaimTypes.Permission, Permissions.JobApply));
+            await roleManager.AddClaimAsync(memberRole, new Claim(CustomClaimTypes.Permission, Permissions.JobView));
         }
     }
 
