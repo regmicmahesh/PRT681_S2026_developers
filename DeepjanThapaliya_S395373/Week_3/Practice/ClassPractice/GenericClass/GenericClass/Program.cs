@@ -1,16 +1,43 @@
 ﻿
+Result<string> nameResult = new (true, "Name loaded successfully","Deepjan");
 
-String name = ReturnSameValue("Deepjan");
-int age = ReturnSameValue(28);
-decimal salary = ReturnSameValue(700m);
+Result<int> ageResult = new(true, "Age loaded successfully", 28);
 
-Console.WriteLine(name);
-Console.WriteLine(age);
-Console.WriteLine(salary);
-static T ReturnSameValue<T> (T value)
+nameResult.ShowResult();
+ageResult.ShowResult();
+public class Result<T>
 {
-    return value;
+    public bool IsSuccess { get; private set; }
+    public string Message { get; private set; }
+    public T Data { get; private set; }
+    public Result(bool isSuccess, string message, T data)
+    {
+        IsSuccess = isSuccess;
+        Message = message;
+        Data = data;
+    }
+
+    public void ShowResult()
+    {
+        Console.WriteLine($"Success: {IsSuccess}");
+        Console.WriteLine($"Message: {Message}");
+        Console.WriteLine($"Data: {Data}");
+        Console.WriteLine();
+    }
+
 }
+
+//String name = ReturnSameValue("Deepjan");
+//int age = ReturnSameValue(28);
+//decimal salary = ReturnSameValue(700m);
+
+//Console.WriteLine(name);
+//Console.WriteLine(age);
+//Console.WriteLine(salary);
+//static T ReturnSameValue<T> (T value)
+//{
+//    return value;
+//}
 
 
 
