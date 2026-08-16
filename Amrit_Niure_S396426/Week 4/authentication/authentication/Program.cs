@@ -34,8 +34,14 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]!));
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationHandler, SameUserOrPermissionAuthorizationHandler>();
 builder.Services.AddScoped<RefreshTokenService>();
 
 var app = builder.Build();
@@ -44,10 +50,12 @@ app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    await app.ApplyMigrations();
+    app.MapOpenApi().AllowAnonymous();
+}
+await app.ApplyMigrations();
+if (app.Configuration.GetValue<bool>("Seeding:Enabled"))
+{
     await app.SeedRolesAndPermissions();
-
 }
 app.UseHttpsRedirection();
 
@@ -58,6 +66,7 @@ RegisterUser.MapEndPoint(app);
 LoginUser.MapEndpoint(app);
 RefreshTokenEndpoint.MapEndpoint(app);
 LogoutUser.MapEndpoint(app);
+UpdateUser.MapEndpoint(app);
 
 app.MapGet("me", (ClaimsPrincipal user) =>
 {

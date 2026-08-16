@@ -11,13 +11,13 @@ namespace authentication.Auth
         {
             app.MapPost("/refresh", async (Request request, RefreshTokenService refreshTokenService, UserManager<ApplicationUser> userManager, IConfiguration configuration, ApplicationDbContext dbContext) =>
             {
-                var rotation = await refreshTokenService.ValidateAndRotateAsync(request.RefreshToken);
-                if (!rotation.Success || rotation.UserId is null || rotation.NewRawToken is null)
+                var validation = await refreshTokenService.ValidateAsync(request.RefreshToken);
+                if (!validation.Success || validation.UserId is null)
                 {
                     return Results.Unauthorized();
                 }
 
-                var user = await userManager.FindByIdAsync(rotation.UserId);
+                var user = await userManager.FindByIdAsync(validation.UserId);
                 if (user is null)
                 {
                     return Results.Unauthorized();
@@ -27,8 +27,8 @@ namespace authentication.Auth
                 var permissions = await PermissionResolver.GetPermissionsForRolesAsync(dbContext, roles);
                 var accessToken = JwtTokenFactory.CreateAccessToken(user, roles, permissions, configuration);
 
-                return Results.Ok(new { AccessToken = accessToken, RefreshToken = rotation.NewRawToken });
-            });
+                return Results.Ok(new { AccessToken = accessToken });
+            }).AllowAnonymous();
         }
     }
 }

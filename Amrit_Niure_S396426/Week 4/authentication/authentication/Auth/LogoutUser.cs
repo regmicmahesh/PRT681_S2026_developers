@@ -14,7 +14,7 @@ namespace authentication.Auth
             {
                 await refreshTokenService.RevokeAsync(request.RefreshToken);
                 return Results.NoContent();
-            });
+            }).AllowAnonymous();
         }
     }
 }

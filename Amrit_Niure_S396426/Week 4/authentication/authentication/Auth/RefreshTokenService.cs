@@ -5,7 +5,7 @@ using System.Text;
 
 namespace authentication.Auth;
 
-public sealed record RefreshRotationResult(bool Success, string? UserId, string? NewRawToken);
+public sealed record RefreshValidationResult(bool Success, string? UserId);
 
 public sealed class RefreshTokenService(ApplicationDbContext dbContext, IConfiguration configuration)
 {
@@ -31,33 +31,18 @@ public sealed class RefreshTokenService(ApplicationDbContext dbContext, IConfigu
         return (entity, rawToken);
     }
 
-    public async Task<RefreshRotationResult> ValidateAndRotateAsync(string rawToken, CancellationToken ct = default)
+    // No rotation: the same refresh token remains valid (and reusable to mint new access tokens)
+    // until it naturally expires or is revoked via /logout. Simpler client contract, less server
+    // state to manage - add rotation/reuse-detection later if there's an actual need to defend
+    // against refresh-token theft.
+    public async Task<RefreshValidationResult> ValidateAsync(string rawToken, CancellationToken ct = default)
     {
         var hash = Hash(rawToken);
         var existing = await dbContext.RefreshTokens.SingleOrDefaultAsync(x => x.TokenHash == hash, ct);
 
-        if (existing is null)
-        {
-            return new RefreshRotationResult(false, null, null);
-        }
-
-        if (!existing.IsActive)
-        {
-            // Reuse of a revoked/expired token is a signal of possible theft — revoke everything for this user.
-            if (existing.RevokedAtUtc is not null)
-            {
-                await RevokeAllForUserAsync(existing.UserId, ct);
-            }
-
-            return new RefreshRotationResult(false, null, null);
-        }
-
-        existing.RevokedAtUtc = DateTime.UtcNow;
-        var (newEntity, newRawToken) = await IssueAsync(existing.UserId, ct);
-        existing.ReplacedByTokenHash = newEntity.TokenHash;
-        await dbContext.SaveChangesAsync(ct);
-
-        return new RefreshRotationResult(true, existing.UserId, newRawToken);
+        return existing is not null && existing.IsActive
+            ? new RefreshValidationResult(true, existing.UserId)
+            : new RefreshValidationResult(false, null);
     }
 
     public async Task RevokeAsync(string rawToken, CancellationToken ct = default)
@@ -69,13 +54,5 @@ public sealed class RefreshTokenService(ApplicationDbContext dbContext, IConfigu
             existing.RevokedAtUtc = DateTime.UtcNow;
             await dbContext.SaveChangesAsync(ct);
         }
-    }
-
-    public async Task RevokeAllForUserAsync(string userId, CancellationToken ct = default)
-    {
-        var now = DateTime.UtcNow;
-        await dbContext.RefreshTokens
-            .Where(x => x.UserId == userId && x.RevokedAtUtc == null)
-            .ExecuteUpdateAsync(setters => setters.SetProperty(x => x.RevokedAtUtc, now), ct);
     }
 }

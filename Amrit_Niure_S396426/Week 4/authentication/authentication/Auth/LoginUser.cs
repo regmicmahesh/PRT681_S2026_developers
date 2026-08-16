@@ -22,7 +22,7 @@ namespace authentication.Auth
                 var (_, refreshToken) = await refreshTokenService.IssueAsync(user.Id);
 
                 return Results.Ok(new { AccessToken = accessToken, RefreshToken = refreshToken, User = user });
-            });
+            }).AllowAnonymous();
         }
     }
 }

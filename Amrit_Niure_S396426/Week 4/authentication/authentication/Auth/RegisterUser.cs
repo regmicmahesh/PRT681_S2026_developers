@@ -31,7 +31,7 @@ namespace authentication.Auth
                 }
                 await transaction.CommitAsync();
                 return Results.Ok(user);
-            });
+            }).AllowAnonymous();
         }
     }
 }
