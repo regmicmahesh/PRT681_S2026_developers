@@ -9,6 +9,8 @@ public sealed class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -17,6 +19,18 @@ public sealed class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         {
             entity.Property(e => e.EnableNotifications).HasDefaultValue(true);
             entity.Property(e => e.Initials).HasMaxLength(5);
+        });
+
+        builder.Entity<RefreshToken>(entity =>
+        {
+            entity.ToTable("RefreshTokens");
+            entity.Property(e => e.TokenHash).HasMaxLength(512);
+            entity.HasIndex(e => e.TokenHash).IsUnique();
+            entity.HasIndex(e => e.UserId);
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.HasDefaultSchema("identity");

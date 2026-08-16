@@ -2,6 +2,7 @@ using authentication.Auth;
 using authentication.Authorization;
 using authentication.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -34,6 +35,8 @@ builder.Services.AddAuthentication(options =>
     });
 
 builder.Services.AddAuthorization();
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+builder.Services.AddScoped<RefreshTokenService>();
 
 var app = builder.Build();
 
@@ -53,6 +56,8 @@ app.UseAuthorization();
 
 RegisterUser.MapEndPoint(app);
 LoginUser.MapEndpoint(app);
+RefreshTokenEndpoint.MapEndpoint(app);
+LogoutUser.MapEndpoint(app);
 
 app.MapGet("me", (ClaimsPrincipal user) =>
 {
