@@ -1,31 +1,55 @@
 ﻿
-Result<string> nameResult = new (true, "Name loaded successfully","Deepjan");
 
-Result<int> ageResult = new(true, "Age loaded successfully", 28);
-
-nameResult.ShowResult();
-ageResult.ShowResult();
-public class Result<T>
+static void PrintList<T>(List<T> items)
 {
-    public bool IsSuccess { get; private set; }
-    public string Message { get; private set; }
-    public T Data { get; private set; }
-    public Result(bool isSuccess, string message, T data)
+    foreach (T item in items)
     {
-        IsSuccess = isSuccess;
-        Message = message;
-        Data = data;
+        Console.WriteLine($"{item}");
     }
-
-    public void ShowResult()
-    {
-        Console.WriteLine($"Success: {IsSuccess}");
-        Console.WriteLine($"Message: {Message}");
-        Console.WriteLine($"Data: {Data}");
-        Console.WriteLine();
-    }
-
 }
+
+List<string> names = new List<string> { "Deepjan", "Alex", "Sarah" };
+List<int> ages = new List<int> { 25, 28, 30 };
+List<decimal> salaries = new List<decimal> { 4000m, 5000m, 6000m };
+
+PrintList(names);
+Console.WriteLine();
+
+PrintList(ages);
+Console.WriteLine();
+
+PrintList(salaries);
+
+
+
+
+//Result<string> nameResult = new (true, "Name loaded successfully","Deepjan");
+
+//Result<int> ageResult = new(true, "Age loaded successfully", 28);
+
+//nameResult.ShowResult();
+//ageResult.ShowResult();
+//public class Result<T>
+//{
+//    public bool IsSuccess { get; private set; }
+//    public string Message { get; private set; }
+//    public T Data { get; private set; }
+//    public Result(bool isSuccess, string message, T data)
+//    {
+//        IsSuccess = isSuccess;
+//        Message = message;
+//        Data = data;
+//    }
+
+//    public void ShowResult()
+//    {
+//        Console.WriteLine($"Success: {IsSuccess}");
+//        Console.WriteLine($"Message: {Message}");
+//        Console.WriteLine($"Data: {Data}");
+//        Console.WriteLine();
+//    }
+
+//}
 
 //String name = ReturnSameValue("Deepjan");
 //int age = ReturnSameValue(28);
