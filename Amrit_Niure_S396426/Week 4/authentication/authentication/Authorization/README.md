@@ -6,9 +6,9 @@ permission claims to a user via `SeedRolesAndPermissions` in [`Extensions.cs`](E
 are never checked directly when deciding whether a request is allowed.
 
 **Do not call `RequireRole(...)` or branch on `ClaimTypes.Role` in new authorization code.**
-`ClaimTypes.Role` claims exist in the JWT (see `Auth/LoginUser.cs`) purely for display - e.g. the
-`/me` endpoint's `Roles` field. To gate a new endpoint, add or reuse a permission constant in
-`Permissions.cs` and grant it to the relevant role in `SeedRolesAndPermissions`.
+`ClaimTypes.Role` claims exist in the JWT (see `Controllers/AuthController.cs`) purely for display -
+e.g. the `/me` endpoint's `Roles` field. To gate a new endpoint, add or reuse a permission constant
+in `Permissions.cs` and grant it to the relevant role in `SeedRolesAndPermissions`.
 
 ## Permission checks (`PermissionRequirement` / `PermissionAuthorizationHandler`)
 
@@ -16,22 +16,34 @@ are never checked directly when deciding whether a request is allowed.
 - `RequireAllPermissions("a", "b")` - caller needs every listed permission (AND).
 - `RequirePermission(...)` is a backward-compatible alias for `RequireAnyPermission`.
 
-Used inline via `RequireAuthorization(policy => policy.RequireAnyPermission(...))`.
+For controller actions that only need a plain (non-resource-based) permission check, register a
+named policy once in `Program.cs` and reference it declaratively:
+
+```csharp
+options.AddPolicy("RequireUsersRead", policy => policy.RequireAnyPermission(Permissions.UsersRead));
+```
+```csharp
+[HttpGet]
+[Authorize(Policy = "RequireUsersRead")]
+public async Task<IActionResult> GetAll() { ... }
+```
 
 ## Resource ownership (`SameUserOrPermissionRequirement` / `SameUserOrPermissionAuthorizationHandler`)
 
 For endpoints where a user should always be able to act on their own resource, but acting on
 someone else's requires an explicit permission (e.g. `GET /users/{id}` and `PUT /users/{id}` in
-`Auth/UsersApi.cs`):
+`Controllers/UsersController.cs`), attributes can't help - `[Authorize(Policy = "...")]` has no way
+to know what the `{id}` route value even is. So the action carries a plain `[Authorize]` (authenticated
+users only) and does the real check explicitly in the body:
 
 ```csharp
 var authResult = await authorizationService.AuthorizeAsync(
-    principal, targetResourceId, new SameUserOrPermissionRequirement(Permissions.UsersUpdate));
+    User, id, new SameUserOrPermissionRequirement(Permissions.UsersUpdate));
+if (!authResult.Succeeded)
+    return Forbid();
 ```
 
-This succeeds if `targetResourceId` equals the caller's own id, or if the caller holds the given
-permission. Route-level `.RequireAuthorization()` only enforces authentication here - the explicit
-`AuthorizeAsync` call inside the handler performs the actual resource-based decision.
+This succeeds if `id` equals the caller's own id, or if the caller holds the given permission.
 
 **Important**: the override permission must actually be scoped to the people who should get it.
 `Member` is deliberately never granted `user:read`/`user:update` in `SeedRolesAndPermissions` - a

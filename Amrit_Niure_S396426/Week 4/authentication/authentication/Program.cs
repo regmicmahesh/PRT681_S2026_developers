@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 builder.Services.AddOpenApi();
+builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("users-db")));
@@ -39,6 +38,13 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
         .RequireAuthenticatedUser()
         .Build();
+
+    // Named policies for the simple (non-resource-based) permission checks, used by
+    // [Authorize(Policy = "...")] on controller actions. Resource-based ownership checks (e.g.
+    // "edit your own user") can't be expressed declaratively as an attribute - those call
+    // IAuthorizationService.AuthorizeAsync explicitly inside the action instead (see UsersController).
+    options.AddPolicy("RequireUsersRead", policy => policy.RequireAnyPermission(Permissions.UsersRead));
+    options.AddPolicy("RequireUsersDelete", policy => policy.RequireAnyPermission(Permissions.UsersDelete));
 });
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, SameUserOrPermissionAuthorizationHandler>();
@@ -62,34 +68,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-RegisterUser.MapEndPoint(app);
-LoginUser.MapEndpoint(app);
-RefreshTokenEndpoint.MapEndpoint(app);
-LogoutUser.MapEndpoint(app);
-UsersApi.MapEndpoints(app);
-
-app.MapGet("me", (ClaimsPrincipal user) =>
-{
-    var userId = user.FindFirstValue(ClaimTypes.NameIdentifier)
-                 ?? user.FindFirstValue(JwtRegisteredClaimNames.Sub);
-    var email = user.FindFirstValue(ClaimTypes.Email)
-                ?? user.FindFirstValue(JwtRegisteredClaimNames.Email);
-
-    var roles = user.FindAll(ClaimTypes.Role).Select(c => c.Value).ToList();
-
-    //var allClaims = user.Claims
-    //    .GroupBy(c => c.Type)
-    //    .ToDictionary(g => g.Key, g => g.Select(c => c.Value).ToArray());
-
-    return Results.Ok(new
-    {
-        UserId = userId,
-        Email = email,
-        Roles = roles,
-        //AllClaims = allClaims
-    });
-}).RequireAuthorization();
-
+app.MapControllers();
 
 app.Run();
-
