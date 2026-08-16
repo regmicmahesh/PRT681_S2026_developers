@@ -1,0 +1,5 @@
+{
+  "appHost": {
+    "path": "Auth.AppHost/Auth.AppHost.csproj"
+  }
+}
