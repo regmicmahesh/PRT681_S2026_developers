@@ -2,12 +2,18 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace authentication.Authorization;
 
-public class PermissionAuthorizationRequirement(params string[] allowedPermissions)
+public class PermissionAuthorizationRequirement
     : AuthorizationHandler<PermissionAuthorizationRequirement>, IAuthorizationRequirement
 {
-    public string[] AllowedPermissions { get; } = allowedPermissions;
+    public string[] AllowedPermissions { get; }
+    public PermissionAuthorizationRequirement(params string[] allowedPermissions)
+    {
+        AllowedPermissions = allowedPermissions;
+    }
 
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionAuthorizationRequirement requirement)
+    protected override Task HandleRequirementAsync(
+        AuthorizationHandlerContext context,
+        PermissionAuthorizationRequirement requirement)
     {
         foreach (var permission in requirement.AllowedPermissions)
         {
@@ -21,6 +27,7 @@ public class PermissionAuthorizationRequirement(params string[] allowedPermissio
                 break;
             }
         }
+
         return Task.CompletedTask;
     }
 }
