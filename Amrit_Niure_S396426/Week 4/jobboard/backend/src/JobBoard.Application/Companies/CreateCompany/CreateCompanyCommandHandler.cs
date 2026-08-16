@@ -19,7 +19,7 @@ internal sealed class CreateCompanyCommandHandler : ICommandHandler<CreateCompan
 
     public async Task<Result<Guid>> Handle(CreateCompanyCommand command, CancellationToken cancellationToken)
     {
-        var company = new Company(Guid.NewGuid(), command.Name, new Email(command.ContactEmail));
+        var company = new Company(Guid.NewGuid(), command.Name, new Email(command.ContactEmail), command.OwnerId);
 
         _companyRepository.Add(company);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

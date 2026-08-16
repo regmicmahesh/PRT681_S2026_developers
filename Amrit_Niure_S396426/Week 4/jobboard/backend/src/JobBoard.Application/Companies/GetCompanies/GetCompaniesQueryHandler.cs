@@ -18,7 +18,7 @@ internal sealed class GetCompaniesQueryHandler : IQueryHandler<GetCompaniesQuery
         var companies = await _companyRepository.GetAllAsync(cancellationToken);
 
         IReadOnlyList<CompanyResponse> response = companies
-            .Select(company => new CompanyResponse(company.Id, company.Name, company.ContactEmail.Value))
+            .Select(company => new CompanyResponse(company.Id, company.Name, company.ContactEmail.Value, company.OwnerId))
             .ToList();
 
         return Result.Success(response);

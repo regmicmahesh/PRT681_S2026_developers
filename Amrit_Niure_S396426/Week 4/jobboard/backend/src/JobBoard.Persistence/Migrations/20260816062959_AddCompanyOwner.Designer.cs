@@ -3,6 +3,7 @@ using System;
 using JobBoard.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobBoard.Persistence.Migrations
 {
     [DbContext(typeof(JobBoardDbContext))]
-    partial class JobBoardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260816062959_AddCompanyOwner")]
+    partial class AddCompanyOwner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.19");

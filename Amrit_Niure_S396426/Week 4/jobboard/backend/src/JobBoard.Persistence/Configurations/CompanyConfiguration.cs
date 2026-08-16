@@ -16,6 +16,12 @@ internal sealed class CompanyConfiguration : IEntityTypeConfiguration<Company>
             .HasMaxLength(200)
             .IsRequired();
 
+        builder.Property(c => c.OwnerId)
+            .HasMaxLength(450)
+            .IsRequired();
+
+        builder.HasIndex(c => c.OwnerId);
+
         builder.OwnsOne(c => c.ContactEmail, email =>
         {
             email.Property(e => e.Value)

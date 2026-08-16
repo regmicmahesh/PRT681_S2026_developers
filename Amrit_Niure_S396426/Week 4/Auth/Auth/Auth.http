@@ -1,6 +1,72 @@
 @Auth_HostAddress = http://localhost:5118
 
-GET {{Auth_HostAddress}}/weatherforecast/
-Accept: application/json
+### Register a JobSeeker
+POST {{Auth_HostAddress}}/register
+Content-Type: application/json
 
-###
+{
+  "email": "jobseeker@example.com",
+  "initials": "JS",
+  "password": "P@ssw0rd!",
+  "role": "JobSeeker"
+}
+
+### Login
+POST {{Auth_HostAddress}}/login
+Content-Type: application/json
+
+{
+  "email": "jobseeker@example.com",
+  "password": "P@ssw0rd!"
+}
+
+### Refresh access token
+POST {{Auth_HostAddress}}/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Logout (revoke refresh token)
+POST {{Auth_HostAddress}}/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Current user
+GET {{Auth_HostAddress}}/me
+Authorization: Bearer {{accessToken}}
+
+### List users (Admin only - RequireUsersRead policy)
+GET {{Auth_HostAddress}}/users
+Authorization: Bearer {{accessToken}}
+
+### Get user by id (self or user:read permission)
+GET {{Auth_HostAddress}}/users/{{userId}}
+Authorization: Bearer {{accessToken}}
+
+### Update user (self or user:update permission)
+PUT {{Auth_HostAddress}}/users/{{userId}}
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "initials": "AB",
+  "enableNotifications": true
+}
+
+### Assign role (Admin only - RequireUsersManageRoles policy)
+PUT {{Auth_HostAddress}}/users/{{userId}}/role
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "role": "Employer"
+}
+
+### Delete user (Admin only - RequireUsersDelete policy)
+DELETE {{Auth_HostAddress}}/users/{{userId}}
+Authorization: Bearer {{accessToken}}
