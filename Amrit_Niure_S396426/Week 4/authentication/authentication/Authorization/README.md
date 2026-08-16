@@ -1,9 +1,15 @@
 # Authorization conventions
 
 This app uses **permission claims**, not roles, as the sole authorization signal. Roles
-(`Roles.Admin`, `Roles.Member`) are only a grouping mechanism used at seed time to grant a set of
-permission claims to a user via `SeedRolesAndPermissions` in [`Extensions.cs`](Extensions.cs) - they
-are never checked directly when deciding whether a request is allowed.
+(`Roles.Admin`, `Roles.JobSeeker`, `Roles.Employer`, `Roles.Recruiter`) are only a grouping
+mechanism used at seed time to grant a set of permission claims to a user via
+`SeedRolesAndPermissions` in [`Extensions.cs`](Extensions.cs) - they are never checked directly
+when deciding whether a request is allowed. The full role -> permission matrix lives in the
+`RolePermissions` dictionary in that same file.
+
+A user gets exactly one role, chosen at `POST /register` from `Roles.SelfRegisterable`
+(`JobSeeker`, `Employer`, `Recruiter`). `Admin` is never self-service - it's seeded, or granted
+later by an existing Admin via `PUT /users/{id}/role` (gated behind `user:manage-roles`).
 
 **Do not call `RequireRole(...)` or branch on `ClaimTypes.Role` in new authorization code.**
 `ClaimTypes.Role` claims exist in the JWT (see `Controllers/AuthController.cs`) purely for display -
@@ -46,7 +52,21 @@ if (!authResult.Succeeded)
 This succeeds if `id` equals the caller's own id, or if the caller holds the given permission.
 
 **Important**: the override permission must actually be scoped to the people who should get it.
-`Member` is deliberately never granted `user:read`/`user:update` in `SeedRolesAndPermissions` - a
-Member's access to their own record comes entirely from the ownership check, not a permission
-claim. If `user:update` were handed out broadly (e.g. to every Member), the permission branch would
-succeed for everyone and the ownership boundary would be a no-op in practice.
+None of `JobSeeker`, `Employer`, or `Recruiter` are ever granted `user:read`/`user:update` in
+`SeedRolesAndPermissions` - their access to their own record comes entirely from the ownership
+check, not a permission claim. If `user:update` were handed out broadly (e.g. to every JobSeeker),
+the permission branch would succeed for everyone and the ownership boundary would be a no-op in
+practice.
+
+## Roles and their permissions
+
+| Role | Permissions |
+| --- | --- |
+| `Admin` | `user:read`, `user:update`, `user:delete`, `user:manage-roles`, `job:create`, `job:read`, `job:update`, `job:delete`, `application:read-any`, `application:manage`, `candidate:search` |
+| `JobSeeker` | `job:read`, `job:apply`, `application:read-own` |
+| `Employer` | `job:create`, `job:read`, `job:update`, `job:delete`, `application:read-any`, `application:manage` |
+| `Recruiter` | `job:create`, `job:read`, `job:update`, `application:read-any`, `application:manage`, `candidate:search` |
+
+The `job:*`, `application:*`, and `candidate:*` permissions are issued as claims by this service
+but enforced by whichever downstream service owns that domain - this auth service has no Jobs or
+Applications controllers of its own.

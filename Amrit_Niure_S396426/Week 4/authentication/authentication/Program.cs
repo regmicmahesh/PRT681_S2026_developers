@@ -45,6 +45,7 @@ builder.Services.AddAuthorization(options =>
     // IAuthorizationService.AuthorizeAsync explicitly inside the action instead (see UsersController).
     options.AddPolicy("RequireUsersRead", policy => policy.RequireAnyPermission(Permissions.UsersRead));
     options.AddPolicy("RequireUsersDelete", policy => policy.RequireAnyPermission(Permissions.UsersDelete));
+    options.AddPolicy("RequireUsersManageRoles", policy => policy.RequireAnyPermission(Permissions.UsersManageRoles));
 });
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, SameUserOrPermissionAuthorizationHandler>();

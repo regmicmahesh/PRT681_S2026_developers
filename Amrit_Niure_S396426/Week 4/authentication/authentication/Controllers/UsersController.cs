@@ -15,9 +15,11 @@ public class UsersController(
     IAuthorizationService authorizationService) : ControllerBase
 {
     public record UpdateRequest(string? Initials, bool? EnableNotifications);
+    public record AssignRoleRequest(string Role);
 
     // List is not a single owned resource, so it's a plain permission check - Admin only
-    // (Members hold no user:* permission; their own record is reachable via GET /users/{id}).
+    // (JobSeeker/Employer/Recruiter hold no user:* permission; their own record is reachable via
+    // GET /users/{id}).
     [HttpGet]
     [Authorize(Policy = "RequireUsersRead")]
     public async Task<IActionResult> GetAll()
@@ -88,5 +90,34 @@ public class UsersController(
 
         var result = await userManager.DeleteAsync(user);
         return result.Succeeded ? NoContent() : BadRequest(result.Errors);
+    }
+
+    // Role reassignment (including granting Admin) is deliberately its own Admin-only, permission-
+    // gated endpoint rather than something exposed via Update - it changes what a user is *allowed
+    // to do*, not their profile data, so it needs a stricter, explicitly audited boundary.
+    [HttpPut("{id}/role")]
+    [Authorize(Policy = "RequireUsersManageRoles")]
+    public async Task<IActionResult> AssignRole(string id, AssignRoleRequest request)
+    {
+        if (!Roles.All.Contains(request.Role))
+        {
+            return BadRequest(new { Error = $"Unknown role '{request.Role}'." });
+        }
+
+        var user = await userManager.FindByIdAsync(id);
+        if (user is null)
+        {
+            return NotFound();
+        }
+
+        var currentRoles = await userManager.GetRolesAsync(user);
+        var removeResult = await userManager.RemoveFromRolesAsync(user, currentRoles);
+        if (!removeResult.Succeeded)
+        {
+            return BadRequest(removeResult.Errors);
+        }
+
+        var addResult = await userManager.AddToRoleAsync(user, request.Role);
+        return addResult.Succeeded ? NoContent() : BadRequest(addResult.Errors);
     }
 }

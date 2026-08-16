@@ -15,7 +15,7 @@ public class AuthController(
     ApplicationDbContext dbContext,
     RefreshTokenService refreshTokenService) : ControllerBase
 {
-    public record RegisterRequest(string Email, string Initials, string Password, bool EnableNotifications = false);
+    public record RegisterRequest(string Email, string Initials, string Password, string Role, bool EnableNotifications = false);
     public record LoginRequest(string Email, string Password);
     public record RefreshRequest(string RefreshToken);
     public record LogoutRequest(string RefreshToken);
@@ -24,6 +24,13 @@ public class AuthController(
     [AllowAnonymous]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
+        // Admin is never self-service - it's seeded, or granted later by an existing Admin via
+        // PUT /users/{id}/role. Anyone could otherwise mint themselves an administrator at signup.
+        if (!Roles.SelfRegisterable.Contains(request.Role))
+        {
+            return BadRequest(new { Error = $"Role must be one of: {string.Join(", ", Roles.SelfRegisterable)}" });
+        }
+
         using var transaction = await dbContext.Database.BeginTransactionAsync();
         var user = new ApplicationUser
         {
@@ -39,7 +46,7 @@ public class AuthController(
             return BadRequest(identityResult.Errors);
         }
 
-        var addToRoleResult = await userManager.AddToRoleAsync(user, Roles.Member);
+        var addToRoleResult = await userManager.AddToRoleAsync(user, request.Role);
         if (!addToRoleResult.Succeeded)
         {
             return BadRequest(addToRoleResult.Errors);

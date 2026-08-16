@@ -7,28 +7,78 @@ namespace authentication.Authorization;
 // See Authorization/README.md for the full permission-based authorization convention this seeds into.
 public static class Extensions
 {
+    // Role -> permission matrix. Deliberately excludes user:read/user:update for every non-Admin
+    // role - a caller's access to their own user record comes from SameUserOrPermissionRequirement
+    // (ownership), not a permission grant. See Authorization/README.md.
+    private static readonly IReadOnlyDictionary<string, string[]> RolePermissions = new Dictionary<string, string[]>
+    {
+        // Full control: user administration plus every job-board capability.
+        [Roles.Admin] =
+        [
+            Permissions.UsersRead,
+            Permissions.UsersUpdate,
+            Permissions.UsersDelete,
+            Permissions.UsersManageRoles,
+            Permissions.JobCreate,
+            Permissions.JobRead,
+            Permissions.JobUpdate,
+            Permissions.JobDelete,
+            Permissions.ApplicationReadAny,
+            Permissions.ApplicationManage,
+            Permissions.CandidateSearch,
+        ],
+
+        // Browses jobs, applies, and reviews their own application history.
+        [Roles.JobSeeker] =
+        [
+            Permissions.JobRead,
+            Permissions.JobApply,
+            Permissions.ApplicationReadOwn,
+        ],
+
+        // Owns job postings end to end and manages applicants against them.
+        [Roles.Employer] =
+        [
+            Permissions.JobCreate,
+            Permissions.JobRead,
+            Permissions.JobUpdate,
+            Permissions.JobDelete,
+            Permissions.ApplicationReadAny,
+            Permissions.ApplicationManage,
+        ],
+
+        // Posts/manages jobs on behalf of clients and additionally searches the candidate pool -
+        // the capability that distinguishes it from Employer. No job:delete: a recruiter manages
+        // postings but doesn't own them the way the posting Employer does.
+        [Roles.Recruiter] =
+        [
+            Permissions.JobCreate,
+            Permissions.JobRead,
+            Permissions.JobUpdate,
+            Permissions.ApplicationReadAny,
+            Permissions.ApplicationManage,
+            Permissions.CandidateSearch,
+        ],
+    };
+
     public static async Task SeedRolesAndPermissions(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
 
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-        var (adminRole, adminCreated) = await EnsureRoleAsync(roleManager, Roles.Admin);
-        if (adminCreated)
+        foreach (var (roleName, permissions) in RolePermissions)
         {
-            await roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, Permissions.UsersRead));
-            await roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, Permissions.UsersUpdate));
-            await roleManager.AddClaimAsync(adminRole, new Claim(CustomClaimTypes.Permission, Permissions.UsersDelete));
-        }
+            var (role, created) = await EnsureRoleAsync(roleManager, roleName);
+            if (!created)
+            {
+                continue;
+            }
 
-        var (memberRole, memberCreated) = await EnsureRoleAsync(roleManager, Roles.Member);
-        if (memberCreated)
-        {
-            // Deliberately no user:read/user:update here - a Member's access to their own record
-            // comes from SameUserOrPermissionRequirement (ownership), not a permission grant.
-            // Only actions on other people's data, or product-specific capabilities, need a permission.
-            await roleManager.AddClaimAsync(memberRole, new Claim(CustomClaimTypes.Permission, Permissions.JobApply));
-            await roleManager.AddClaimAsync(memberRole, new Claim(CustomClaimTypes.Permission, Permissions.JobView));
+            foreach (var permission in permissions)
+            {
+                await roleManager.AddClaimAsync(role, new Claim(CustomClaimTypes.Permission, permission));
+            }
         }
     }
 
