@@ -1,0 +1,58 @@
+@page "/login"
+@inject ExpenseApi Api
+@inject AuthState Auth
+@inject IJSRuntime JS
+@inject NavigationManager Nav
+
+<PageTitle>Login</PageTitle>
+
+<h1>Login</h1>
+
+@if (!string.IsNullOrEmpty(_error))
+{
+    <div class="alert alert-danger">@_error</div>
+}
+
+<EditForm Model="_form" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <InputText class="form-control" @bind-Value="_form.Email" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <InputText type="password" class="form-control" @bind-Value="_form.Password" />
+    </div>
+    <button class="btn btn-primary" type="submit" disabled="@_busy">Login</button>
+</EditForm>
+
+<p class="mt-3">No account? <a href="/register">Register</a></p>
+
+@code {
+    private readonly LoginForm _form = new();
+    private string? _error;
+    private bool _busy;
+
+    private async Task Submit()
+    {
+        _busy = true;
+        _error = null;
+
+        var result = await Api.LoginAsync(_form.Email, _form.Password);
+        if (result is null)
+        {
+            _error = "Login failed. Check the email/password, and that the API is running on port 5041.";
+            _busy = false;
+            return;
+        }
+
+        await Auth.SetAsync(JS, result.Token, result.Email);
+        Nav.NavigateTo("/expenses");
+    }
+
+    private class LoginForm
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+}
