@@ -1,0 +1,41 @@
+@page "/summary"
+@inject ExpenseApi Api
+@inject AuthState Auth
+@inject NavigationManager Nav
+
+<PageTitle>Summary</PageTitle>
+
+<h1>Summary</h1>
+
+@if (_summary is null)
+{
+    <p>@_message</p>
+}
+else
+{
+    <ul>
+        <li>Count: @_summary.Count</li>
+        <li>Total: @_summary.Total.ToString("C")</li>
+        <li>Average: @_summary.Average.ToString("C")</li>
+    </ul>
+}
+
+@code {
+    private ExpenseSummary? _summary;
+    private string _message = "Loading…";
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!Auth.IsLoggedIn)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        _summary = await Api.GetSummaryAsync();
+        if (_summary is null)
+        {
+            _message = "Could not load the summary. Is the week 4 API running?";
+        }
+    }
+}
