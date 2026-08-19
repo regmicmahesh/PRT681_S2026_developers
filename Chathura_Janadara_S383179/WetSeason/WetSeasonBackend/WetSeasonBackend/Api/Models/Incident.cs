@@ -7,9 +7,9 @@ public class Incident
     public int Severity { get; set; }
     public IncidentStatus Status { get; set; }
     public string Description { get; set; }  = string.Empty;
-
     public string ReportedBy { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+    public int CommunityId { get; set; }
+    public Community Community { get; set; } = null!;
 }

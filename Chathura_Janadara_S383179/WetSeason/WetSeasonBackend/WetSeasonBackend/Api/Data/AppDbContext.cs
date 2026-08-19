@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
     {
     }
     public DbSet<Incident>  Incidents => Set<Incident>();
+    public DbSet<Community> Communities => Set<Community>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -29,6 +30,27 @@ public class AppDbContext : DbContext
             .IsRequired()
             .HasMaxLength(100);
 
+        var community = modelBuilder.Entity<Community>();
+        community.Property(c => c.Name)
+            .IsRequired()
+            .HasMaxLength(120);
+        community.Property(c => c.Region)
+            .IsRequired()
+            .HasMaxLength(60);
+        community.Property(c => c.ContactEmail)
+            .IsRequired()
+            .HasMaxLength(100);
+        
+        community.HasIndex(c => c.Name)
+            .IsUnique();
+
+        incident.HasOne(i => i.Community)
+            .WithMany(i => i.Incidents)
+            .HasForeignKey(i => i.CommunityId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+
     }
+    
     
 }
