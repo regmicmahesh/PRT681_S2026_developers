@@ -28,7 +28,14 @@ namespace JobBoard.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Companies", (string)null);
                 });
@@ -143,6 +150,12 @@ namespace JobBoard.Persistence.Migrations
                             b1.Property<decimal>("Min")
                                 .HasColumnType("TEXT")
                                 .HasColumnName("SalaryMin");
+
+                            b1.Property<string>("PayPeriod")
+                                .IsRequired()
+                                .HasMaxLength(20)
+                                .HasColumnType("TEXT")
+                                .HasColumnName("SalaryPayPeriod");
 
                             b1.HasKey("JobId");
 

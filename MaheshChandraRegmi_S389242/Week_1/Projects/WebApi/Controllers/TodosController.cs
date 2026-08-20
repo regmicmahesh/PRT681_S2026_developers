@@ -31,14 +31,13 @@ namespace WebApi.Controllers
         public ActionResult<Todo> CreateTodo([FromBody] CreateTodoDto todoDto)
         {
             {
-                var todo = new Todo()
+                var todo = new Todo
                 {
                     Title = todoDto.Title,
                     Description = todoDto.Description
                 };
 
                 _repository.CreateTodo(todo);
-
                 return CreatedAtAction(
                     nameof(GetTodoById),
                     new { id = todo.Id },

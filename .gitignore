@@ -17,3 +17,6 @@ obj/
 
 # OS
 .DS_Store
+
+# Configuration files
+appsettings.Development.json

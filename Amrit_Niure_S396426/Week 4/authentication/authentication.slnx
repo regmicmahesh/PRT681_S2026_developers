@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="authentication.AppHost/authentication.AppHost.csproj" />
+  <Project Path="authentication.ServiceDefaults/authentication.ServiceDefaults.csproj" />
+  <Project Path="authentication/authentication.csproj" />
+  <Project Path="authentication.Tests/authentication.Tests.csproj" />
+</Solution>

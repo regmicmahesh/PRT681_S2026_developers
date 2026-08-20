@@ -1,4 +1,5 @@
 using JobBoard.Domain.Entities;
+using JobBoard.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -35,7 +36,14 @@ internal sealed class JobConfiguration : IEntityTypeConfiguration<Job>
         {
             salary.Property(s => s.Min).HasColumnName("SalaryMin");
             salary.Property(s => s.Max).HasColumnName("SalaryMax");
-            salary.Property(s => s.Currency).HasColumnName("SalaryCurrency").HasMaxLength(3);
+            salary.Property(s => s.Currency)
+                .HasColumnName("SalaryCurrency")
+                .HasConversion(currency => currency.Code, code => new Currency(code))
+                .HasMaxLength(3);
+            salary.Property(s => s.PayPeriod)
+                .HasColumnName("SalaryPayPeriod")
+                .HasConversion<string>()
+                .HasMaxLength(20);
         });
 
         builder.HasMany(j => j.Applications)

@@ -25,7 +25,8 @@ internal sealed class GetJobsQueryHandler : IQueryHandler<GetJobsQuery, IReadOnl
                 job.EmploymentType.ToString(),
                 job.Salary.Min,
                 job.Salary.Max,
-                job.Salary.Currency,
+                job.Salary.Currency.Code,
+                job.Salary.PayPeriod.ToString(),
                 job.Status.ToString(),
                 job.CompanyId,
                 job.Applications.Count))

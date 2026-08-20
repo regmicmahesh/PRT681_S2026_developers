@@ -1,6 +1,62 @@
 @JobBoard.Api_HostAddress = http://localhost:5084
 
-GET {{JobBoard.Api_HostAddress}}/weatherforecast/
+### Get an access token first - log in against the Auth service (Week 4/Auth), as an Employer/Recruiter/Admin,
+### and paste the AccessToken below.
+@accessToken = {{accessToken}}
+
+### List companies (public)
+GET {{JobBoard.Api_HostAddress}}/api/companies
 Accept: application/json
 
-###
+### Register a company (requires job:create; caller becomes its owner)
+POST {{JobBoard.Api_HostAddress}}/api/companies
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Acme Corp",
+  "contactEmail": "hiring@acme.example"
+}
+
+### List jobs (public)
+GET {{JobBoard.Api_HostAddress}}/api/jobs
+Accept: application/json
+
+### Get a job by id (public)
+GET {{JobBoard.Api_HostAddress}}/api/jobs/{{jobId}}
+Accept: application/json
+
+### Create a draft job (requires job:create + must own companyId)
+POST {{JobBoard.Api_HostAddress}}/api/jobs
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Senior Backend Engineer",
+  "description": "Build and operate our core platform.",
+  "employmentType": "FullTime",
+  "salaryMin": 120000,
+  "salaryMax": 150000,
+  "salaryCurrency": "AUD",
+  "payPeriod": "Annually",
+  "companyId": "{{companyId}}"
+}
+
+### Publish a job (requires job:update + must own the job's company)
+POST {{JobBoard.Api_HostAddress}}/api/jobs/{{jobId}}/publish
+Authorization: Bearer {{accessToken}}
+
+### Close a job (requires job:update + must own the job's company)
+POST {{JobBoard.Api_HostAddress}}/api/jobs/{{jobId}}/close
+Authorization: Bearer {{accessToken}}
+
+### Apply to a job (requires job:apply - JobSeeker)
+POST {{JobBoard.Api_HostAddress}}/api/jobs/{{jobId}}/applications
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "candidateName": "Jane Doe",
+  "candidateEmail": "jane@example.com",
+  "resumeUrl": "https://example.com/resume.pdf"
+}
