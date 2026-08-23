@@ -1,0 +1,32 @@
+@ExpenseTrackerApi_HostAddress = http://localhost:5031
+
+GET {{ExpenseTrackerApi_HostAddress}}/api/categories
+Accept: application/json
+
+###
+
+GET {{ExpenseTrackerApi_HostAddress}}/api/expenses
+Accept: application/json
+
+###
+
+GET {{ExpenseTrackerApi_HostAddress}}/api/expenses/summary
+Accept: application/json
+
+###
+
+GET {{ExpenseTrackerApi_HostAddress}}/api/expenses?minAmount=20
+Accept: application/json
+
+###
+
+POST {{ExpenseTrackerApi_HostAddress}}/api/expenses
+Content-Type: application/json
+
+{
+  "description": "Lunch at the uni cafe",
+  "amount": 14.50,
+  "categoryId": 1
+}
+
+###

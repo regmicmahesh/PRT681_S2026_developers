@@ -1,0 +1,34 @@
+@page "/"
+@inject AuthState Auth
+
+<PageTitle>Expense Tracker</PageTitle>
+
+<h1>Expense Tracker</h1>
+
+<p>
+    Week 5 client for the week 4 API. Same expense tracker I started as a console app in week 1,
+    now with a browser UI and a login.
+</p>
+
+@if (Auth.IsLoggedIn)
+{
+    <p>Signed in as <strong>@Auth.Email</strong>.</p>
+    <p>
+        <a href="/expenses">Go to expenses</a>
+        &nbsp;·&nbsp;
+        <a href="/summary">View summary</a>
+    </p>
+}
+else
+{
+    <p>You need an account on the API first.</p>
+    <p>
+        <a href="/register">Register</a>
+        &nbsp;·&nbsp;
+        <a href="/login">Login</a>
+    </p>
+    <p class="text-muted">
+        API has to be running at <code>http://localhost:5041</code>
+        (<code>dotnet run --project ../Week_4/ExpenseTrackerAuth</code>).
+    </p>
+}

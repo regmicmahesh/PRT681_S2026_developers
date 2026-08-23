@@ -1,0 +1,42 @@
+@ExpenseTrackerAuth_HostAddress = http://localhost:5041
+@token = paste-jwt-here
+
+POST {{ExpenseTrackerAuth_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "mahesh@example.com",
+  "password": "pass123"
+}
+
+###
+
+POST {{ExpenseTrackerAuth_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "mahesh@example.com",
+  "password": "pass123"
+}
+
+###
+
+GET {{ExpenseTrackerAuth_HostAddress}}/api/expenses
+Authorization: Bearer {{token}}
+
+###
+
+POST {{ExpenseTrackerAuth_HostAddress}}/api/expenses
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "description": "Weekly groceries",
+  "amount": 86.40,
+  "categoryId": 1
+}
+
+###
+
+GET {{ExpenseTrackerAuth_HostAddress}}/api/expenses/summary
+Authorization: Bearer {{token}}

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A local proof-of-concept for tracking job applications and follow-up dates."
+    />
+    <title>CareerTrack NT — Application tracker</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <div class="shell header-layout">
+        <div>
+          <p class="eyebrow">Local learning project</p>
+          <p class="brand">CareerTrack NT</p>
+        </div>
+        <p class="privacy-note">Use fictional data only — this prototype has no sign-in.</p>
+      </div>
+    </header>
+
+    <main id="main-content" class="shell">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Application workspace</p>
+          <h1 id="page-title">Keep every opportunity moving</h1>
+          <p class="lede">
+            Record the next action, update each stage and see where your job search stands.
+          </p>
+        </div>
+        <button id="new-application" class="button button-secondary" type="button">
+          Add application
+        </button>
+      </section>
+
+      <section class="summary" aria-labelledby="summary-title">
+        <h2 id="summary-title" class="visually-hidden">Pipeline summary</h2>
+        <dl class="summary-grid" aria-live="polite" aria-busy="true" id="summary-grid">
+          <div><dt>Total</dt><dd id="summary-total">—</dd></div>
+          <div><dt>Applied</dt><dd id="summary-applied">—</dd></div>
+          <div><dt>Interview</dt><dd id="summary-interview">—</dd></div>
+          <div><dt>Offer</dt><dd id="summary-offer">—</dd></div>
+        </dl>
+      </section>
+
+      <div class="workspace">
+        <section class="panel form-panel" aria-labelledby="form-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Application details</p>
+              <h2 id="form-title">Add an opportunity</h2>
+            </div>
+            <button id="cancel-edit" class="text-button" type="button" hidden>
+              Cancel edit
+            </button>
+          </div>
+
+          <div id="form-error-summary" class="error-summary" role="alert" tabindex="-1" hidden></div>
+
+          <form id="application-form" novalidate>
+            <input id="application-id" type="hidden" />
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="company">Company <span aria-hidden="true">*</span></label>
+                <input id="company" name="company" required minlength="2" maxlength="100" />
+                <p id="company-error" class="field-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="role">Role <span aria-hidden="true">*</span></label>
+                <input id="role" name="role" required minlength="2" maxlength="120" />
+                <p id="role-error" class="field-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="status">Status <span aria-hidden="true">*</span></label>
+                <select id="status" name="status" required>
+                  <option value="Wishlist">Wishlist</option>
+                  <option value="Applied">Applied</option>
+                  <option value="Interview">Interview</option>
+                  <option value="Offer">Offer</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Withdrawn">Withdrawn</option>
+                </select>
+                <p id="status-error" class="field-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="application-date">Application date</label>
+                <input id="application-date" name="applicationDate" type="date" />
+                <p id="applicationDate-error" class="field-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="follow-up-date">Follow-up date</label>
+                <input id="follow-up-date" name="followUpDate" type="date" />
+                <p id="followUpDate-error" class="field-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="job-url">Job URL</label>
+                <input
+                  id="job-url"
+                  name="jobUrl"
+                  type="url"
+                  maxlength="500"
+                  placeholder="https://example.com/job"
+                />
+                <p id="jobUrl-error" class="field-error" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="notes">Notes</label>
+              <textarea id="notes" name="notes" rows="4" maxlength="1000"></textarea>
+              <div class="field-meta">
+                <p id="notes-error" class="field-error" aria-live="polite"></p>
+                <p><span id="notes-count">0</span>/1,000</p>
+              </div>
+            </div>
+
+            <button id="save-application" class="button button-primary" type="submit">
+              Save application
+            </button>
+          </form>
+        </section>
+
+        <section class="panel list-panel" aria-labelledby="list-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Your pipeline</p>
+              <h2 id="list-title">Applications</h2>
+            </div>
+            <p id="result-count" class="result-count">Loading…</p>
+          </div>
+
+          <form id="filter-form" class="filters" role="search">
+            <div class="field">
+              <label for="search">Search company or role</label>
+              <input id="search" name="search" type="search" maxlength="120" />
+            </div>
+            <div class="field">
+              <label for="status-filter">Status</label>
+              <select id="status-filter" name="status">
+                <option value="">All statuses</option>
+                <option value="Wishlist">Wishlist</option>
+                <option value="Applied">Applied</option>
+                <option value="Interview">Interview</option>
+                <option value="Offer">Offer</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Withdrawn">Withdrawn</option>
+              </select>
+            </div>
+            <button class="button button-secondary" type="submit">Apply filters</button>
+          </form>
+
+          <div id="list-state" class="list-state" role="status" aria-live="polite">
+            Loading applications…
+          </div>
+
+          <div id="table-container" class="table-container" hidden>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Opportunity</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Follow-up</th>
+                  <th scope="col"><span class="visually-hidden">Actions</span></th>
+                </tr>
+              </thead>
+              <tbody id="application-rows"></tbody>
+            </table>
+          </div>
+
+          <nav class="pagination" aria-label="Application pages">
+            <button id="previous-page" class="button button-secondary" type="button">Previous</button>
+            <span id="page-description">Page 1 of 1</span>
+            <button id="next-page" class="button button-secondary" type="button">Next</button>
+          </nav>
+        </section>
+      </div>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+@page "/expenses"
+@inject ExpenseApi Api
+@inject AuthState Auth
+@inject NavigationManager Nav
+
+<PageTitle>Expenses</PageTitle>
+
+<h1>Expenses</h1>
+
+@if (!string.IsNullOrEmpty(_error))
+{
+    <div class="alert alert-danger">@_error</div>
+}
+
+<section class="mb-4">
+    <h2 class="h5">Add expense</h2>
+    <div class="row g-2 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label">Description</label>
+            <input class="form-control" @bind="_description" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Amount</label>
+            <input class="form-control" type="number" step="0.01" @bind="_amount" />
+        </div>
+        <div class="col-md-3">
+            <label class="form-label">Category</label>
+            <select class="form-select" @bind="_categoryId">
+                @foreach (var category in _categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" @onclick="AddExpense" disabled="@_busy">Add</button>
+        </div>
+    </div>
+</section>
+
+<section class="mb-3">
+    <label class="form-label">Only show amounts above</label>
+    <div class="d-flex gap-2" style="max-width: 280px;">
+        <input class="form-control" type="number" step="0.01" @bind="_minAmount" />
+        <button class="btn btn-outline-secondary" @onclick="Load">Filter</button>
+        <button class="btn btn-outline-secondary" @onclick="ClearFilter">Clear</button>
+    </div>
+</section>
+
+@if (_items is null)
+{
+    <p>Loading…</p>
+}
+else if (_items.Count == 0)
+{
+    <p>No expenses yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>When</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in _items)
+            {
+                <tr>
+                    <td>@item.Description</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.Amount.ToString("C")</td>
+                    <td>@item.CreatedAt.ToLocalTime().ToString("g")</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-danger" @onclick="() => Delete(item.Id)">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<ExpenseItem>? _items;
+    private List<CategoryItem> _categories = [];
+    private string _description = "";
+    private decimal _amount = 0;
+    private int _categoryId = 1;
+    private decimal? _minAmount;
+    private bool _busy;
+    private string? _error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!Auth.IsLoggedIn)
+        {
+            Nav.NavigateTo("/login");
+            return;
+        }
+
+        _categories = await Api.GetCategoriesAsync();
+        if (_categories.Count > 0)
+        {
+            _categoryId = _categories[0].Id;
+        }
+
+        await Load();
+    }
+
+    private async Task Load()
+    {
+        _error = null;
+        _items = await Api.GetExpensesAsync(_minAmount);
+    }
+
+    private async Task ClearFilter()
+    {
+        _minAmount = null;
+        await Load();
+    }
+
+    private async Task AddExpense()
+    {
+        if (string.IsNullOrWhiteSpace(_description) || _amount <= 0)
+        {
+            _error = "Need a description and an amount bigger than 0.";
+            return;
+        }
+
+        _busy = true;
+        var created = await Api.AddExpenseAsync(_description.Trim(), _amount, _categoryId);
+        _busy = false;
+
+        if (created is null)
+        {
+            _error = "Could not add the expense. Is the API running, and are you still logged in?";
+            return;
+        }
+
+        _description = "";
+        _amount = 0;
+        await Load();
+    }
+
+    private async Task Delete(Guid id)
+    {
+        if (!await Api.DeleteExpenseAsync(id))
+        {
+            _error = "Delete failed.";
+            return;
+        }
+
+        await Load();
+    }
+}

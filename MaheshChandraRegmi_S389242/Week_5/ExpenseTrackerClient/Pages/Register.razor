@@ -1,0 +1,64 @@
+@page "/register"
+@inject ExpenseApi Api
+@inject AuthState Auth
+@inject IJSRuntime JS
+@inject NavigationManager Nav
+
+<PageTitle>Register</PageTitle>
+
+<h1>Register</h1>
+
+@if (!string.IsNullOrEmpty(_error))
+{
+    <div class="alert alert-danger">@_error</div>
+}
+
+<EditForm Model="_form" OnValidSubmit="Submit">
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <InputText class="form-control" @bind-Value="_form.Email" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Password (min 6)</label>
+        <InputText type="password" class="form-control" @bind-Value="_form.Password" />
+    </div>
+    <button class="btn btn-primary" type="submit" disabled="@_busy">Create account</button>
+</EditForm>
+
+<p class="mt-3">Already have one? <a href="/login">Login</a></p>
+
+@code {
+    private readonly RegisterForm _form = new();
+    private string? _error;
+    private bool _busy;
+
+    private async Task Submit()
+    {
+        _busy = true;
+        _error = null;
+
+        if (string.IsNullOrWhiteSpace(_form.Email) || _form.Password.Length < 6)
+        {
+            _error = "Email and a password of at least 6 characters are required.";
+            _busy = false;
+            return;
+        }
+
+        var result = await Api.RegisterAsync(_form.Email, _form.Password);
+        if (result is null)
+        {
+            _error = "Register failed. Email might already be taken, or the API is not running.";
+            _busy = false;
+            return;
+        }
+
+        await Auth.SetAsync(JS, result.Token, result.Email);
+        Nav.NavigateTo("/expenses");
+    }
+
+    private class RegisterForm
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+}

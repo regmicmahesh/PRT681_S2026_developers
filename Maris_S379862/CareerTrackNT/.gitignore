@@ -1,0 +1,9 @@
+data/*.db
+data/*.db-shm
+data/*.db-wal
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+node_modules/
