@@ -6,14 +6,31 @@
 
 <h1>Books</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New Book</a>
-</p>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <p>
+        <a asp-action="Create"
+           class="btn btn-primary">
+            Create New Book
+        </a>
+    </p>
+}
+else
+{
+    <div class="alert alert-info">
+        Please
+        <a asp-area="Identity"
+           asp-page="/Account/Login">
+            log in
+        </a>
+        to create, edit or delete books.
+    </div>
+}
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>Name</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -22,19 +39,29 @@
         @foreach (var book in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => book.Name)</td>
-                <td>
-                    <a asp-action="Edit"
-                       asp-route-id="@book.Id"
-                       class="btn btn-sm btn-warning">Edit</a>
+                <td>@book.Name</td>
 
+                <td>
                     <a asp-action="Details"
                        asp-route-id="@book.Id"
-                       class="btn btn-sm btn-info">Details</a>
+                       class="btn btn-sm btn-info">
+                        Details
+                    </a>
 
-                    <a asp-action="Delete"
-                       asp-route-id="@book.Id"
-                       class="btn btn-sm btn-danger">Delete</a>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-action="Edit"
+                           asp-route-id="@book.Id"
+                           class="btn btn-sm btn-warning">
+                            Edit
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@book.Id"
+                           class="btn btn-sm btn-danger">
+                            Delete
+                        </a>
+                    }
                 </td>
             </tr>
         }

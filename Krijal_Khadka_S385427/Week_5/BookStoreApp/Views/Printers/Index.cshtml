@@ -6,11 +6,26 @@
 
 <h1>Printers</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">
-        Create New Printer
-    </a>
-</p>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <p>
+        <a asp-action="Create"
+           class="btn btn-primary">
+            Create New Printer
+        </a>
+    </p>
+}
+else
+{
+    <div class="alert alert-info">
+        Please
+        <a asp-area="Identity"
+           asp-page="/Account/Login">
+            log in
+        </a>
+        to create, edit or delete printers.
+    </div>
+}
 
 <table class="table table-striped">
     <thead>
@@ -29,18 +44,28 @@
                 <td>@printer.Name</td>
                 <td>@printer.Brand</td>
                 <td>@printer.Model</td>
-                <td>
-                    <a asp-action="Edit"
-                       asp-route-id="@printer.Id"
-                       class="btn btn-sm btn-warning">Edit</a>
 
+                <td>
                     <a asp-action="Details"
                        asp-route-id="@printer.Id"
-                       class="btn btn-sm btn-info">Details</a>
+                       class="btn btn-sm btn-info">
+                        Details
+                    </a>
 
-                    <a asp-action="Delete"
-                       asp-route-id="@printer.Id"
-                       class="btn btn-sm btn-danger">Delete</a>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-action="Edit"
+                           asp-route-id="@printer.Id"
+                           class="btn btn-sm btn-warning">
+                            Edit
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@printer.Id"
+                           class="btn btn-sm btn-danger">
+                            Delete
+                        </a>
+                    }
                 </td>
             </tr>
         }
