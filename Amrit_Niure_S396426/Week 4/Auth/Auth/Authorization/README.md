@@ -58,6 +58,29 @@ check, not a permission claim. If `user:update` were handed out broadly (e.g. to
 the permission branch would succeed for everyone and the ownership boundary would be a no-op in
 practice.
 
+## Resource ownership (`CompanyOwnerOrPermissionRequirement` / `CompanyOwnerOrPermissionAuthorizationHandler`)
+
+Same pattern as above, applied to the job board (`Controllers/CompaniesController.cs`,
+`Controllers/JobsController.cs`): `job:create`/`job:update`/`job:delete` are granted to the whole
+Employer/Recruiter role, so they only establish that a caller can act on *some* company's jobs -
+not *which* company. `PUT /companies/{id}`, `POST /jobs`, `PUT/DELETE /jobs/{id}`,
+`POST /jobs/{id}/publish|close`, and the applicant-review endpoints all pair their
+`[Authorize(Policy = "RequireJob...")]` attribute with an explicit resource check:
+
+```csharp
+var authResult = await authorizationService.AuthorizeAsync(
+    User, companyId, new CompanyOwnerOrPermissionRequirement(Permissions.JobManageAny));
+if (!authResult.Succeeded)
+    return Forbid();
+```
+
+This succeeds if the caller created the company (`Company.OwnerId`), or holds `job:manage-any`
+(Admin-only - see below). `POST /jobs/{id}/applications` (applying) is the one mutating job-board
+endpoint that deliberately has **no** ownership check: any JobSeeker may apply to any published
+job, so `job:apply` alone is sufficient. Its `ApplicantUserId` is read from the caller's own JWT
+`sub`, never accepted from the request body, so one JobSeeker can't submit an application as
+another.
+
 ## Roles and their permissions
 
 | Role | Permissions |
@@ -67,15 +90,32 @@ practice.
 | `Employer` | `job:create`, `job:read`, `job:update`, `job:delete`, `application:read-any`, `application:manage` |
 | `Recruiter` | `job:create`, `job:read`, `job:update`, `application:read-any`, `application:manage`, `candidate:search` |
 
-The `job:*`, `application:*`, and `candidate:*` permissions are issued as claims by this service
-but enforced by whichever downstream service owns that domain - this auth service has no Jobs or
-Applications controllers of its own.
+`candidate:search` is issued as a claim but not yet enforced by any endpoint here - there's no
+candidate-search feature in this service.
 
 **`job:manage-any` is deliberately Admin-only.** `job:update`/`job:delete` alone are *capability*
 grants - every Employer and Recruiter has them, because they need to be able to edit *some* job.
-They don't establish *which* job. A downstream job-board service must pair the capability check
-with a resource-ownership check (does the caller belong to the company that owns this job?),
-using `job:manage-any` as the same kind of admin override `SameUserOrPermissionRequirement` uses
-for `user:update` above - never `job:update`/`job:delete` as a bypass, or any Employer could edit
-any other company's postings. See the `jobboard` service's `Authorization/` folder for the
-consuming side of this contract (`CompanyOwnerOrPermissionRequirement`).
+They don't establish *which* job - see the resource-ownership section above.
+
+## Job board endpoints
+
+| Method | Route                                        | Access |
+| --- | --- | --- |
+| GET    | `/companies`                                 | Anonymous |
+| GET    | `/companies/{id}`                            | Anonymous |
+| POST   | `/companies`                                 | `job:create`; caller becomes the company's owner |
+| PUT    | `/companies/{id}`                            | Owns the company, or `job:manage-any` |
+| GET    | `/companies/{id}/jobs`                       | Owns the company, or `job:manage-any` (every status - the owner's dashboard) |
+| GET    | `/jobs`                                      | Anonymous (Published only) |
+| GET    | `/jobs/{id}`                                 | Anonymous (any status - direct link) |
+| POST   | `/jobs`                                      | `job:create` + owns `CompanyId` |
+| PUT    | `/jobs/{id}`                                 | `job:update` + owns the job's company; not while Closed |
+| DELETE | `/jobs/{id}`                                 | `job:delete` + owns the job's company; Draft only |
+| POST   | `/jobs/{id}/publish`                         | `job:update` + owns the job's company; Draft -> Published |
+| POST   | `/jobs/{id}/close`                           | `job:update` + owns the job's company; Published -> Closed |
+| POST   | `/jobs/{id}/applications`                    | `job:apply` (no ownership check - see above) |
+| GET    | `/jobs/applications/mine`                    | `application:read-own`; scoped to the caller by construction |
+| GET    | `/jobs/{id}/applications`                    | `application:read-any` or `application:manage` + owns the job's company |
+| POST   | `/jobs/{id}/applications/{appId}/shortlist`  | `application:manage` + owns the job's company; Submitted -> Shortlisted |
+| POST   | `/jobs/{id}/applications/{appId}/reject`     | `application:manage` + owns the job's company; Submitted/Shortlisted -> Rejected |
+| POST   | `/jobs/{id}/applications/{appId}/accept`     | `application:manage` + owns the job's company; Shortlisted -> Accepted |

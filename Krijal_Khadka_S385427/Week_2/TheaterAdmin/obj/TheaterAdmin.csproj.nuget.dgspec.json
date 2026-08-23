@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Krijal Khadka\\Desktop\\PRT681_S2026_developers\\Krijal_khadka_s385427\\Week_2\\TheaterAdmin\\TheaterAdmin.csproj": {}
+    "C:\\Users\\codet\\Backup files\\Amrit Niure\\Personal\\Charles Darwin University\\S2 2026\\PRT 681 Software Engineering Practice\\PRT681_S2026_developers\\Krijal_Khadka_S385427\\Week_2\\TheaterAdmin\\TheaterAdmin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Krijal Khadka\\Desktop\\PRT681_S2026_developers\\Krijal_khadka_s385427\\Week_2\\TheaterAdmin\\TheaterAdmin.csproj": {
+    "C:\\Users\\codet\\Backup files\\Amrit Niure\\Personal\\Charles Darwin University\\S2 2026\\PRT 681 Software Engineering Practice\\PRT681_S2026_developers\\Krijal_Khadka_S385427\\Week_2\\TheaterAdmin\\TheaterAdmin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Krijal Khadka\\Desktop\\PRT681_S2026_developers\\Krijal_khadka_s385427\\Week_2\\TheaterAdmin\\TheaterAdmin.csproj",
+        "projectUniqueName": "C:\\Users\\codet\\Backup files\\Amrit Niure\\Personal\\Charles Darwin University\\S2 2026\\PRT 681 Software Engineering Practice\\PRT681_S2026_developers\\Krijal_Khadka_S385427\\Week_2\\TheaterAdmin\\TheaterAdmin.csproj",
         "projectName": "TheaterAdmin",
-        "projectPath": "C:\\Users\\Krijal Khadka\\Desktop\\PRT681_S2026_developers\\Krijal_khadka_s385427\\Week_2\\TheaterAdmin\\TheaterAdmin.csproj",
-        "packagesPath": "C:\\Users\\Krijal Khadka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Krijal Khadka\\Desktop\\PRT681_S2026_developers\\Krijal_khadka_s385427\\Week_2\\TheaterAdmin\\obj\\",
+        "projectPath": "C:\\Users\\codet\\Backup files\\Amrit Niure\\Personal\\Charles Darwin University\\S2 2026\\PRT 681 Software Engineering Practice\\PRT681_S2026_developers\\Krijal_Khadka_S385427\\Week_2\\TheaterAdmin\\TheaterAdmin.csproj",
+        "packagesPath": "C:\\Users\\codet\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\codet\\Backup files\\Amrit Niure\\Personal\\Charles Darwin University\\S2 2026\\PRT 681 Software Engineering Practice\\PRT681_S2026_developers\\Krijal_Khadka_S385427\\Week_2\\TheaterAdmin\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Krijal Khadka\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\codet\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.400"
       },
       "frameworks": {
         "net10.0": {
@@ -86,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.400/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

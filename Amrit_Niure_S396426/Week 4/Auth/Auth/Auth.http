@@ -70,3 +70,110 @@ Content-Type: application/json
 ### Delete user (Admin only - RequireUsersDelete policy)
 DELETE {{Auth_HostAddress}}/users/{{userId}}
 Authorization: Bearer {{accessToken}}
+
+### --- Job board ---
+
+### List companies (public)
+GET {{Auth_HostAddress}}/companies
+
+### Register a company (requires job:create; caller becomes its owner)
+POST {{Auth_HostAddress}}/companies
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Acme Corp",
+  "contactEmail": "hiring@acme.example"
+}
+
+### Update a company (owner or job:manage-any)
+PUT {{Auth_HostAddress}}/companies/{{companyId}}
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "name": "Acme Corporation",
+  "contactEmail": "hiring@acme.example"
+}
+
+### Owner's dashboard - every status (owner or job:manage-any)
+GET {{Auth_HostAddress}}/companies/{{companyId}}/jobs
+Authorization: Bearer {{accessToken}}
+
+### List published jobs (public)
+GET {{Auth_HostAddress}}/jobs
+
+### Get a job by id (public)
+GET {{Auth_HostAddress}}/jobs/{{jobId}}
+
+### Create a draft job (requires job:create + must own companyId)
+POST {{Auth_HostAddress}}/jobs
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Senior Backend Engineer",
+  "description": "Build and operate our core platform.",
+  "employmentType": "FullTime",
+  "salaryMin": 120000,
+  "salaryMax": 150000,
+  "salaryCurrency": "AUD",
+  "payPeriod": "Annually",
+  "companyId": "{{companyId}}"
+}
+
+### Edit a job (requires job:update + must own the job's company; not while Closed)
+PUT {{Auth_HostAddress}}/jobs/{{jobId}}
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Senior Backend Engineer",
+  "description": "Build and operate our core platform. Remote friendly.",
+  "employmentType": "FullTime",
+  "salaryMin": 130000,
+  "salaryMax": 160000,
+  "salaryCurrency": "AUD",
+  "payPeriod": "Annually"
+}
+
+### Publish a job (requires job:update + must own the job's company)
+POST {{Auth_HostAddress}}/jobs/{{jobId}}/publish
+Authorization: Bearer {{accessToken}}
+
+### Close a job (requires job:update + must own the job's company)
+POST {{Auth_HostAddress}}/jobs/{{jobId}}/close
+Authorization: Bearer {{accessToken}}
+
+### Delete a draft job (requires job:delete + must own the job's company)
+DELETE {{Auth_HostAddress}}/jobs/{{jobId}}
+Authorization: Bearer {{accessToken}}
+
+### Apply to a job (requires job:apply - JobSeeker; applicant is taken from the JWT, not the body)
+POST {{Auth_HostAddress}}/jobs/{{jobId}}/applications
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "resumeUrl": "https://example.com/resume.pdf"
+}
+
+### My own applications (requires application:read-own)
+GET {{Auth_HostAddress}}/jobs/applications/mine
+Authorization: Bearer {{accessToken}}
+
+### Applicants for a job (requires application:read-any/manage + must own the job's company)
+GET {{Auth_HostAddress}}/jobs/{{jobId}}/applications
+Authorization: Bearer {{accessToken}}
+
+### Shortlist an application (requires application:manage + must own the job's company)
+POST {{Auth_HostAddress}}/jobs/{{jobId}}/applications/{{applicationId}}/shortlist
+Authorization: Bearer {{accessToken}}
+
+### Reject an application (requires application:manage + must own the job's company)
+POST {{Auth_HostAddress}}/jobs/{{jobId}}/applications/{{applicationId}}/reject
+Authorization: Bearer {{accessToken}}
+
+### Accept a shortlisted application (requires application:manage + must own the job's company)
+POST {{Auth_HostAddress}}/jobs/{{jobId}}/applications/{{applicationId}}/accept
+Authorization: Bearer {{accessToken}}
