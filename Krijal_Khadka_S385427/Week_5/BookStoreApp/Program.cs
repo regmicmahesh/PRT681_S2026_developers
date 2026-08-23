@@ -1,18 +1,40 @@
 using BookStoreApp.DAL;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add MVC services to the container.
+// Add MVC services.
 builder.Services.AddControllersWithViews();
 
-// Register the Entity Framework Core context.
+// Add Razor Pages because the built-in Identity UI uses Razor Pages.
+builder.Services.AddRazorPages();
+
+// Configure Entity Framework Core and SQL Server.
 builder.Services.AddDbContext<EfBookStoreContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString(
-            "EfDbconnectionString")));
+            "DefaultConnection")));
+
+// Configure ASP.NET Core Identity.
+builder.Services
+    .AddDefaultIdentity<IdentityUser>(options =>
+    {
+        // Email confirmation is disabled for this POC.
+        options.SignIn.RequireConfirmedAccount = false;
+
+        // Simple password rules for classroom testing.
+        options.Password.RequiredLength = 6;
+        options.Password.RequireDigit = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+    })
+    .AddEntityFrameworkStores<EfBookStoreContext>();
 
 var app = builder.Build();
+
+// Insert the Book and Printer sample data.
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider
@@ -29,15 +51,23 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseRouting();
 
+// Check whether the user is logged in.
+app.UseAuthentication();
+
+// Check whether the user has permission to access a resource.
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+// Map the Identity registration and login Razor Pages.
+app.MapRazorPages();
 
 app.Run();
