@@ -17,9 +17,16 @@
     <dd class="col-sm-10">@Model.Model</dd>
 </dl>
 
-<a asp-action="Edit"
-   asp-route-id="@Model.Id"
-   class="btn btn-warning">Edit</a>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <a asp-action="Edit"
+       asp-route-id="@Model.Id"
+       class="btn btn-warning">
+        Edit
+    </a>
+}
 
 <a asp-action="Index"
-   class="btn btn-secondary">Back to List</a>
+   class="btn btn-secondary">
+    Back to List
+</a>
