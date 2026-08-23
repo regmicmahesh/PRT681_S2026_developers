@@ -46,9 +46,22 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("RequireUsersRead", policy => policy.RequireAnyPermission(Permissions.UsersRead));
     options.AddPolicy("RequireUsersDelete", policy => policy.RequireAnyPermission(Permissions.UsersDelete));
     options.AddPolicy("RequireUsersManageRoles", policy => policy.RequireAnyPermission(Permissions.UsersManageRoles));
+
+    // Job board. job:create/update/delete are capability grants only (the whole Employer/Recruiter
+    // role has them) - CompaniesController/JobsController additionally check CompanyOwnerOrPermissionRequirement
+    // for anything scoped to one company, since attribute policies can't see a route/body value as
+    // a resource. See Authorization/README.md.
+    options.AddPolicy("RequireJobCreate", policy => policy.RequireAnyPermission(Permissions.JobCreate));
+    options.AddPolicy("RequireJobUpdate", policy => policy.RequireAnyPermission(Permissions.JobUpdate));
+    options.AddPolicy("RequireJobDelete", policy => policy.RequireAnyPermission(Permissions.JobDelete));
+    options.AddPolicy("RequireJobApply", policy => policy.RequireAnyPermission(Permissions.JobApply));
+    options.AddPolicy("RequireApplicationReadAny", policy => policy.RequireAnyPermission(Permissions.ApplicationReadAny, Permissions.ApplicationManage));
+    options.AddPolicy("RequireApplicationManage", policy => policy.RequireAnyPermission(Permissions.ApplicationManage));
+    options.AddPolicy("RequireApplicationReadOwn", policy => policy.RequireAnyPermission(Permissions.ApplicationReadOwn));
 });
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
 builder.Services.AddSingleton<IAuthorizationHandler, SameUserOrPermissionAuthorizationHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, CompanyOwnerOrPermissionAuthorizationHandler>();
 builder.Services.AddScoped<RefreshTokenService>();
 
 var app = builder.Build();
