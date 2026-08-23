@@ -1,8 +1,174 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center py-5">
+    <h1 class="display-4 fw-bold">
+        BookStore Management System
+    </h1>
+
+    <p class="lead text-muted">
+        Week 5 Proof of Concept using ASP.NET Core Identity,
+        authentication and authorization.
+    </p>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="alert alert-success mt-4">
+            <h5 class="alert-heading">
+                Welcome, @User.Identity.Name!
+            </h5>
+
+            <p class="mb-0">
+                You are authenticated and can create, edit and
+                delete Books and Printers.
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info mt-4">
+            <h5 class="alert-heading">
+                You are currently browsing as a guest
+            </h5>
+
+            <p>
+                You can view Books, Printers and their details.
+                Register or log in to manage the records.
+            </p>
+
+            <a asp-area="Identity"
+               asp-page="/Account/Register"
+               class="btn btn-primary">
+                Register
+            </a>
+
+            <a asp-area="Identity"
+               asp-page="/Account/Login"
+               class="btn btn-outline-primary">
+                Login
+            </a>
+        </div>
+    }
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title h4">
+                    Books
+                </h2>
+
+                <p class="card-text">
+                    Browse the available books. Authenticated users
+                    can create, edit and delete book records.
+                </p>
+
+                <a asp-controller="Books"
+                   asp-action="Index"
+                   class="btn btn-primary">
+                    View Books
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title h4">
+                    Printers
+                </h2>
+
+                <p class="card-text">
+                    Browse the available printers. Authenticated users
+                    can create, edit and delete printer records.
+                </p>
+
+                <a asp-controller="Printers"
+                   asp-action="Index"
+                   class="btn btn-primary">
+                    View Printers
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 bg-light mb-5">
+    <div class="card-body p-4">
+        <h2 class="h4">
+            Week 5 Concepts Demonstrated
+        </h2>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <h3 class="h5">
+                    Authentication
+                </h3>
+
+                <p>
+                    Authentication confirms the identity of a user.
+                    ASP.NET Core Identity provides registration,
+                    login, logout and secure password storage.
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <h3 class="h5">
+                    Authorization
+                </h3>
+
+                <p>
+                    Authorization determines what an authenticated
+                    user can access. Guests can view records, while
+                    logged-in users can manage them.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-5">
+    <div class="card-header bg-primary text-white">
+        Access Control
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-bordered mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>User type</th>
+                        <th>View records</th>
+                        <th>View details</th>
+                        <th>Create</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>Guest</td>
+                        <td>Allowed</td>
+                        <td>Allowed</td>
+                        <td>Denied</td>
+                        <td>Denied</td>
+                        <td>Denied</td>
+                    </tr>
+
+                    <tr>
+                        <td>Authenticated user</td>
+                        <td>Allowed</td>
+                        <td>Allowed</td>
+                        <td>Allowed</td>
+                        <td>Allowed</td>
+                        <td>Allowed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
