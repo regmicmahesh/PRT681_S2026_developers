@@ -1,9 +1,11 @@
 using BookStoreApp.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreApp.Controllers;
 
+[Authorize]
 public class BooksController : Controller
 {
     private readonly EfBookStoreContext _context;
@@ -13,7 +15,9 @@ public class BooksController : Controller
         _context = context;
     }
 
+    // Anyone can view the list of books.
     // GET: Books
+    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
         var books = await _context.Books.ToListAsync();
@@ -21,7 +25,9 @@ public class BooksController : Controller
         return View(books);
     }
 
+    // Anyone can view book details.
     // GET: Books/Details/5
+    [AllowAnonymous]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -40,12 +46,14 @@ public class BooksController : Controller
         return View(book);
     }
 
+    // Only authenticated users can open this action.
     // GET: Books/Create
     public IActionResult Create()
     {
         return View();
     }
 
+    // Only authenticated users can create a book.
     // POST: Books/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -63,6 +71,7 @@ public class BooksController : Controller
         return View(book);
     }
 
+    // Only authenticated users can open this action.
     // GET: Books/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
@@ -81,6 +90,7 @@ public class BooksController : Controller
         return View(book);
     }
 
+    // Only authenticated users can update a book.
     // POST: Books/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -116,6 +126,7 @@ public class BooksController : Controller
         return View(book);
     }
 
+    // Only authenticated users can open this action.
     // GET: Books/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
@@ -135,6 +146,7 @@ public class BooksController : Controller
         return View(book);
     }
 
+    // Only authenticated users can delete a book.
     // POST: Books/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]

@@ -1,9 +1,11 @@
 using BookStoreApp.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreApp.Controllers;
 
+[Authorize]
 public class PrintersController : Controller
 {
     private readonly EfBookStoreContext _context;
@@ -13,7 +15,9 @@ public class PrintersController : Controller
         _context = context;
     }
 
+    // Anyone can view the list of printers.
     // GET: Printers
+    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
         var printers = await _context.Printers.ToListAsync();
@@ -21,7 +25,9 @@ public class PrintersController : Controller
         return View(printers);
     }
 
+    // Anyone can view printer details.
     // GET: Printers/Details/5
+    [AllowAnonymous]
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
@@ -40,12 +46,14 @@ public class PrintersController : Controller
         return View(printer);
     }
 
+    // Only authenticated users can open this action.
     // GET: Printers/Create
     public IActionResult Create()
     {
         return View();
     }
 
+    // Only authenticated users can create a printer.
     // POST: Printers/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -63,6 +71,7 @@ public class PrintersController : Controller
         return View(printer);
     }
 
+    // Only authenticated users can open this action.
     // GET: Printers/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
@@ -81,6 +90,7 @@ public class PrintersController : Controller
         return View(printer);
     }
 
+    // Only authenticated users can update a printer.
     // POST: Printers/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -116,6 +126,7 @@ public class PrintersController : Controller
         return View(printer);
     }
 
+    // Only authenticated users can open this action.
     // GET: Printers/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
@@ -135,6 +146,7 @@ public class PrintersController : Controller
         return View(printer);
     }
 
+    // Only authenticated users can delete a printer.
     // POST: Printers/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
