@@ -1,0 +1,61 @@
+﻿@model IEnumerable<DreamSales.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h1>Your Shopping Cart</h1>
+
+<p>
+    <a asp-controller="Items" asp-action="Index" class="btn btn-secondary">Back to shopping</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    <a asp-action="Add" asp-route-id="@item.Item.Id" class="btn btn-success">+</a>
+                    <a asp-action="Minus" asp-route-id="@item.Item.Id" class="btn btn-warning">-</a>
+                    <a asp-action="Remove" asp-route-id="@item.Item.Id" class="btn btn-danger">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Total Cost: $@ViewBag.totalcost</h1>
+
+<p>
+    <a asp-controller="Cart" asp-action="Checkout" class="btn btn-primary">Checkout these items!</a>
+</p>

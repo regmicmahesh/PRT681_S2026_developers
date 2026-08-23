@@ -1,0 +1,21 @@
+﻿@model IEnumerable<dynamic>
+
+<h2>Your Customers</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Total Spent</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.CustomerId</td>
+                <td>@customer.TotalSpent.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

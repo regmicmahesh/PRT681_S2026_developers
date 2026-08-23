@@ -1,0 +1,75 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
+                <label asp-for="Username" class="form-label"></label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
+                <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <!-- Full Name -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.FullName" class="form-control" placeholder="Please enter your full name." />
+                <label asp-for="Input.FullName" class="form-label"></label>
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+
+            <!-- Age -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Age" class="form-control" placeholder="Please enter your age." />
+                <label asp-for="Input.Age" class="form-label"></label>
+                <span asp-validation-for="Input.Age" class="text-danger"></span>
+            </div>
+
+            <!-- Profile Picture URL -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ProfilePictureUrl" class="form-control" placeholder="Please enter your profile picture URL." />
+                <label asp-for="Input.ProfilePictureUrl" class="form-label"></label>
+                <span asp-validation-for="Input.ProfilePictureUrl" class="text-danger"></span>
+            </div>
+
+            <!-- Address -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Address" class="form-control" placeholder="Please enter your address." />
+                <label asp-for="Input.Address" class="form-label"></label>
+                <span asp-validation-for="Input.Address" class="text-danger"></span>
+            </div>
+
+            <!-- City -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.City" class="form-control" placeholder="Please enter your city." />
+                <label asp-for="Input.City" class="form-label"></label>
+                <span asp-validation-for="Input.City" class="text-danger"></span>
+            </div>
+
+            <!-- Country -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Country" class="form-control" placeholder="Please enter your country." />
+                <label asp-for="Input.Country" class="form-label"></label>
+                <span asp-validation-for="Input.Country" class="text-danger"></span>
+            </div>
+
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
