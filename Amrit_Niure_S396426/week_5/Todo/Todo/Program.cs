@@ -1,7 +1,6 @@
 using Todo;
 
-var todos = new List<TodoItem>();
-var nextId = 1;
+using var repository = new TodoRepository();
 
 Console.WriteLine("=== My Todo App ===");
 
@@ -43,13 +42,13 @@ void AddTodo()
         return;
     }
 
-    todos.Add(new TodoItem(nextId, title));
-    Console.WriteLine($"Added todo #{nextId}: {title}");
-    nextId++;
+    var todo = repository.Add(title);
+    Console.WriteLine($"Added todo #{todo.Id}: {title}");
 }
 
 void ListTodos()
 {
+    var todos = repository.GetAll();
     if (todos.Count == 0)
     {
         Console.WriteLine("There are no todos yet.");
@@ -68,7 +67,7 @@ void CompleteTodo()
     var todo = FindTodo("complete");
     if (todo is null) return;
 
-    todo.MarkAsCompleted();
+    repository.MarkAsCompleted(todo.Id);
     Console.WriteLine($"Completed: {todo.Title}");
 }
 
@@ -77,7 +76,7 @@ void DeleteTodo()
     var todo = FindTodo("delete");
     if (todo is null) return;
 
-    todos.Remove(todo);
+    repository.Delete(todo.Id);
     Console.WriteLine($"Deleted: {todo.Title}");
 }
 
@@ -92,7 +91,7 @@ TodoItem? FindTodo(string action)
         return null;
     }
 
-    var todo = todos.FirstOrDefault(item => item.Id == id);
+    var todo = repository.GetById(id);
     if (todo is null) Console.WriteLine($"No todo found with id {id}.");
 
     return todo;
