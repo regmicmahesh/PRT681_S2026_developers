@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreApp.DAL;
 
-public class EfBookStoreContext : DbContext
+public class EfBookStoreContext : IdentityDbContext
 {
     public EfBookStoreContext(
         DbContextOptions<EfBookStoreContext> options)
