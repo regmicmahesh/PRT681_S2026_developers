@@ -12,7 +12,16 @@ namespace StudentResultSystem.Models
 
         public ExamAssessment(string name, decimal mark, IScoreCalculator scoreCalculator): base(name)
         {
-            ObtainedMark = mark;
+            if (mark < 0m)
+            {
+                throw new ArgumentException("Students mark cannot be negative.");
+            }
+            else if (mark > 400)
+            {
+                throw new ArgumentException("Students mark cannot be greater than 100.");
+            }
+            else
+                ObtainedMark = mark;
             _scoreCalculator = scoreCalculator;
         }
 
