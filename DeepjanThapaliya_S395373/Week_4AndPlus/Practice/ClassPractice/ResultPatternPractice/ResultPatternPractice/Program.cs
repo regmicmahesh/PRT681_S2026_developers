@@ -1,4 +1,36 @@
-﻿//Result<string> result = FindById(1);
+﻿using ResultPatternPractice.Models;
+using ResultPatternPractice.Common;
+using ResultPatternPractice.Service;
+
+ProductSearchService<Product> productSearch = new ProductSearchService<Product>();
+
+List<Product> products = new List<Product>
+{
+    new Product(1, "Laptop", 1500m),
+    new Product(2, "Mouse", 25m),
+    new Product(3, "Keyboard", 80m)
+};
+
+Result<Product> result1 =productSearch.FindById(products,1);
+PrintResult(result1);
+
+
+static void PrintResult(Result<Product> result)
+{
+    Console.WriteLine(result.Message);
+    if (result.IsSuccess && result.Data != null)
+    {
+        Console.WriteLine($"Data: {result.Data.ProductName}");
+    }
+}
+
+
+
+
+
+
+
+//Result<string> result = FindById(1);
 
 //Console.WriteLine(result.Message);
 
